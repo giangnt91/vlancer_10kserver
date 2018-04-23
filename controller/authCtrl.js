@@ -2,6 +2,7 @@ var dateFormat = require('dateformat');
 
 // Get model
 auth_model = require('../model/auth');
+shop_model = require('../model/shop');
 
 // Sign up function
 function Create_User(_user_id, _user_img, _info, _point_per_day, _point_per_today, _total_slot, _class, _download, _access_time_per_day, _point_plus, _point_bad, _total_list_coupon, _empty_slot, _use_coupon, _call_server_in_day, _role, _status) {
@@ -16,18 +17,6 @@ function Create_User(_user_id, _user_img, _info, _point_per_day, _point_per_toda
     } else {
         tmp_class = null;
     }
-
-    // if (_total_list_coupon !== undefined) {
-    // var tmp_total_list_coupon = JSON.parse(_total_list_coupon);
-    // } else {
-    // tmp_total_list_coupon = null;
-    // }
-
-    // if (_use_coupon !== undefined) {
-    // var tmp_use_coupon = JSON.parse(_use_coupon);
-    // } else {
-    // tmp_use_coupon = null;
-    // }
 
     if (_call_server_in_day !== undefined) {
         var tmp_call_server_in_day = JSON.parse(_call_server_in_day);
@@ -82,33 +71,84 @@ module.exports = {
 
     // Sign in
     signIn: function (req, res) {
-        auth_model.find({ user_id: req.body.user_id }, function (err, data) {
-            if (err) {
-                response = { 'error_code': 1, 'message': 'error fetching data' };
-            } else {
-                if (data.length > 0) {
-                    if (data[0]._status[0].id === 0) {
-                        data[0].user_img = req.body.user_img;
-                        var access_time_per_day = data[0].access_time_per_day;
-                        var point = data[0].point_plus;
-                        var day = dateFormat(new Date(), "yyyymmdd");
-                        if (access_time_per_day !== day) {
-                            point = point + 50;
-                            data[0].access_time_per_day = day;
-                            data[0].point_per_today = 0;
+        shop_model.find({ shop_boss: req.body.user_id }, function (err, shopdata) {
+            if (err) return err;
+            else {
+                if (shopdata.length > 0) {
+                    auth_model.find({ user_id: req.body.user_id }, function (err, data) {
+                        if (data.length > 0) {
+                            if (data[0]._status[0].id === 0) {
+                                if (data[0].role[0].id !== 2) {
+                                    _role = [{
+                                        id: 2,
+                                        name: 'Shop Owner'
+                                    }];
+                                    data[0].role = _role;
+                                    data[0].user_img = req.body.user_img;
+                                    var access_time_per_day = data[0].access_time_per_day;
+                                    var point = data[0].point_plus;
+                                    var day = dateFormat(new Date(), "yyyymmdd");
+                                    if (access_time_per_day !== day) {
+                                        point = point + 50;
+                                        data[0].access_time_per_day = day;
+                                        data[0].point_per_today = 0;
+                                    }
+                                    data[0].point_plus = point;
+                                    data[0].save(function (err) { });
+                                } else {
+                                    data[0].user_img = req.body.user_img;
+                                    var access_time_per_day = data[0].access_time_per_day;
+                                    var point = data[0].point_plus;
+                                    var day = dateFormat(new Date(), "yyyymmdd");
+                                    if (access_time_per_day !== day) {
+                                        point = point + 50;
+                                        data[0].access_time_per_day = day;
+                                        data[0].point_per_today = 0;
+                                    }
+                                    data[0].point_plus = point;
+                                    data[0].save(function (err) { });
+                                }
+                                response = { 'error_code': 0, 'auth': data };
+                            } else {
+                                response = { 'error_code': 5, 'message': 'your account is block' };
+                            }
+                        } else {
+                            response = { 'error_code': 2, 'message': 'user id incorrect' };
                         }
-                        data[0].point_plus = point;
-                        data[0].save(function (err) { });
-                        response = { 'error_code': 0, 'auth': data };
-                    } else {
-                        response = { 'error_code': 5, 'message': 'your account is block' };
-                    }
+                        res.status(200).json(response);
+                    });
                 } else {
-                    response = { 'error_code': 2, 'message': 'user id incorrect' };
+                    auth_model.find({ user_id: req.body.user_id }, function (err, the_data) {
+                        if (err) return err;
+                        else {
+                            if (the_data[0].role[0].id === 1) {
+                                response = { 'error_code': 0, 'auth': the_data };
+                            }else {
+                                response = { 'error_code': 0, 'auth': the_data };
+                            }
+                        }
+                        res.status(200).json(response);
+                    });
                 }
             }
-            res.status(200).json(response);
         });
+
+        // auth_model.find({ user_id: req.body.user_id }, function (err, data) {
+        //     if (err) {
+        //         response = { 'error_code': 1, 'message': 'error fetching data' };
+        //     } else {
+        //         if (data.length > 0) {
+        //             if (data[0]._status[0].id === 0) {
+        //                 response = { 'error_code': 0, 'auth': _auth_data };
+        //             } else {
+        //                 response = { 'error_code': 5, 'message': 'your account is block' };
+        //             }
+        //         } else {
+        //             response = { 'error_code': 2, 'message': 'user id incorrect' };
+        //         }
+        //     }
+        //     res.status(200).json(response);
+        // });
     },
 
     //update profile info
