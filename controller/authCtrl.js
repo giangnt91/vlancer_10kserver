@@ -121,11 +121,18 @@ module.exports = {
                     auth_model.find({ user_id: req.body.user_id }, function (err, the_data) {
                         if (err) return err;
                         else {
-                            if (the_data[0].role[0].id === 1) {
-                                response = { 'error_code': 0, 'auth': the_data };
-                            }else {
-                                response = { 'error_code': 0, 'auth': the_data };
+                            the_data[0].user_img = req.body.user_img;
+                            var access_time_per_day = the_data[0].access_time_per_day;
+                            var point = the_data[0].point_plus;
+                            var day = dateFormat(new Date(), "yyyymmdd");
+                            if (access_time_per_day !== day) {
+                                point = point + 50;
+                                the_data[0].access_time_per_day = day;
+                                the_data[0].point_per_today = 0;
                             }
+                            the_data[0].point_plus = point;
+                            the_data[0].save(function (err) { });
+                            response = { 'error_code': 0, 'auth': the_data };
                         }
                         res.status(200).json(response);
                     });
