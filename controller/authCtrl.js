@@ -195,6 +195,33 @@ module.exports = {
         });
     },
 
+    update_yourname: function (req, res) {
+        auth_model.find({ user_id: req.body.userid }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                var info = {
+                    fulname: req.body.fulname,
+                    email: data[0].info[0].email,
+                    sex: data[0].info[0].sex,
+                    mobile: data[0].info[0].mobile,
+                    work: data[0].info[0].work,
+                    bith_day: data[0].info[0].bithday,
+                    full_update: data[0].info[0].full_update
+                }
+                data[0].info = info;
+                data[0].save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 2, 'message': 'error updating user info' };
+                    } else {
+                        response = { 'error_code': 0, 'message': 'user info updated' };
+                    }
+                    res.status(200).json(response);
+                });
+            }
+        });
+    },
+
     // plus point for user after reaction
     plus: function (req, res) {
         auth_model.findById(req.body._id, function (err, data) {

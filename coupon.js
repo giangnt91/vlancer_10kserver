@@ -111,6 +111,10 @@ app.post('/updatepro', function (req, res) {
     auth.update(req, res);
 })
 
+app.post('/updatename', function (req, res) {
+    auth.update_yourname(req, res);
+})
+
 app.post('/updateclass', function (req, res) {
     auth.updateClass(req, res);
 })
