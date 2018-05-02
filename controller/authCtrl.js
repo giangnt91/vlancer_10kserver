@@ -87,6 +87,7 @@ module.exports = {
                                     }];
                                     data[0].role = _role;
                                     data[0].user_img = req.body.user_img;
+                                    the_data[0].info[0].fulname = req.body.fulname;
                                     var access_time_per_day = data[0].access_time_per_day;
                                     var point = data[0].point_plus;
                                     var day = dateFormat(new Date(), "yyyymmdd");
@@ -99,6 +100,7 @@ module.exports = {
                                     data[0].save(function (err) { });
                                 } else {
                                     data[0].user_img = req.body.user_img;
+                                    the_data[0].info[0].fulname = req.body.fulname;
                                     var access_time_per_day = data[0].access_time_per_day;
                                     var point = data[0].point_plus;
                                     var day = dateFormat(new Date(), "yyyymmdd");
@@ -127,6 +129,7 @@ module.exports = {
                         else {
                             if (the_data.length > 0) {
                                 the_data[0].user_img = req.body.user_img;
+                                the_data[0].info[0].fulname = req.body.fulname;
                                 var access_time_per_day = the_data[0].access_time_per_day;
                                 var point = the_data[0].point_plus;
                                 var day = dateFormat(new Date(), "yyyymmdd");
