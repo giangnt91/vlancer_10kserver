@@ -264,94 +264,97 @@ module.exports = {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                var point_plus = data.point_plus;
-                var slot;
-                var _class;
-                var new_empty;
+                if (data) {
+                    var point_plus = data.point_plus;
+                    var slot;
+                    var _class;
+                    var new_empty;
 
-                if (point_plus >= 2000) {
-                    if (data.user_class[0].id !== 1) {
-                        _class = [{
-                            id: 1,
-                            name: "Bạch Kim"
-                        }]
-                        slot = 15;
+                    if (point_plus >= 2000) {
+                        if (data.user_class[0].id !== 1) {
+                            _class = [{
+                                id: 1,
+                                name: "Bạch Kim"
+                            }]
+                            slot = 15;
 
-                        if (data.empty_slot === data.total_slot) {
-                            new_empty = 15;
+                            if (data.empty_slot === data.total_slot) {
+                                new_empty = 15;
+                            } else {
+                                new_empty = 15 - data.total_slot + data.empty_slot;
+                            }
                         } else {
-                            new_empty = 15 - data.total_slot + data.empty_slot;
+                            _class = data.user_class;
+                            slot = data.total_slot
+                            new_empty = data.empty_slot;
+                        }
+                    } else if (point_plus >= 1500) {
+                        if (data.user_class[0].id !== 2) {
+                            _class = [{
+                                id: 2,
+                                name: "Vàng"
+                            }]
+                            slot = 12;
+
+                            if (data.empty_slot === data.total_slot) {
+                                new_empty = 12;
+                            } else {
+                                new_empty = 12 - data.total_slot + data.empty_slot;
+                            }
+                        } else {
+                            _class = data.user_class;
+                            slot = data.total_slot
+                            new_empty = data.empty_slot;
+                        }
+                    } else if (point_plus >= 1000) {
+                        if (data.user_class[0].id !== 3) {
+                            _class = [{
+                                id: 3,
+                                name: "Bạc"
+                            }]
+                            slot = 10;
+
+                            if (data.empty_slot === data.total_slot) {
+                                new_empty = 10;
+                            } else {
+                                new_empty = 10 - data.total_slot + data.empty_slot;
+                            }
+                        } else {
+                            _class = data.user_class;
+                            slot = data.total_slot
+                            new_empty = data.empty_slot;
                         }
                     } else {
                         _class = data.user_class;
-                        slot = data.total_slot
                         new_empty = data.empty_slot;
                     }
-                } else if (point_plus >= 1500) {
-                    if (data.user_class[0].id !== 2) {
-                        _class = [{
-                            id: 2,
-                            name: "Vàng"
-                        }]
-                        slot = 12;
+                    // else {
+                    //     _class = [{
+                    //         id: 4,
+                    //         name: "Thường"
+                    //     }]
+                    //     slot = 5;
 
-                        if (data.empty_slot === data.total_slot) {
-                            new_empty = 12;
-                        } else {
-                            new_empty = 12 - data.total_slot + data.empty_slot;
-                        }
-                    } else {
-                        _class = data.user_class;
-                        slot = data.total_slot
-                        new_empty = data.empty_slot;
-                    }
-                } else if (point_plus >= 1000) {
-                    if (data.user_class[0].id !== 3) {
-                        _class = [{
-                            id: 3,
-                            name: "Bạc"
-                        }]
-                        slot = 10;
+                    //     if (data.empty_slot === data.total_slot) {
+                    //         new_empty = 5;
+                    //     } else {
+                    //         new_empty = 5 - data.total_slot + data.empty_slot;
+                    //     }
+                    // }
 
-                        if (data.empty_slot === data.total_slot) {
-                            new_empty = 10;
+                    data.user_class = _class;
+                    data.total_slot = slot;
+                    data.empty_slot = new_empty;
+                    data.save(function (err) {
+                        if (err) {
+                            response = { 'error_code': 2, 'message': 'error updating class for user' };
                         } else {
-                            new_empty = 10 - data.total_slot + data.empty_slot;
+                            response = { 'error_code': 0, 'message': 'your class is updated' };
                         }
-                    } else {
-                        _class = data.user_class;
-                        slot = data.total_slot
-                        new_empty = data.empty_slot;
-                    }
-                }else{
-                    _class = data.user_class;
-                    new_empty = data.empty_slot;
+                        res.status(200).json(response);
+                    })
                 }
-                // else {
-                //     _class = [{
-                //         id: 4,
-                //         name: "Thường"
-                //     }]
-                //     slot = 5;
 
-                //     if (data.empty_slot === data.total_slot) {
-                //         new_empty = 5;
-                //     } else {
-                //         new_empty = 5 - data.total_slot + data.empty_slot;
-                //     }
-                // }
-
-                data.user_class = _class;
-                data.total_slot = slot;
-                data.empty_slot = new_empty;
-                data.save(function (err) {
-                    if (err) {
-                        response = { 'error_code': 2, 'message': 'error updating class for user' };
-                    } else {
-                        response = { 'error_code': 0, 'message': 'your class is updated' };
-                    }
-                    res.status(200).json(response);
-                })
             }
         });
     },
