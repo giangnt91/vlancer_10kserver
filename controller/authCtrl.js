@@ -325,6 +325,7 @@ module.exports = {
                     }
                 }else{
                     _class = data.user_class;
+                    new_empty = data.empty_slot;
                 }
                 // else {
                 //     _class = [{
