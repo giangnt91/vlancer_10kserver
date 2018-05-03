@@ -206,7 +206,7 @@ module.exports = {
                     sex: data[0].info[0].sex,
                     mobile: data[0].info[0].mobile,
                     work: data[0].info[0].work,
-                    bith_day: data[0].info[0].bithday,
+                    bith_day: data[0].info[0].bith_day,
                     full_update: data[0].info[0].full_update
                 }
                 data[0].info = info;
