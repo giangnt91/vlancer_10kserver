@@ -119,160 +119,87 @@ module.exports = {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                var day = dateFormat(new Date(), "yyyymmdd");
-                var list_action_per_day;
-                var tmp_list = [];
-                var point = 0;
-                var inside;
+                if (auth) {
+                    var day = dateFormat(new Date(), "yyyymmdd");
+                    var list_action_per_day;
+                    var tmp_list = [];
+                    var point = 0;
+                    var inside;
+                    var BreakException = {};
 
-                if (auth.call_server_in_day[0].id === 1) {
-                    if (data !== null) {
-                        for (var i = 0; i < data.length; i++) {
-                            if (data[i].action_user.length === 0) {
-                                tmp_list.push(data[i]);
-                            } else {
-                                data[i].action_user.forEach(function (item) {
-                                    if (item.user_id !== auth.user_id) {
-                                        inside = 1;
-                                    }
-                                });
-
-                                if (inside === 1) {
-                                    tmp_list.push(data[i]);
-                                }
-
-                                inside = 0;
-                            }
-                        }
-
-                        // get random 2 post
-                        if (tmp_list.length >= 3) {
-                            list_action_per_day = getRandom(tmp_list, 3);
-                        } else {
-                            list_action_per_day = tmp_list;
-                        }
-
-                        // list_action_per_day.push(page);
-
-                        // save total point per day
-                        for (var i = 0; i < list_action_per_day.length; i++) {
-                            point = point + 20;
-                        }
-                        auth.point_per_day = point;
-                        auth.save(function (err) {
-                            if (err) {
-                                response = { 'error_code': 2, 'message': 'error updating data' };
-                            }
-                        });
-                    }
-
-                    response = { 'error_code': 0, 'list_action_per_day': list_action_per_day, 'device': req.device.type }
-                } else {
-                    if (auth.point_per_today === 0) {
+                    if (auth.call_server_in_day[0].id === 1) {
                         if (data !== null) {
                             for (var i = 0; i < data.length; i++) {
                                 if (data[i].action_user.length === 0) {
                                     tmp_list.push(data[i]);
                                 } else {
-                                    data[i].action_user.forEach(function (item) {
-                                        if (item.user_id !== auth.user_id) {
-                                            inside = 1;
+                                    try {
+                                        data[i].action_user.forEach(function (item) {
+                                            if (item.user_id === auth.user_id) {
+                                                inside = 1;
+                                                throw BreakException;
+                                            }
+                                        });
+
+                                        if (inside === 0) {
+                                            tmp_list.push(data[i]);
                                         }
-                                    });
 
-                                    if (inside === 1) {
-                                        tmp_list.push(data[i]);
+                                        inside = 0;
+                                    } catch (e) {
+                                        if (e !== BreakException) throw e;
                                     }
-
-                                    inside = 0;
                                 }
                             }
 
-                            // get random 3 post
+                            // get random 2 post
                             if (tmp_list.length >= 3) {
                                 list_action_per_day = getRandom(tmp_list, 3);
                             } else {
                                 list_action_per_day = tmp_list;
                             }
+
+                            // list_action_per_day.push(page);
+
+                            // save total point per day
+                            for (var i = 0; i < list_action_per_day.length; i++) {
+                                point = point + 20;
+                            }
+                            auth.point_per_day = point;
+                            auth.save(function (err) {
+                                if (err) {
+                                    response = { 'error_code': 2, 'message': 'error updating data' };
+                                }
+                            });
                         }
+                        response = { 'error_code': 0, 'list_action_per_day': list_action_per_day, 'device': req.device.type }
                     } else {
-                        var rest_point = auth.point_per_day - auth.point_per_today;
-                        if (rest_point > 0) {
-                            if (rest_point <= 20) {
-                                if (data !== null) {
-                                    for (var i = 0; i < data.length; i++) {
-                                        if (data[i].action_user.length === 0) {
-                                            tmp_list.push(data[i]);
-                                        } else {
+                        if (auth.point_per_today === 0) {
+                            if (data !== null) {
+                                for (var i = 0; i < data.length; i++) {
+                                    if (data[i].action_user.length === 0) {
+                                        tmp_list.push(data[i]);
+                                    } else {
+                                        try {
                                             data[i].action_user.forEach(function (item) {
-                                                if (item.user_id !== auth.user_id) {
+                                                if (item.user_id === auth.user_id) {
                                                     inside = 1;
+                                                    throw BreakException;
                                                 }
                                             });
 
-                                            if (inside === 1) {
+                                            if (inside === 0) {
                                                 tmp_list.push(data[i]);
                                             }
 
                                             inside = 0;
+                                        } catch (e) {
+                                            if (e !== BreakException) throw e;
                                         }
                                     }
-
                                 }
-                                if (tmp_list.length >= 1) {
-                                    list_action_per_day = getRandom(tmp_list, 1);
-                                } else {
-                                    list_action_per_day = tmp_list;
-                                }
-                            }
-                            else if (rest_point <= 40) {
-                                if (data !== null) {
-                                    for (var i = 0; i < data.length; i++) {
-                                        if (data[i].action_user.length === 0) {
-                                            tmp_list.push(data[i]);
-                                        } else {
-                                            data[i].action_user.forEach(function (item) {
-                                                if (item.user_id !== auth.user_id) {
-                                                    inside = 1;
-                                                }
-                                            });
 
-                                            if (inside === 1) {
-                                                tmp_list.push(data[i]);
-                                            }
-
-                                            inside = 0;
-                                        }
-                                    }
-
-                                }
-                                if (tmp_list.length >= 2) {
-                                    list_action_per_day = getRandom(tmp_list, 2);
-                                } else {
-                                    list_action_per_day = tmp_list;
-                                }
-                            }
-                            else {
-                                if (data !== null) {
-                                    for (var i = 0; i < data.length; i++) {
-                                        if (data[i].action_user.length === 0) {
-                                            tmp_list.push(data[i]);
-                                        } else {
-                                            data[i].action_user.forEach(function (item) {
-                                                if (item.user_id !== auth.user_id) {
-                                                    inside = 1;
-                                                }
-                                            });
-
-                                            if (inside === 1) {
-                                                tmp_list.push(data[i]);
-                                            }
-
-                                            inside = 0;
-                                        }
-                                    }
-
-                                }
+                                // get random 3 post
                                 if (tmp_list.length >= 3) {
                                     list_action_per_day = getRandom(tmp_list, 3);
                                 } else {
@@ -280,11 +207,112 @@ module.exports = {
                                 }
                             }
                         } else {
-                            list_action_per_day = null;
+                            var rest_point = auth.point_per_day - auth.point_per_today;
+                            if (rest_point > 0) {
+                                if (rest_point <= 20) {
+                                    if (data !== null) {
+                                        for (var i = 0; i < data.length; i++) {
+                                            if (data[i].action_user.length === 0) {
+                                                tmp_list.push(data[i]);
+                                            } else {
+                                                try {
+                                                    data[i].action_user.forEach(function (item) {
+                                                        if (item.user_id === auth.user_id) {
+                                                            inside = 1;
+                                                            throw BreakException;
+                                                        }
+                                                    });
+
+                                                    if (inside === 0) {
+                                                        tmp_list.push(data[i]);
+                                                    }
+
+                                                    inside = 0;
+                                                } catch (e) {
+                                                    if (e !== BreakException) throw e;
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                    if (tmp_list.length >= 1) {
+                                        list_action_per_day = getRandom(tmp_list, 1);
+                                    } else {
+                                        list_action_per_day = tmp_list;
+                                    }
+                                }
+                                else if (rest_point <= 40) {
+                                    if (data !== null) {
+                                        for (var i = 0; i < data.length; i++) {
+                                            if (data[i].action_user.length === 0) {
+                                                tmp_list.push(data[i]);
+                                            } else {
+                                                try {
+                                                    data[i].action_user.forEach(function (item) {
+                                                        if (item.user_id === auth.user_id) {
+                                                            inside = 1;
+                                                            throw BreakException;
+                                                        }
+                                                    });
+
+                                                    if (inside === 0) {
+                                                        tmp_list.push(data[i]);
+                                                    }
+
+                                                    inside = 0;
+                                                } catch (e) {
+                                                    if (e !== BreakException) throw e;
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                    if (tmp_list.length >= 2) {
+                                        list_action_per_day = getRandom(tmp_list, 2);
+                                    } else {
+                                        list_action_per_day = tmp_list;
+                                    }
+                                }
+                                else {
+                                    if (data !== null) {
+                                        for (var i = 0; i < data.length; i++) {
+                                            if (data[i].action_user.length === 0) {
+                                                tmp_list.push(data[i]);
+                                            } else {
+                                                try {
+                                                    data[i].action_user.forEach(function (item) {
+                                                        if (item.user_id === auth.user_id) {
+                                                            inside = 1;
+                                                            throw BreakException;
+                                                        }
+                                                    });
+
+                                                    if (inside === 0) {
+                                                        tmp_list.push(data[i]);
+                                                    }
+
+                                                    inside = 0;
+                                                } catch (e) {
+                                                    if (e !== BreakException) throw e;
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                    if (tmp_list.length >= 3) {
+                                        list_action_per_day = getRandom(tmp_list, 3);
+                                    } else {
+                                        list_action_per_day = tmp_list;
+                                    }
+                                }
+                            } else {
+                                list_action_per_day = null;
+                            }
                         }
+                        response = { 'error_code': 0, 'list_action_per_day': list_action_per_day, 'device': req.device.type }
                     }
-                    response = { 'error_code': 0, 'list_action_per_day': list_action_per_day, 'device': req.device.type }
                 }
+
             }
             res.status(200).json(response);
         });
