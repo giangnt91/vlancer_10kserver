@@ -323,6 +323,8 @@ module.exports = {
                         slot = data.total_slot
                         new_empty = data.empty_slot;
                     }
+                }else{
+                    _class = data.user_class;
                 }
                 // else {
                 //     _class = [{
