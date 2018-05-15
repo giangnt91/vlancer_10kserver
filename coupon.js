@@ -204,11 +204,13 @@ app.post('/getallcoupon', function (req, res) {
 })
 
 app.post('/createcoupon', function (req, res) {
-    shop.createCoupon(req, res);
+	console.log(req.body.coupon)
+    // shop.createCoupon(req, res);
 })
 
 app.post('/updatecoupon', function (req, res) {
-    shop.updateCoupon(req, res);
+	console.log(req.body.coupon)
+    // shop.updateCoupon(req, res);
 })
 
 app.post('/approvedc', function (req, res) {
