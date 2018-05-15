@@ -6,6 +6,9 @@ mongoose.createConnection('mongodb://localhost:27017/coupon10k');
 // create coupon code
 var coupon = mongoose.Schema({
     value: Number,
+    shop_name: String,
+    shop_avatar: String,
+    shop_cover: String,
     class_user: Array,
     coupon_info: String,
     shop_id: String,
