@@ -37,7 +37,7 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
     //allow connect
     // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-    var allowedOrigins = ['http://35.200.236.251:8080', 'http://localhost:8080', 'http://localhost:2018', 'http://10k.thietkewebneda.com', 'http://ad.thietkewebneda.com'];
+    var allowedOrigins = ['http://35.200.236.251:8080', 'http://localhost:8080', 'http://localhost:8100', 'http://192.168.1.111:8100', 'http://10k.thietkewebneda.com', 'http://ad.thietkewebneda.com'];
     var origin = req.headers.origin;
     if (allowedOrigins.indexOf(origin) > -1) {
         res.setHeader('Access-Control-Allow-Origin', origin);
@@ -51,7 +51,7 @@ app.use(function (req, res, next) {
 
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Credentials', false);
 
     // Pass to next layer of middleware
     next();
@@ -83,6 +83,10 @@ var upload = multer({ storage: storage }).any();
 
 
 // auth
+app.post('/mobile', function (req, res) {
+    auth.Mobile(req, res);
+})
+
 app.post('/signin', function (req, res) {
     auth.signIn(req, res);
 })
