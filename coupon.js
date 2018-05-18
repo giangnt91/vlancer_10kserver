@@ -204,13 +204,11 @@ app.post('/getallcoupon', function (req, res) {
 })
 
 app.post('/createcoupon', function (req, res) {
-	console.log(req.body.coupon)
-    // shop.createCoupon(req, res);
+    shop.createCoupon(req, res);
 })
 
 app.post('/updatecoupon', function (req, res) {
-	console.log(req.body.coupon)
-    // shop.updateCoupon(req, res);
+    shop.updateCoupon(req, res);
 })
 
 app.post('/approvedc', function (req, res) {
@@ -231,6 +229,10 @@ app.post('/getbyshopid', function (req, res) {
 
 app.post('/getshopvip', function (req, res) {
     shop.getShopvip(req, res);
+})
+
+app.post('/musecoupon', function (req, res) {
+    shop.UseruseCoupon(req, res);
 })
 
 // action

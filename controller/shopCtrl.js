@@ -619,5 +619,28 @@ module.exports = {
                 });
             }
         })
+    },
+    UseruseCoupon: function (req, res) {
+        shop_model.find({ shopId: req.body._id }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                var shop_use_coupon = data[0].shop_use_coupon;
+                var the_new = [{
+                    approved: 'pending',
+                    coupon: req.body.coupon
+                }]
+                shop_use_coupon.push(the_new);
+                data[0].shop_use_coupon = shop_use_coupon;
+                data[0].save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 2, 'message': err }
+                    } else {
+                        response = { 'error_code': 0, 'message': 'coupon is pending approved' };
+                    }
+                    res.status(200).json(response);
+                })
+            }
+        })
     }
 }
