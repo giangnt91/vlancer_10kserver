@@ -24,6 +24,13 @@ io.on('connection', function (socket) {
     socket.on('server_accept', function () {
         socket.broadcast.emit('show_coupon_accept');
     })
+
+    socket.on('user_use_coupon', function (user_id) {
+        socket.user_id = user_id;
+        socket.broadcast.emit('shop_comfirm', {
+            user_id: socket.user_id
+        })
+    })
 })
 /*
     End
