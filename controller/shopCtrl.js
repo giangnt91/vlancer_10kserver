@@ -351,6 +351,16 @@ module.exports = {
             res.status(200).json(response);
         });
     },
+    getShopId: function(req, res){
+        shop_model.find({shopId: req.body.shopId}, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                response = { 'error_code': 0, 'shop': data };
+            }
+            res.status(200).json(response);
+        });
+    },
     getShopvip: function (req, res) {
         shop_model.find({}, function (err, data) {
             if (err) {

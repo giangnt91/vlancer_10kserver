@@ -231,6 +231,10 @@ app.post('/getbyshopid', function (req, res) {
     shop.getByshopid(req, res);
 })
 
+app.post('/getShopId', function (req, res) {
+    shop.getShopId(req, res);
+})
+
 app.post('/getshopvip', function (req, res) {
     shop.getShopvip(req, res);
 })
