@@ -25,8 +25,8 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('show_coupon_accept');
     })
 
-    socket.on('user_use_coupon', function () {
-        socket.broadcast.emit('show_coupon_for_shop');
+    socket.on('user_use_coupon', function (shop_id) {
+        socket.broadcast.emit('show_coupon_for_shop', shop_id);
     })
 })
 /*
