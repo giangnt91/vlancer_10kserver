@@ -83,7 +83,8 @@ module.exports = {
                                 if (data[0].role[0].id !== 2) {
                                     _role = [{
                                         id: 2,
-                                        name: 'Shop Owner'
+                                        name: 'Shop Owner',
+                                        shop: Shopdata[0].shopId
                                     }];
                                     data[0].role = _role;
                                     data[0].user_img = req.body.user_img;
@@ -163,7 +164,8 @@ module.exports = {
                                 if (data[0].role[0].id !== 3) {
                                     _role = [{
                                         id: 3,
-                                        name: 'Shop Manager'
+                                        name: 'Shop Manager',
+                                        shop: Shopdata[0].shopId
                                     }];
                                     data[0].role = _role;
                                     data[0].user_img = req.body.user_img;
