@@ -77,6 +77,7 @@ module.exports = {
             }
             else {
                 if (shopdata.length > 0) {
+                    var shop_id = Shopdata[0].shopId;
                     auth_model.find({ user_id: req.body.user_id }, function (err, data) {
                         if (data.length > 0) {
                             if (data[0]._status[0].id === 0) {
@@ -84,7 +85,7 @@ module.exports = {
                                     _role = [{
                                         id: 2,
                                         name: 'Shop Owner',
-                                        shop: Shopdata[0].shopId
+                                        shop: shop_id
                                     }];
                                     data[0].role = _role;
                                     data[0].user_img = req.body.user_img;
@@ -158,6 +159,7 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data !' };
             } else {
                 if (Shopdata.length > 0) {
+                    var shop_id = Shopdata[0].shopId;
                     auth_model.find({ user_id: req.body.user_id }, function (err, data) {
                         if (data.length > 0) {
                             if (data[0]._status[0].id === 0) {
@@ -165,7 +167,7 @@ module.exports = {
                                     _role = [{
                                         id: 3,
                                         name: 'Shop Manager',
-                                        shop: Shopdata[0].shopId
+                                        shop: shop_id
                                     }];
                                     data[0].role = _role;
                                     data[0].user_img = req.body.user_img;
