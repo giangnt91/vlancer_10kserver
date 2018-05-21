@@ -17,6 +17,7 @@ app.use(express.static('./node_modules/socket.io-client/dist/'));
     socket get event from client
 */
 io.on('connection', function (socket) {
+    //back end
     socket.on('shop_create_new_coupon', function () {
         socket.broadcast.emit('get_all_coupon');
     });
@@ -25,8 +26,13 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('show_coupon_accept');
     })
 
+    //mobile
     socket.on('user_use_coupon', function (shop_id) {
         socket.broadcast.emit('show_coupon_for_shop', shop_id);
+    })
+
+    socket.on('send_error', function (message, user_id) {
+        socket.broadcast.emit('show_error', message, user_id);
     })
 })
 /*
