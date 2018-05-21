@@ -27,7 +27,7 @@ io.on('connection', function (socket) {
     })
 
     //mobile
-    socket.on('user_use_coupon', function (shop_id) {
+    socket.on('user_use_coupon', function (shop_id, user_img, user_name) {
         socket.broadcast.emit('show_coupon_for_shop', shop_id);
     })
 
