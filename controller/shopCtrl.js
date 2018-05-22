@@ -653,5 +653,28 @@ module.exports = {
                 })
             }
         })
+    },
+    RemoveCouponShopreject: function (req, res) {
+        shop_model.find({ shopId: req.body.shopid }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                var shop_use_coupon = data[0].shop_use_coupon;
+                shop_use_coupon.forEach(function (index, element) {
+                    if (element._id === req.body.couponId) {
+                        shop_use_coupon.splice(index, 1);
+                    }
+                });
+                data[0].shop_use_coupon = shop_use_coupon;
+                data[0].save(function(err){
+                    if(err){
+                        response = { 'error_code': 2, 'message': err }
+                    }else{
+                        response = { 'error_code': 0, 'message': 'coupon remove success' };
+                    }
+                    res.status(200).json(response);
+                })
+            }
+        })
     }
 }

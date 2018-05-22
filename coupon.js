@@ -229,6 +229,10 @@ app.post('/cancelapproved', function (req, res) {
     shop.cancelCoupon(req, res);
 })
 
+app.post('/removecouponcancel', function(req, res){
+    shop.RemoveCouponShopreject(req, res);
+})
+
 app.post('/updateshopLike', function (req, res) {
     shop.updateLike(req, res);
 })
