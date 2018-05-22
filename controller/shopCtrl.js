@@ -672,7 +672,7 @@ module.exports = {
                     }else{
                         response = { 'error_code': 0, 'message': 'coupon remove success' };
                     }
-                    res.status(200).json(shop_use_coupon);
+                    res.status(200).json(req.body.couponId);
                 })
             }
         })
