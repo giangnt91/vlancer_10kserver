@@ -636,12 +636,26 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
                 var shop_use_coupon = data[0].shop_use_coupon;
-                var the_new = {
-                    _id: new mongoose.Types.ObjectId(),
-                    approved: 'pending',
-                    coupon: req.body.coupon
+                var _coupon = req.body.coupon;
+                var inside = 0;
+                var BreakException = {};
+
+                shop_use_coupon.forEach(element => {
+                    if (element._id === _coupon._id) {
+                        inside = 1;
+                        throw BreakException;
+                    }
+                });
+
+                if (inside === 0) {
+                    var the_new = {
+                        _id: new mongoose.Types.ObjectId(),
+                        approved: 'pending',
+                        coupon: req.body.coupon
+                    }
+                    shop_use_coupon.push(the_new);
                 }
-                shop_use_coupon.push(the_new);
+
                 data[0].shop_use_coupon = shop_use_coupon;
                 data[0].save(function (err) {
                     if (err) {
@@ -660,9 +674,8 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
                 var shop_use_coupon = data[0].shop_use_coupon;
-                var a;
                 shop_use_coupon.forEach(element => {
-                    if(element._id.toString() === req.body.couponId) {
+                    if (element._id.toString() === req.body.couponId) {
                         shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
                     }
                 });
