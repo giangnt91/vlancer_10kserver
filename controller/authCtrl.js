@@ -586,54 +586,53 @@ module.exports = {
                         var shop_use_coupon = shopdata[0].shop_use_coupon;
 
                         if (shop_use_coupon.length > 0) {
-                            shop_use_coupon.forEach(element => {
-                                console.log(element.coupon.shop_name)
-                                if (element._id.toString() === req.body.couponId) {
-                                    _coupon = {
-                                        shop_name: element.coupon.shop_name,
-                                        shop_cover: element.coupon.shop_cover,
-                                        shop_avatar: element.coupon.shop_avatar,
-                                        shop_id: element.coupon.shop_id,
-                                        coupon_info: element.coupon.coupon_info,
-                                        value: element.coupon.value,
+                            shop_use_coupon.forEach(item => {
+                                if (item._id.toString() === req.body.couponId) {
+                                  var  the_coupon = {
+                                        shop_name: item.coupon.shop_name,
+                                        shop_cover: item.coupon.shop_cover,
+                                        shop_avatar: item.coupon.shop_avatar,
+                                        shop_id: item.coupon.shop_id,
+                                        coupon_info: item.coupon.coupon_info,
+                                        value: item.coupon.value,
                                         class_user: [
                                             {
-                                                id: element.coupon.class_user[0].id,
-                                                name: element.coupon.class_user[0].name
+                                                id: item.coupon.class_user[0].id,
+                                                name: item.coupon.class_user[0].name
                                             }
                                         ],
-                                        release_day: element.coupon.release_day,
-                                        time_expire: element.coupon.time_expire,
+                                        release_day: item.coupon.release_day,
+                                        time_expire: item.coupon.time_expire,
                                         the_issuer: [
                                             {
-                                                id: element.coupon.the_issuer[0].id,
-                                                name: element.coupon.the_issuer[0].name
+                                                id: item.coupon.the_issuer[0].id,
+                                                name: item.coupon.the_issuer[0].name
                                             }
                                         ],
                                         status_coupon: [
                                             {
-                                                id: element.coupon.status_coupon[0].id,
-                                                status: element.coupon.status_coupon[0].status
+                                                id: item.coupon.status_coupon[0].id,
+                                                status: item.coupon.status_coupon[0].status
                                             }
                                         ],
-                                        userid_get_coupon: element.coupon.userid_get_coupon,
-                                        time_user_get: element.coupon.time_user_get,
-                                        time_user_use: element.coupon.time_user_get,
+                                        userid_get_coupon: item.coupon.userid_get_coupon,
+                                        time_user_get: item.coupon.time_user_get,
+                                        time_user_use: item.coupon.time_user_get,
                                         rating: req.body.rating,
                                         rfeedback: [
                                             {
-                                                name: element.coupon.rfeedback[0].name,
-                                                id: element.coupon.rfeedback[0].id
+                                                name: item.coupon.rfeedback[0].name,
+                                                id: item.coupon.rfeedback[0].id
                                             }
                                         ],
                                         feedback: req.body.feedback,
-                                        approved: element.coupon.approved,
-                                        _id: element.coupon._id
+                                        approved: item.coupon.approved,
+                                        _id: item.coupon._id
                                     }
                                     the_new = {
-                                        _id: element._id,
+                                        _id: item._id,
                                         approved: true,
-                                        coupon: _coupon
+                                        coupon: the_coupon
                                     }
                                     shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
                                 }
