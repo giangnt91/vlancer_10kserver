@@ -702,7 +702,6 @@ module.exports = {
             } else {
                 var user_get_coupon = data[0].user_get_coupon;
                 var shop_use_coupon = data[0].shop_use_coupon;
-                var the_new = [];
 
                 //chuyển coupon từ user_get qua shop use
                 user_get_coupon.forEach(element => {
