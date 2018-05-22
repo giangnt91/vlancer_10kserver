@@ -660,9 +660,14 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
                 var shop_use_coupon = data[0].shop_use_coupon;
-                shop_use_coupon.forEach(element => {
-                    if (element._id === req.body.couponId) {
-                        shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
+                // shop_use_coupon.forEach(element => {
+                //     if (element._id === req.body.couponId) {
+                //         shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
+                //     }
+                // });
+                shop_use_coupon.slice(0).forEach(function(item) {
+                    if(item._id === req.body.couponId) {
+                        shop_use_coupon.splice(shop_use_coupon.indexOf(item), 1);
                     }
                 });
                 data[0].shop_use_coupon = shop_use_coupon;
