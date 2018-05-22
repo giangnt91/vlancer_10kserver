@@ -674,6 +674,7 @@ module.exports = {
                     }
                     res.status(200).json(response);
                 })
+                console.log(shop_use_coupon)
             }
         })
     }
