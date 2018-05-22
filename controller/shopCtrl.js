@@ -640,12 +640,16 @@ module.exports = {
                 var inside = 0;
                 var BreakException = {};
 
-                shop_use_coupon.forEach(element => {
-                    if (element.coupon._id === _coupon._id) {
-                        inside = 1;
-                        throw BreakException;
-                    }
-                });
+                try {
+                    shop_use_coupon.forEach(element => {
+                        if (element.coupon._id === _coupon._id) {
+                            inside = 1;
+                            throw BreakException;
+                        }
+                    });
+                } catch (e) {
+                    if (e !== BreakException) throw e;
+                }
 
                 if (inside === 0) {
                     var the_new = {
