@@ -506,7 +506,7 @@ module.exports = {
             res.status(200).json(response);
         });
     },
-    CouponUseNofeed: function (req, res) {
+    CouponUsefeed: function (req, res) {
         auth_model.findById(req.body._id, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
@@ -549,14 +549,14 @@ module.exports = {
                                 userid_get_coupon: element.userid_get_coupon,
                                 time_user_get: element.time_user_get,
                                 time_user_use: _today,
-                                rating: element.rating,
+                                rating: req.body.rating,
                                 rfeedback: [
                                     {
                                         name: element.rfeedback[0].name,
                                         id: element.rfeedback[0].id
                                     }
                                 ],
-                                feedback: element.feedback,
+                                feedback: req.body.feedback,
                                 approved: element.approved,
                                 _id: element._id
                             }
