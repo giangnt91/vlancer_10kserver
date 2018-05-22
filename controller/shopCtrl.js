@@ -732,7 +732,7 @@ module.exports = {
                     } else {
                         response = { 'error_code': 0, 'message': 'coupon is approved' };
                     }
-                    res.status(200).json(a);
+                    res.status(200).json(response);
                 });
             }
         })
