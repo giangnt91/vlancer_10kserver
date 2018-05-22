@@ -663,7 +663,7 @@ module.exports = {
                 var couponId = mongoose.Types.ObjectId(req.body.couponId);
                 var a;
                 shop_use_coupon.forEach(element => {
-                    if (element._id === couponId) {
+                    if(element._id === couponId) {
                         shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
                         a = 1;
                     }else{
