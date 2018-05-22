@@ -666,14 +666,16 @@ module.exports = {
                 //     }
                 // });
                 // data[0].shop_use_coupon = shop_use_coupon;
-                data[0].save(function (err) {
-                    if (err) {
-                        response = { 'error_code': 2, 'message': err }
-                    } else {
-                        response = { 'error_code': 0, 'message': 'coupon remove success' };
-                    }
-                    res.status(200).json(data);
-                })
+                // data[0].save(function (err) {
+                //     if (err) {
+                //         response = { 'error_code': 2, 'message': err }
+                //     } else {
+                //         response = { 'error_code': 0, 'message': 'coupon remove success' };
+                //     }
+                //     res.status(200).json(data);
+                // })
+
+                res.status(200).json(data);
 
             }
         })
