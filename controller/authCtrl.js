@@ -505,5 +505,79 @@ module.exports = {
             }
             res.status(200).json(response);
         });
+    },
+    CouponUseNofeed: function (req, res) {
+        auth_model.findById(req.body._id, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                var total_list_coupon = data.total_list_coupon;
+                var use_coupon = data.use_coupon;
+                var _today = dateFormat(new Date(), "dd/mm/yyyy");
+
+                //chuyển coupon từ total_list_coupon qua user use
+                if (total_list_coupon.length > 0) {
+                    total_list_coupon.forEach(element => {
+                        if (element._id === req.body.couponId) {
+                            the_new = {
+                                shop_name: element.coupon.shop_name,
+                                shop_cover: element.coupon.shop_cover,
+                                shop_avatar: element.coupon.shop_avatar,
+                                shop_id: element.coupon.shop_id,
+                                coupon_info: element.coupon.coupon_info,
+                                value: element.coupon.value,
+                                class_user: [
+                                    {
+                                        id: element.coupon.class_user[0].id,
+                                        name: element.coupon.class_user[0].name
+                                    }
+                                ],
+                                release_day: element.coupon.release_day,
+                                time_expire: element.coupon.time_expire,
+                                the_issuer: [
+                                    {
+                                        id: element.coupon.the_issuer[0].id,
+                                        name: element.coupon.the_issuer[0].name
+                                    }
+                                ],
+                                status_coupon: [
+                                    {
+                                        id: 0,
+                                        status: "Đã sử dụng"
+                                    }
+                                ],
+                                userid_get_coupon: element.coupon.userid_get_coupon,
+                                time_user_get: element.coupon.time_user_get,
+                                time_user_use: _today,
+                                rating: element.coupon.rating,
+                                rfeedback: [
+                                    {
+                                        name: element.coupon.rfeedback[0].name,
+                                        id: element.coupon.rfeedback[0].id
+                                    }
+                                ],
+                                feedback: element.coupon.feedback,
+                                approved: element.coupon.approved,
+                                _id: element.coupon._id
+                            }
+                            total_list_coupon.splice(total_list_coupon.indexOf(element), 1);
+                        }
+                    });
+                }
+
+                use_coupon.push(the_new);
+                data.empty_slot = data.empty_slot + 1;
+
+                data.save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 3, 'message': 'error update data' };
+                    } else {
+                        response = { 'error_code': 0, 'message': 'Update coupon user success' };
+                    }
+                    res.status(200).json(response);
+                })
+
+            }
+        });
     }
 }

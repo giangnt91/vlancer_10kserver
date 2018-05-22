@@ -97,6 +97,10 @@ app.post('/mobile', function (req, res) {
     auth.Mobile(req, res);
 })
 
+app.post('/couponnofeed', function (req, res) {
+    auth.CouponUseNofeed(req, res);
+})
+
 app.post('/signin', function (req, res) {
     auth.signIn(req, res);
 })
