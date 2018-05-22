@@ -662,7 +662,7 @@ module.exports = {
                 var shop_use_coupon = data[0].shop_use_coupon;
                 shop_use_coupon.forEach(element => {
                     if (element._id === req.body.couponId) {
-                        delete (element);
+                        shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
                     }
                 });
                 data[0].shop_use_coupon = shop_use_coupon;
