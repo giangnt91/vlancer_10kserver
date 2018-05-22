@@ -724,7 +724,7 @@ module.exports = {
                     } else {
                         response = { 'error_code': 0, 'message': 'coupon is approved' };
                     }
-                    res.status(200).json(shop_use_coupon);
+                    res.status(200).json(data[0].shop_use_coupon);
                 });
             }
         })
