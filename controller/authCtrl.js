@@ -586,10 +586,10 @@ module.exports = {
                         var shop_use_coupon = shopdata[0].shop_use_coupon;
                         var the_new_coupon;
                         if (shop_use_coupon.length > 0) {
-                            shop_use_coupon.forEach(item => {
-                                if (item._id.toString() === req.body.couponId) {
+                            shop_use_coupon.forEach(element => {
+                                if (element._id.toString() === req.body.couponId) {
                                     the_new_coupon = {
-                                        _id: item._id,
+                                        _id: element._id,
                                         approved: true,
                                         coupon: the_new
                                     }
