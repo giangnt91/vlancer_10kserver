@@ -520,24 +520,24 @@ module.exports = {
                     total_list_coupon.forEach(element => {
                         if (element._id === req.body.couponId) {
                             the_new = {
-                                shop_name: element.coupon.shop_name,
-                                shop_cover: element.coupon.shop_cover,
-                                shop_avatar: element.coupon.shop_avatar,
-                                shop_id: element.coupon.shop_id,
-                                coupon_info: element.coupon.coupon_info,
-                                value: element.coupon.value,
+                                shop_name: element.shop_name,
+                                shop_cover: element.shop_cover,
+                                shop_avatar: element.shop_avatar,
+                                shop_id: element.shop_id,
+                                coupon_info: element.coupon_info,
+                                value: element.value,
                                 class_user: [
                                     {
-                                        id: element.coupon.class_user[0].id,
-                                        name: element.coupon.class_user[0].name
+                                        id: element.class_user[0].id,
+                                        name: element.class_user[0].name
                                     }
                                 ],
-                                release_day: element.coupon.release_day,
-                                time_expire: element.coupon.time_expire,
+                                release_day: element.release_day,
+                                time_expire: element.time_expire,
                                 the_issuer: [
                                     {
-                                        id: element.coupon.the_issuer[0].id,
-                                        name: element.coupon.the_issuer[0].name
+                                        id: element.the_issuer[0].id,
+                                        name: element.the_issuer[0].name
                                     }
                                 ],
                                 status_coupon: [
@@ -546,19 +546,19 @@ module.exports = {
                                         status: "Đã sử dụng"
                                     }
                                 ],
-                                userid_get_coupon: element.coupon.userid_get_coupon,
-                                time_user_get: element.coupon.time_user_get,
+                                userid_get_coupon: element.userid_get_coupon,
+                                time_user_get: element.time_user_get,
                                 time_user_use: _today,
-                                rating: element.coupon.rating,
+                                rating: element.rating,
                                 rfeedback: [
                                     {
-                                        name: element.coupon.rfeedback[0].name,
-                                        id: element.coupon.rfeedback[0].id
+                                        name: element.rfeedback[0].name,
+                                        id: element.rfeedback[0].id
                                     }
                                 ],
-                                feedback: element.coupon.feedback,
-                                approved: element.coupon.approved,
-                                _id: element.coupon._id
+                                feedback: element.feedback,
+                                approved: element.approved,
+                                _id: element._id
                             }
                             total_list_coupon.splice(total_list_coupon.indexOf(element), 1);
                         }
