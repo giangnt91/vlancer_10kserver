@@ -28,7 +28,7 @@ io.on('connection', function (socket) {
 
     //mobile
     socket.on('user_use_coupon', function (shop_id, user_img, user_name) {
-        socket.broadcast.emit('show_coupon_for_shop', shop_id , user_img, user_name);
+        socket.broadcast.emit('show_coupon_for_shop', shop_id, user_img, user_name);
     })
 
     socket.on('send_error', function (message, user_id, id) {
@@ -229,7 +229,7 @@ app.post('/cancelapproved', function (req, res) {
     shop.cancelCoupon(req, res);
 })
 
-app.post('/removecouponcancel', function(req, res){
+app.post('/removecouponcancel', function (req, res) {
     shop.RemoveCouponShopreject(req, res);
 })
 
@@ -252,6 +252,11 @@ app.post('/getshopvip', function (req, res) {
 app.post('/musecoupon', function (req, res) {
     shop.UseruseCoupon(req, res);
 })
+
+app.post('/mshopaccept', function (req, res) {
+    shop.UpdateCouponshopuse(req, res);
+})
+
 
 // action
 app.post('/caction', function (req, res) {

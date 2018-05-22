@@ -694,5 +694,39 @@ module.exports = {
                 })
             }
         })
+    },
+    UpdateCouponshopuse: function (req, res) {
+        shop_model.find({ shopId: req.body.shopid }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                var user_get_coupon = data[0].user_get_coupon;
+                var shop_use_coupon = data[0].shop_use_coupon;
+
+                //chuyển coupon từ user_get qua shop use
+                user_get_coupon.forEach(element => {
+                    if (element._id.toString() === req.body.couponId) {
+                        user_get_coupon.splice(user_get_coupon.indexOf(element), 1);
+                    }
+                });
+
+                shop_use_coupon.forEach(element => {
+                    if (element._id.toString() === req.body.couponId) {
+                        element.approved = true;
+                    }
+                });
+
+                data[0].user_get_coupon = user_get_coupon;
+                data[0].shop_use_coupon = shop_use_coupon;
+                data[0].save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 2, 'message': err }
+                    } else {
+                        response = { 'error_code': 0, 'message': 'coupon is approved' };
+                    }
+                    res.status(200).json(response);
+                });
+            }
+        })
     }
 }
