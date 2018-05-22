@@ -261,6 +261,10 @@ app.post('/mshopaccept', function (req, res) {
     shop.UpdateCouponshopuse(req, res);
 })
 
+app.post('/mupdaterating', function(req, res){
+    shop.UpdateCouponRating(req, res);
+})
+
 
 // action
 app.post('/caction', function (req, res) {

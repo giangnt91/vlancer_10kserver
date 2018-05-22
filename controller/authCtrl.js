@@ -576,41 +576,7 @@ module.exports = {
                     } else {
                         response = { 'error_code': 0, 'message': 'Update coupon user success' };
                     }
-                    // res.status(200).json(response);
-                })
-
-                shop_model.find({ shopId: req.body.shopId }, function (err, shopdata) {
-                    if (err) {
-                        response = { 'error_code': 1, 'message': 'error fetching data' };
-                    } else {
-                        var shop_use_coupon = shopdata[0].shop_use_coupon;
-                        var the_new_coupon;
-                        if (shop_use_coupon.length > 0) {
-                            shop_use_coupon.forEach(element => {
-                                console.log(element)
-                                if (element._id.toString() === req.body.couponId) {
-                                    the_new_coupon = {
-                                        _id: element._id,
-                                        approved: true,
-                                        coupon: the_new
-                                    }
-                                    shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
-                                }
-                            })
-                        }
-
-                        shop_use_coupon.push(the_new_coupon);
-
-                        shopdata[0].shop_use_coupon = shop_use_coupon;
-                        shopdata[0].save(function (err) {
-                            if (err) {
-                                response = { 'error_code': 2, 'message': err }
-                            } else {
-                                response = { 'error_code': 0, 'message': 'coupon is updated' };
-                            }
-                            res.status(200).json(response);
-                        });
-                    }
+                    res.status(200).json(response);
                 })
             }
         });
