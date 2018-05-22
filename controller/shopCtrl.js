@@ -637,6 +637,7 @@ module.exports = {
             } else {
                 var shop_use_coupon = data[0].shop_use_coupon;
                 var the_new = {
+                    _id: new mongoose.Types.ObjectId(),
                     approved: 'pending',
                     coupon: req.body.coupon
                 }
