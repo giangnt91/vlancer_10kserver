@@ -641,7 +641,7 @@ module.exports = {
                 var BreakException = {};
 
                 shop_use_coupon.forEach(element => {
-                    if (element._id === _coupon._id) {
+                    if (element.coupon._id === _coupon._id) {
                         inside = 1;
                         throw BreakException;
                     }
