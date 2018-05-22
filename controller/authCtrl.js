@@ -568,6 +568,7 @@ module.exports = {
 
                 use_coupon.push(the_new);
                 data.empty_slot = empty_slot + 1;
+                data.total_list_coupon = total_list_coupon;
 
                 data.save(function (err) {
                     if (err) {
