@@ -641,12 +641,15 @@ module.exports = {
                 var BreakException = {};
 
                 try {
-                    shop_use_coupon.forEach(element => {
-                        if (element.coupon._id === _coupon._id) {
-                            inside = 1;
-                            throw BreakException;
-                        }
-                    });
+                    if (shop_use_coupon.length > 0) {
+                        shop_use_coupon.forEach(element => {
+                            if (element.coupon._id === _coupon._id) {
+                                inside = 1;
+                                throw BreakException;
+                            }
+                        });
+                    }
+
                 } catch (e) {
                     if (e !== BreakException) throw e;
                 }
@@ -678,11 +681,13 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
                 var shop_use_coupon = data[0].shop_use_coupon;
-                shop_use_coupon.forEach(element => {
-                    if (element._id.toString() === req.body.couponId) {
-                        shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
-                    }
-                });
+                if (shop_use_coupon.length > 0) {
+                    shop_use_coupon.forEach(element => {
+                        if (element._id.toString() === req.body.couponId) {
+                            shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
+                        }
+                    });
+                }
                 data[0].shop_use_coupon = shop_use_coupon;
                 data[0].save(function (err) {
                     if (err) {
@@ -704,22 +709,26 @@ module.exports = {
                 var shop_use_coupon = data[0].shop_use_coupon;
 
                 //chuyển coupon từ user_get qua shop use
-                user_get_coupon.forEach(element => {
-                    if (element._id === req.body.get_couponId) {
-                        user_get_coupon.splice(user_get_coupon.indexOf(element), 1);
-                    }
-                });
-
-                shop_use_coupon.forEach(element => {
-                    if (element._id.toString() === req.body.couponId) {
-                        the_new = {
-                            _id: element._id,
-                            approved: true,
-                            coupon: element.coupon
+                if (user_get_coupon.length > 0) {
+                    user_get_coupon.forEach(element => {
+                        if (element._id === req.body.get_couponId) {
+                            user_get_coupon.splice(user_get_coupon.indexOf(element), 1);
                         }
-                        shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
-                    }
-                });
+                    });
+                }
+
+                if (shop_use_coupon.length > 0) {
+                    shop_use_coupon.forEach(element => {
+                        if (element._id.toString() === req.body.couponId) {
+                            the_new = {
+                                _id: element._id,
+                                approved: true,
+                                coupon: element.coupon
+                            }
+                            shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
+                        }
+                    });
+                }
 
                 shop_use_coupon.push(the_new);
 
