@@ -561,12 +561,13 @@ module.exports = {
                                 approved: element.approved,
                                 _id: element._id
                             }
+                            use_coupon.push(the_new);
                             total_list_coupon.splice(total_list_coupon.indexOf(element), 1);
                         }
                     });
                 }
 
-                // use_coupon.push(the_new);
+                data.use_coupon = use_coupon;
                 data.empty_slot = empty_slot + 1;
                 data.total_list_coupon = total_list_coupon;
 
