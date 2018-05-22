@@ -707,7 +707,6 @@ module.exports = {
                 user_get_coupon.forEach(element => {
                     if (element._id === req.body.get_couponId) {
                         user_get_coupon.splice(user_get_coupon.indexOf(element), 1);
-                        a = 1;
                     }
                 });
 
