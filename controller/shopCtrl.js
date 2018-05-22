@@ -661,15 +661,12 @@ module.exports = {
             } else {
                 var shop_use_coupon = data[0].shop_use_coupon;
                 var couponId = mongoose.Types.ObjectId(req.body.couponId);
-                var abx = []
+                var id;
                 shop_use_coupon.forEach(element => {
+                    id = element._id;
                     if (element._id === couponId) {
                         shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
                     }else{
-                        abx[{
-                            couponId: couponId,
-                            element: element._id
-                        }]
                     }
                 });
                 // shop_use_coupon.slice(0).forEach(function(item) {
@@ -684,7 +681,7 @@ module.exports = {
                     } else {
                         response = { 'error_code': 0, 'message': 'coupon remove success' };
                     }
-                    res.status(200).json(abx);
+                    res.status(200).json(id);
                 })
             }
         })
