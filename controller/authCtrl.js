@@ -588,58 +588,17 @@ module.exports = {
                         if (shop_use_coupon.length > 0) {
                             shop_use_coupon.forEach(item => {
                                 if (item._id.toString() === req.body.couponId) {
-                                  var  the_coupon = {
-                                        shop_name: item.coupon.shop_name,
-                                        shop_cover: item.coupon.shop_cover,
-                                        shop_avatar: item.coupon.shop_avatar,
-                                        shop_id: item.coupon.shop_id,
-                                        coupon_info: item.coupon.coupon_info,
-                                        value: item.coupon.value,
-                                        class_user: [
-                                            {
-                                                id: item.coupon.class_user[0].id,
-                                                name: item.coupon.class_user[0].name
-                                            }
-                                        ],
-                                        release_day: item.coupon.release_day,
-                                        time_expire: item.coupon.time_expire,
-                                        the_issuer: [
-                                            {
-                                                id: item.coupon.the_issuer[0].id,
-                                                name: item.coupon.the_issuer[0].name
-                                            }
-                                        ],
-                                        status_coupon: [
-                                            {
-                                                id: item.coupon.status_coupon[0].id,
-                                                status: item.coupon.status_coupon[0].status
-                                            }
-                                        ],
-                                        userid_get_coupon: item.coupon.userid_get_coupon,
-                                        time_user_get: item.coupon.time_user_get,
-                                        time_user_use: item.coupon.time_user_get,
-                                        rating: req.body.rating,
-                                        rfeedback: [
-                                            {
-                                                name: item.coupon.rfeedback[0].name,
-                                                id: item.coupon.rfeedback[0].id
-                                            }
-                                        ],
-                                        feedback: req.body.feedback,
-                                        approved: item.coupon.approved,
-                                        _id: item.coupon._id
-                                    }
-                                    the_new = {
+                                    the_new_coupon = {
                                         _id: item._id,
                                         approved: true,
-                                        coupon: the_coupon
+                                        coupon: the_new
                                     }
                                     shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
                                 }
                             })
                         }
 
-                        shop_use_coupon.push(the_new);
+                        shop_use_coupon.push(the_new_coupon);
 
                         shopdata[0].shop_use_coupon = shop_use_coupon;
                         shopdata[0].save(function (err) {
