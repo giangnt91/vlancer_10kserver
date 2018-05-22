@@ -660,11 +660,10 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
                 var shop_use_coupon = data[0].shop_use_coupon;
-                var couponId = mongoose.Types.ObjectId(req.body.couponId);
                 var a;
                 shop_use_coupon.forEach(element => {
-                    if(element._id === couponId) {
-                        shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
+                    if(element._id.toString() === req.body.couponId) {
+                        // shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
                         a = 1;
                     }else{
                         a = 0;
