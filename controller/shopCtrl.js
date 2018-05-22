@@ -702,11 +702,12 @@ module.exports = {
             } else {
                 var user_get_coupon = data[0].user_get_coupon;
                 var shop_use_coupon = data[0].shop_use_coupon;
-
+                var a = 0;
                 //chuyển coupon từ user_get qua shop use
                 user_get_coupon.forEach(element => {
                     if (element._id === req.body.get_couponId) {
                         user_get_coupon.splice(user_get_coupon.indexOf(element), 1);
+                        a = 1;
                     }
                 });
 
@@ -724,7 +725,7 @@ module.exports = {
                     } else {
                         response = { 'error_code': 0, 'message': 'coupon is approved' };
                     }
-                    res.status(200).json(response);
+                    res.status(200).json(a);
                 });
             }
         })
