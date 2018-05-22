@@ -716,7 +716,7 @@ module.exports = {
                     }
                 });
 
-                data[0].user_get_coupon = user_get_coupon;
+                // data[0].user_get_coupon = user_get_coupon;
                 data[0].shop_use_coupon = shop_use_coupon;
                 data[0].save(function (err) {
                     if (err) {
