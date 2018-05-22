@@ -576,7 +576,7 @@ module.exports = {
                     } else {
                         response = { 'error_code': 0, 'message': 'Update coupon user success' };
                     }
-                    res.status(200).json(response);
+                    res.status(200).json(data);
                 })
 
             }
