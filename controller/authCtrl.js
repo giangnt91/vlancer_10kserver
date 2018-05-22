@@ -584,10 +584,11 @@ module.exports = {
                         response = { 'error_code': 1, 'message': 'error fetching data' };
                     } else {
                         var shop_use_coupon = shopdata[0].shop_use_coupon;
-
+                        var the_new_coupon;
                         if (shop_use_coupon.length > 0) {
                             shop_use_coupon.forEach(item => {
                                 if (item._id.toString() === req.body.couponId) {
+                                    console.log('da vo nha')
                                     the_new_coupon = {
                                         _id: item._id,
                                         approved: true,
