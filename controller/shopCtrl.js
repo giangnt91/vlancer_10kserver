@@ -655,28 +655,25 @@ module.exports = {
         })
     },
     RemoveCouponShopreject: function (req, res) {
-        shop_model.find({ shopId: req.body.id }, function (err, data) {
+        shop_model.find({ shopId: req.body.shopId }, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                // var shop_use_coupon = data[0].shop_use_coupon;
-                // shop_use_coupon.forEach(element => {
-                //     if (element._id === req.body.couponId) {
-                //         delete (element);
-                //     }
-                // });
-                // data[0].shop_use_coupon = shop_use_coupon;
-                // data[0].save(function (err) {
-                //     if (err) {
-                //         response = { 'error_code': 2, 'message': err }
-                //     } else {
-                //         response = { 'error_code': 0, 'message': 'coupon remove success' };
-                //     }
-                //     res.status(200).json(data);
-                // })
-
-                res.status(200).json(data);
-
+                var shop_use_coupon = data[0].shop_use_coupon;
+                shop_use_coupon.forEach(element => {
+                    if (element._id === req.body.couponId) {
+                        delete (element);
+                    }
+                });
+                data[0].shop_use_coupon = shop_use_coupon;
+                data[0].save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 2, 'message': err }
+                    } else {
+                        response = { 'error_code': 0, 'message': 'coupon remove success' };
+                    }
+                    res.status(200).json(shop_use_coupon);
+                })
             }
         })
     }
