@@ -31,8 +31,8 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('show_coupon_for_shop', shop_id , user_img, user_name);
     })
 
-    socket.on('send_error', function (message, user_id) {
-        socket.broadcast.emit('show_error', message, user_id);
+    socket.on('send_error', function (message, user_id, id) {
+        socket.broadcast.emit('show_error', message, user_id, id);
     })
 })
 /*
