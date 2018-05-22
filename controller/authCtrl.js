@@ -587,6 +587,7 @@ module.exports = {
 
                         if (shop_use_coupon.length > 0) {
                             shop_use_coupon.forEach(element => {
+                                console.log(element)
                                 if (element._id.toString() === req.body.couponId) {
                                     _coupon = {
                                         shop_name: element.shop_name,
