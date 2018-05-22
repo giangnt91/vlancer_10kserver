@@ -660,9 +660,9 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
                 var shop_use_coupon = data[0].shop_use_coupon;
-                shop_use_coupon.forEach(function (index, element) {
+                shop_use_coupon.forEach(function (element, index, object) {
                     if (element._id === req.body.couponId) {
-                        shop_use_coupon.splice(index, 1);
+                        object.splice(index, 1);
                     }
                 });
                 data[0].shop_use_coupon = shop_use_coupon;
