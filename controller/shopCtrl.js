@@ -663,17 +663,9 @@ module.exports = {
                 var a;
                 shop_use_coupon.forEach(element => {
                     if(element._id.toString() === req.body.couponId) {
-                        // shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
-                        a = 1;
-                    }else{
-                        a = 0;
+                        shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
                     }
                 });
-                // shop_use_coupon.slice(0).forEach(function(item) {
-                //     if(item._id === req.body.couponId) {
-                //         shop_use_coupon.splice(shop_use_coupon.indexOf(item), 1);
-                //     }
-                // });
                 data[0].shop_use_coupon = shop_use_coupon;
                 data[0].save(function (err) {
                     if (err) {
@@ -681,7 +673,7 @@ module.exports = {
                     } else {
                         response = { 'error_code': 0, 'message': 'coupon remove success' };
                     }
-                    res.status(200).json(a);
+                    res.status(200).json(response);
                 })
             }
         })
