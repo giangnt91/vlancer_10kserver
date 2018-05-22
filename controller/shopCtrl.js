@@ -705,7 +705,7 @@ module.exports = {
 
                 //chuyển coupon từ user_get qua shop use
                 user_get_coupon.forEach(element => {
-                    if (element._id.toString() === req.body.couponId) {
+                    if (element._id === req.body.get_couponId) {
                         user_get_coupon.splice(user_get_coupon.indexOf(element), 1);
                     }
                 });
