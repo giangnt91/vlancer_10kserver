@@ -513,7 +513,6 @@ module.exports = {
             } else {
                 var total_list_coupon = data.total_list_coupon;
                 var use_coupon = data.use_coupon;
-                var empty_slot = data.empty_slot;
                 var _today = dateFormat(new Date(), "dd/mm/yyyy");
 
                 //chuyển coupon từ total_list_coupon qua user use
@@ -568,7 +567,7 @@ module.exports = {
                 }
 
                 data.use_coupon = use_coupon;
-                data.empty_slot = empty_slot + 1;
+                data.empty_slot = data.total_slot - total_list_coupon.length;
                 data.total_list_coupon = total_list_coupon;
 
                 data.save(function (err) {
