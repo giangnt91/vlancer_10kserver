@@ -566,7 +566,7 @@ module.exports = {
                     });
                 }
 
-                use_coupon.push(the_new);
+                // use_coupon.push(the_new);
                 data.empty_slot = empty_slot + 1;
                 data.total_list_coupon = total_list_coupon;
 
@@ -576,7 +576,7 @@ module.exports = {
                     } else {
                         response = { 'error_code': 0, 'message': 'Update coupon user success' };
                     }
-                    res.status(200).json(data);
+                    res.status(200).json(response);
                 })
 
             }
