@@ -751,7 +751,7 @@ module.exports = {
                                 ],
                                 userid_get_coupon: element.coupon.userid_get_coupon,
                                 time_user_get: element.coupon.time_user_get,
-                                time_user_use: _today,
+                                time_user_use: _today.toString(),
                                 rating: NumberInt(0),
                                 rfeedback: [
                                     {
