@@ -666,12 +666,11 @@ module.exports = {
                     if (element._id === couponId) {
                         shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
                     }else{
+                        abx[{
+                            couponId: couponId,
+                            element: element._id
+                        }]
                     }
-                    abx[{
-                        couponId: couponId,
-                        element: element._id
-                    }]
-
                 });
                 // shop_use_coupon.slice(0).forEach(function(item) {
                 //     if(item._id === req.body.couponId) {
