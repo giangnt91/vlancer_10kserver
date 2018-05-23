@@ -708,13 +708,13 @@ module.exports = {
                 var user_get_coupon = data[0].user_get_coupon;
                 var shop_use_coupon = data[0].shop_use_coupon;
                 var _today = dateFormat(new Date(), "dd/mm/yyyy");
-                a = 0;
+                var a;
 
                 //chuyển coupon từ user_get qua shop use
                 if (user_get_coupon.length > 0) {
                     user_get_coupon.forEach(element => {
+                        a = element._id.toString();
                         if (element._id.toString() === req.body.get_couponId) {
-                            a = 1;
                             user_get_coupon.splice(user_get_coupon.indexOf(element), 1);
                         }
                     });
