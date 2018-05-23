@@ -797,7 +797,7 @@ module.exports = {
 
                 if (shop_use_coupon.length > 0) {
                     shop_use_coupon.forEach(element => {
-                        if (element._id.toString() === req.body.couponId) {
+                        if (element.coupon._id === req.body.couponId) {
                             _coupon = {
                                 shop_name: element.coupon.shop_name,
                                 shop_cover: element.coupon.shop_cover,
@@ -850,7 +850,7 @@ module.exports = {
                     });
                 }
 
-                // shop_use_coupon.push(the_new);
+                shop_use_coupon.push(the_new);
                 data[0].shop_use_coupon = shop_use_coupon;
                 data[0].save(function (err) {
                     if (err) {
