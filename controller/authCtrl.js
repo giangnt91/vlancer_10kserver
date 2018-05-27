@@ -220,7 +220,7 @@ module.exports = {
                                 //check download app first login
                                 if (the_data[0].download === false) {
                                     the_data[0].download = true;
-                                    the_dataas[0].save(function (err) { });
+                                    the_data[0].save(function (err) { });
                                 }
                                 //end check
 
