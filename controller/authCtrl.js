@@ -77,7 +77,7 @@ module.exports = {
             }
             else {
                 if (shopdata.length > 0) {
-                    var shop_id = Shopdata[0].shopId;
+                    var shop_id = shopdata[0].shopId;
                     auth_model.find({ user_id: req.body.user_id }, function (err, data) {
                         if (data.length > 0) {
                             if (data[0]._status[0].id === 0) {
