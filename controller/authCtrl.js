@@ -163,6 +163,13 @@ module.exports = {
                     auth_model.find({ user_id: req.body.user_id }, function (err, data) {
                         if (data.length > 0) {
                             if (data[0]._status[0].id === 0) {
+                                //check download app first login
+                                if (data[0].download === false) {
+                                    data[0].download = true;
+                                    data[0].save(function (err) { });
+                                }
+                                //end check
+
                                 if (data[0].role[0].id !== 3) {
                                     _role = [{
                                         id: 3,
@@ -210,6 +217,13 @@ module.exports = {
                         }
                         else {
                             if (the_data.length > 0) {
+                                //check download app first login
+                                if (data[0].download === false) {
+                                    data[0].download = true;
+                                    data[0].save(function (err) { });
+                                }
+                                //end check
+
                                 the_data[0].user_img = req.body.user_img;
                                 var access_time_per_day = the_data[0].access_time_per_day;
                                 var point = the_data[0].point_plus;
