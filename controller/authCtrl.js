@@ -141,7 +141,7 @@ module.exports = {
                                 the_data[0].save(function (err) { });
                                 response = { 'error_code': 0, 'auth': the_data };
                             } else {
-                                response = { 'error_code': 2, 'message': 'user id incorrect' };
+                                response = { 'error_code': 4, 'message': 'user id incorrect' };
                             }
 
                         }
