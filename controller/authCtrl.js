@@ -218,9 +218,9 @@ module.exports = {
                         else {
                             if (the_data.length > 0) {
                                 //check download app first login
-                                if (data[0].download === false) {
-                                    data[0].download = true;
-                                    data[0].save(function (err) { });
+                                if (the_data[0].download === false) {
+                                    the_data[0].download = true;
+                                    the_dataas[0].save(function (err) { });
                                 }
                                 //end check
 
