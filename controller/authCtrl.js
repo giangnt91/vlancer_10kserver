@@ -154,7 +154,7 @@ module.exports = {
 
     // Sign in Mobile
     Mobile: function (req, res) {
-        shop_model.find({ shop_manager: { $elemMatch: { id: req.body.user_id } } }, function (err, Shopdata) {
+        shop_model.find({ shop_manager: { $elemMatch: { text: req.body.user_id } } }, function (err, Shopdata) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data !' };
             } else {
