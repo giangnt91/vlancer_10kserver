@@ -18,7 +18,7 @@ function create_basic_code(_shopid, _shop_img, _info_coupon, _code_coupon, _expi
         } else {
             response = { 'error_code': 0, 'message': 'new Basic coupon  is created !' };
         }
-        res.status(200).json(response);
+        // res.status(200).json(response);
     })
 }
 
