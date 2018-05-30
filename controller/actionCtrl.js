@@ -319,7 +319,6 @@ module.exports = {
     },
     getAll: function (req, res) {
         action_model.find({}, function (err, data) {
-            console.log(data);
             if (err) {
                 response = { 'error_code': 1, 'error_message': 'error fetching data' };
             } else {
