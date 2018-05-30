@@ -169,7 +169,8 @@ app.post('/cshop', function (req, res) {
     shop.shop(req, res);
 })
 
-var server_url = 'http://localhost:2018/';
+// var server_url = 'http://localhost:2018/';
+var server_url = 'http://35.200.213.108:2018/';
 
 app.post('/img', function (req, res) {
     upload(req, res, function (err) {
