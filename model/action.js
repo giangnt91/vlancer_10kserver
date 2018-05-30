@@ -13,4 +13,4 @@ var action = new mongoose.Schema({
 }, { versionKey: false });
 
 //create model base action schema
-module.exports = mongoose.model('Actions', action);
+module.exports = mongoose.model('Action', action);
