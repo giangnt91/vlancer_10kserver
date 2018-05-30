@@ -30,5 +30,15 @@ module.exports = {
         create(req.body.kind_reaction, req.body.id_post_reaction, req.body.url_post_reaction, req.body.click_reaction_day, req.body.id_shop, req.body.id_user);
         repsonse = { 'error_code': 0, 'message': 'create reaction complete' };
         res.status(200).json(repsonse);
+    },
+    getAll: function (req, res) {
+        reaction_model.find({}, function (err, data) {
+            if (err) {
+                repsonse = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                repsonse = { 'error_code': 0, 'reaction': data };
+                res.status(200).json(repsonse);
+            }
+        })
     }
 }

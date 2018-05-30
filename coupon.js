@@ -261,7 +261,7 @@ app.post('/mshopaccept', function (req, res) {
     shop.UpdateCouponshopuse(req, res);
 })
 
-app.post('/mupdaterating', function(req, res){
+app.post('/mupdaterating', function (req, res) {
     shop.UpdateCouponRating(req, res);
 })
 
@@ -294,6 +294,10 @@ app.post('/delac', function (req, res) {
 // reaction
 app.post('/creaction', function (req, res) {
     reaction.create(req, res);
+})
+
+app.post('/getreac', function (req, res) {
+    reaction.getAll(req, res);
 })
 
 
