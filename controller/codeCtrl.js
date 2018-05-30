@@ -41,5 +41,32 @@ module.exports = {
             }
             res.status(200).json(response);
         });
+    },
+
+    avatar: function (req, res, server_url) {
+        code_model.find({ code_coupon: req.body.code_coupon }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                var img = JSON.parse(req.body.img);
+                avatar = server_url + img[0].avatar;
+
+                data[0].shopImg = avatar;
+                data[0].save(function (err) {
+                    if (err) {
+                        response = {
+                            'error_code': 1,
+                            'message': 'error updating data'
+                        };
+                    } else {
+                        response = {
+                            'error_code': 0,
+                            'message': 'data is updated'
+                        };
+                    }
+                    res.status(200).json(response);
+                });
+            }
+        });
     }
 }

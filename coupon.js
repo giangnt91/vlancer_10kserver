@@ -154,6 +154,16 @@ app.post('/getbasic', function (req, res) {
     code.get_basic(req, res);
 })
 
+app.post('/imgbasic', function (req, res) {
+    upload(req, res, function (err) {
+        if (err) {
+            res.send({ 'error_code': 1, 'message': err });
+        } else {
+            code.avatar(req, res, server_url);
+        }
+    })
+})
+
 // shop
 app.post('/cshop', function (req, res) {
     shop.shop(req, res);
