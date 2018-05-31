@@ -47,7 +47,7 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
     //allow connect
     // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-    var allowedOrigins = ['http://35.200.236.251:8080', 'http://localhost:8080', 'http://localhost:8100', 'http://192.168.1.111:8100', 'http://10k.thietkewebneda.com', 'http://ad.thietkewebneda.com'];
+    var allowedOrigins = ['http://35.200.236.251:8080', 'http://localhost:8080', 'http://localhost:8081', 'http://192.168.1.111:8100', 'http://10k.thietkewebneda.com', 'http://ad.thietkewebneda.com'];
     var origin = req.headers.origin;
     if (allowedOrigins.indexOf(origin) > -1) {
         res.setHeader('Access-Control-Allow-Origin', origin);
