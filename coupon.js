@@ -158,6 +158,10 @@ app.post('/updatebasic', function (req, res) {
     code.Update(req, res);
 })
 
+app.post('/removebasic', function (req, res) {
+    code.Remove(req, res);
+})
+
 app.post('/imgbasic', function (req, res) {
     upload(req, res, function (err) {
         if (err) {

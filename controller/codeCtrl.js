@@ -96,5 +96,15 @@ module.exports = {
                 });
             }
         })
+    },
+    Remove: function (req, res) {
+        code_model.findByIdAndRemove(req.body._id, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                response = { 'error_code': 0, 'message': 'code is remove' };
+            }
+            res.status(200).json(response);
+        })
     }
 }
