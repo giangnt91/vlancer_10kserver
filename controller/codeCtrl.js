@@ -70,7 +70,7 @@ module.exports = {
         });
     },
     Update: function (req, res) {
-        code_model.find({ code_coupon: req.body.shopId }, function (err, data) {
+        code_model.find({ code_coupon: req.body.code_coupon }, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
