@@ -68,5 +68,33 @@ module.exports = {
                 });
             }
         });
+    },
+    Update: function (req, res) {
+        code_model.find({ code_coupon: req.body.shopId }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                data[0].shopId = req.body.shopId;
+                data[0].info_coupon = req.body.info_coupon;
+                data[0].code_coupon = req.body.code_coupon;
+                data[0].expire_day = req.body.expire_day;
+                data[0].shopUrl = req.body.shopUrl;
+
+                data[0].save(function (err) {
+                    if (err) {
+                        response = {
+                            'error_code': 1,
+                            'message': 'error updating data'
+                        };
+                    } else {
+                        response = {
+                            'error_code': 0,
+                            'message': 'data is updated'
+                        };
+                    }
+                    res.status(200).json(response);
+                });
+            }
+        })
     }
 }
