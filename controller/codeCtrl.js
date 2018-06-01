@@ -2,11 +2,12 @@
 code_model = require('../model/code');
 
 // create basic code
-function create_basic_code(_shopid, _shop_img, _info_coupon, _code_coupon, _expire_day, _shop_url) {
+function create_basic_code(_shopid, _shop_img, _info_coupon, _value, _code_coupon, _expire_day, _shop_url) {
     var code = new code_model({
         shopId: _shopid,
         shopImg: _shop_img,
         info_coupon: _info_coupon,
+        value: _value,
         code_coupon: _code_coupon,
         expire_day: _expire_day,
         shopUrl: _shop_url
@@ -26,7 +27,7 @@ function create_basic_code(_shopid, _shop_img, _info_coupon, _code_coupon, _expi
 module.exports = {
     // create basic
     basic_code: function (req, res) {
-        create_basic_code(req.body.shopId, req.body.shopImg, req.body.info_coupon, req.body.code_coupon, req.body.expire_day, req.body.shopUrl);
+        create_basic_code(req.body.shopId, req.body.shopImg, req.body.info_coupon, req.body.value, req.body.code_coupon, req.body.expire_day, req.body.shopUrl);
         response = { 'error_code': 0, 'message': 'new Basic coupon  is created !' }
         res.status(200).json(response);
     },

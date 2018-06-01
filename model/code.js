@@ -8,6 +8,7 @@ var code = new mongoose.Schema({
     shopId: String,
     shopImg: String,
     info_coupon: String,
+    value: Array,
     code_coupon: String,
     expire_day: String,
     shopUrl: String
