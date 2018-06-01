@@ -77,6 +77,7 @@ module.exports = {
             } else {
                 data[0].shopId = req.body.shopId;
                 data[0].info_coupon = req.body.info_coupon;
+                data[0].value = req.body.value;
                 data[0].code_coupon = req.body.code_coupon;
                 data[0].expire_day = req.body.expire_day;
                 data[0].shopUrl = req.body.shopUrl;
