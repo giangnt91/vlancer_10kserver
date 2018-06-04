@@ -45,7 +45,6 @@ function remove_coupon_expired() {
     var _today = dateFormat(new Date(), "yyyymd");
     
     shop_model.find({}, function (err, data) {
-        console.log(_today)
         var _arr = []
         data.forEach(element => {
             if (element.shop_coupon.length > 0) {
@@ -97,7 +96,7 @@ function remove_coupon_expired() {
 schedule function
 1. function remove expired automatic every midnight
 */
-schedule.scheduleJob('0 0 * * *', function () {
+schedule.scheduleJob('*/1 * * * *', function () {
     remove_coupon_expired();
 })
 
