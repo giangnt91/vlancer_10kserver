@@ -42,15 +42,15 @@ function process(x) {
 
 // check coupon expired
 function remove_coupon_expired() {
-    var _today = dateFormat(new Date(), "yyyymmdd");
+    var _today = dateFormat(new Date(), "yyyymd");
+    console.log(_today)
     shop_model.find({}, function (err, data) {
-
         var _arr = []
         data.forEach(element => {
             if (element.shop_coupon.length > 0) {
                 if (element.shop_coupon[0].approved === true) {
                     _arr = element.expire_coupon;
-                    var _expire_day = process(element.shop_coupon[0].coupon[0].time_expire);
+                    var _expire_day = process(element.shop_coupon[0].coupon[0].limit_time);
 
                     if (_expire_day > _today) {
                         element.shop_coupon[0].coupon.forEach(el => {
