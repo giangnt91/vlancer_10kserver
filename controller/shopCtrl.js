@@ -96,7 +96,7 @@ function remove_coupon_expired() {
 schedule function
 1. function remove expired automatic every midnight
 */
-schedule.scheduleJob('*/1 * * * *', function () {
+schedule.scheduleJob('0 0 * * *', function () {
     remove_coupon_expired();
 })
 
