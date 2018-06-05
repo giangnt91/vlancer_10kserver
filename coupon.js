@@ -15,8 +15,11 @@ app.use(express.static('./img/'));
 app.use(express.static('./node_modules/socket.io-client/dist/'));
 
 
-// auto check expired coupon and alert user
-function check_coupon() {
+/*
+schedule function
+1. function remove expired automatic every midnight
+*/
+schedule.scheduleJob('*/1 * * * *', function () {
     var _today = dateFormat(new Date(), "yyyymd");
     auth_model.find({}, function (err, data) {
         if (data) {
@@ -41,14 +44,6 @@ function check_coupon() {
             });
         }
     })
-}
-
-/*
-schedule function
-1. function remove expired automatic every midnight
-*/
-schedule.scheduleJob('*/1 * * * *', function () {
-    check_coupon();
 })
 
 
