@@ -21,32 +21,6 @@ app.use(express.static('./node_modules/socket.io-client/dist/'));
 schedule function
 1. function remove expired automatic every midnight
 */
-schedule.scheduleJob('*/1 * * * *', function () {
-    var _today = dateFormat(new Date(), "yyyymd");
-    auth_model.find({}, function (err, data) {
-        if (data) {
-            data.forEach(element => {
-                if (element.total_list_coupon.length > 0) {
-                    element.total_list_coupon.forEach(elcoupon => {
-                        var _dayp = elcoupon.limit_time.split('/');
-                        var _limit = _dayp[2] + _dayp[1] + _dayp[0];
-                        var left_day = parseInt(_limit) - parseInt(_today);
-                        // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
-                        if (left_day <= 10) {
-                            var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
-                            var userid = elcoupon.userid_get_coupon[0].id;
-                            io.on('connection', function (socket) {
-                                var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
-                                var userid = elcoupon.userid_get_coupon[0].id;
-                                socket.broadcast.emit('alert_coupon', userid, _message);
-                            })
-                        }
-                    });
-                }
-            });
-        }
-    })
-})
 
 
 /*
@@ -69,6 +43,33 @@ io.on('connection', function (socket) {
 
     socket.on('send_error', function (message, user_id, id) {
         socket.broadcast.emit('show_error', message, user_id, id);
+    })
+
+    schedule.scheduleJob('*/1 * * * *', function () {
+        var _today = dateFormat(new Date(), "yyyymd");
+        auth_model.find({}, function (err, data) {
+            if (data) {
+                data.forEach(element => {
+                    if (element.total_list_coupon.length > 0) {
+                        element.total_list_coupon.forEach(elcoupon => {
+                            var _dayp = elcoupon.limit_time.split('/');
+                            var _limit = _dayp[2] + _dayp[1] + _dayp[0];
+                            var left_day = parseInt(_limit) - parseInt(_today);
+                            // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
+                            if (left_day <= 10) {
+                                var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
+                                var userid = elcoupon.userid_get_coupon[0].id;
+                                // io.on('connection', function (socket) {
+                                    var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
+                                    var userid = elcoupon.userid_get_coupon[0].id;
+                                    socket.broadcast.emit('alert_coupon', userid, _message);
+                                // })
+                            }
+                        });
+                    }
+                });
+            }
+        })
     })
 })
 /*
