@@ -72,7 +72,7 @@ function check_coupon() {
                 if (element.total_list_coupon.length > 0) {
                     element.total_list_coupon.forEach(elcoupon => {
                         var _limit = process(elcoupon.limit_time);
-                        var left_day = parseInt(_limit - _today);
+                        var left_day = parseInt(_limit) - parseInt(_today);
                         console.log(left_day)
                         // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
                         if (left_day <= 10) {
