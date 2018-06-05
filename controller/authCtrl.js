@@ -6,7 +6,7 @@ auth_model = require('../model/auth');
 shop_model = require('../model/shop');
 
 // Sign up function
-function Create_User(_user_id, _user_img, _info, _point_per_day, _point_per_today, _total_slot, _class, _download, _access_time_per_day, _point_plus, _point_bad, _total_list_coupon, _empty_slot, _use_coupon, _call_server_in_day, _role, _status) {
+function Create_User(_user_id, _user_img, _info, _point_per_day, _point_per_today, _total_slot, _class, _download, _access_time_per_day, _point_plus, _point_bad, _total_list_coupon, _empty_slot, _use_coupon, _call_server_in_day, _role, _notif, _status) {
     if (_info !== undefined) {
         var tmp_info = JSON.parse(_info);
     } else {
@@ -42,6 +42,7 @@ function Create_User(_user_id, _user_img, _info, _point_per_day, _point_per_toda
         use_coupon: [],
         call_server_in_day: tmp_call_server_in_day,
         role: JSON.parse(_role),
+        notif: _notif,
         _status: JSON.parse(_status)
     });
 
@@ -62,7 +63,7 @@ module.exports = {
                 if (data.length > 0) {
                     response = { 'error_code': 2, 'message': 'username already exists, retry with another username !' }
                 } else {
-                    Create_User(req.body.user_id, req.body.user_img, req.body.info, req.body.point_per_day, req.body.point_per_today, req.body.total_slot, req.body.user_class, req.body.download, req.body.access_time_per_day, req.body.point_plus, req.body.point_bad, req.body.total_list_coupon, req.body.empty_slot, req.body.use_coupon, req.body.call_server_in_day, req.body.role, req.body._status);
+                    Create_User(req.body.user_id, req.body.user_img, req.body.info, req.body.point_per_day, req.body.point_per_today, req.body.total_slot, req.body.user_class, req.body.download, req.body.access_time_per_day, req.body.point_plus, req.body.point_bad, req.body.total_list_coupon, req.body.empty_slot, req.body.use_coupon, req.body.call_server_in_day, req.body.role, null, req.body._status);
                     response = { 'error_code': 0, 'message': 'user is created !' };
                 }
             }
@@ -264,6 +265,24 @@ module.exports = {
                         response = { 'error_code': 3, 'message': 'error update data' };
                     } else {
                         response = { 'error_code': 0, 'message': 'Update coupon user success' };
+                    }
+                    res.status(200).json(response);
+                })
+            }
+        })
+    },
+
+    UpdateuserNotif: function (req, res) {
+        auth_model.findById(req.body._id, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                data.notif = req.body.notifId;
+                data.save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 3, 'message': 'error update data' };
+                    } else {
+                        response = { 'error_code': 0, 'message': 'Update NotifId success' };
                     }
                     res.status(200).json(response);
                 })

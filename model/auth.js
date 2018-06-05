@@ -22,6 +22,7 @@ var user = new mongoose.Schema({
     use_coupon: Array,
     call_server_in_day: Array,
     role: Array,
+    notif: String,
     _status: Array
 }, {
         versionKey: false

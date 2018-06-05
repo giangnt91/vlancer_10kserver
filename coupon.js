@@ -157,6 +157,10 @@ app.post('/rcoupon', function (req, res) {
     auth.RemoveCoupon(req, res);
 })
 
+app.post('/notifid', function (req, res) {
+    auth.UpdateuserNotif(req, res);
+})
+
 app.post('/couponfeed', function (req, res) {
     auth.CouponUsefeed(req, res);
 })
