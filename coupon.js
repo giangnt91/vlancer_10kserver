@@ -57,7 +57,7 @@ io.on('connection', function (socket) {
                             var _limit = _dayp[2] + _dayp[1] + _dayp[0];
                             var left_day = parseInt(_limit) - parseInt(_today);
                             // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
-                            if (0 < left_day < 10) {
+                            if (left_day < 10 && left_day > 0) {
 
                                 var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " ngày nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
                                 var userid = elcoupon.userid_get_coupon[0].id;
