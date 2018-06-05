@@ -58,24 +58,23 @@ io.on('connection', function (socket) {
                             var left_day = parseInt(_limit) - parseInt(_today);
                             // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
                             if (left_day <= 10) {
-                                var _the_id;
-                                socket.on('gcmid', function (id) {
-                                    _the_id = id;
-                                })
-                                // console.log(_the_id)
+                                
+                                var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
+                                var userid = elcoupon.userid_get_coupon[0].id;
+
                                 var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw'; //put your server key here
                                 var fcm = new FCM(serverKey);
-                                var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
+                                var message = { 
                                     to: 'dGqnVpVAtdc:APA91bFDD7I7VHB3fe-rcL-65SUnluWP0Zw08SwnwjHIdG8tld5RBGTfqcs6xzNLSqJ6e7P_Illx2_0RFuey7R50dnGoBuHtawL97F_XanlRIX3vEkRk4p7_iSaoZnal3esb2U3Ranoq',
                                     collapse_key: 'green',
 
                                     notification: {
                                         title: 'Thông báo',
-                                        body: 'Body of your push notification'
+                                        body: _message
                                     },
 
                                     data: {  //you can send only notification or only data(or include both)
-                                        message: 'giang den day'
+                                        message: _message
                                     }
                                 };
 
