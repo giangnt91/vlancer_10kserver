@@ -65,7 +65,7 @@ io.on('connection', function (socket) {
                                 var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw';
                                 var fcm = new FCM(serverKey);
                                 var message = {
-                                    to: 'dGqnVpVAtdc:APA91bFDD7I7VHB3fe-rcL-65SUnluWP0Zw08SwnwjHIdG8tld5RBGTfqcs6xzNLSqJ6e7P_Illx2_0RFuey7R50dnGoBuHtawL97F_XanlRIX3vEkRk4p7_iSaoZnal3esb2U3Ranoq',
+                                    to: elcoupon.notif,
                                     collapse_key: 'green',
 
                                     data: {
