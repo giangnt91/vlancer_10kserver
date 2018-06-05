@@ -70,24 +70,23 @@ function check_coupon() {
         if (data) {
             data.forEach(element => {
                 if (element.total_list_coupon.length > 0) {
-                    console.log(element)
-                    // element.forEach(elcoupon => {
-                    //     var _limit = process(elcoupon.limit_time);
-                    //     var left_day = parseInt(_limit - _today);
-                    //     console.log(left_day)
-                    //     // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
-                    //     if (left_day <= 10) {
-                    //         console.log('dang send')
-                    //         var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
-                    //         var userid = elcoupon.userid_get_coupon[0].id;
-                    //         io.sockets.emit('alert_coupon', userid, _message);
-                    //         // io.on('connection', function (socket) {
-                    //         //     var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
-                    //         //     var userid = elcoupon.userid_get_coupon[0].id;
-                    //         //     socket.broadcast.emit('alert_coupon', userid, _message);
-                    //         // })
-                    //     }
-                    // });
+                    element.forEach(elcoupon => {
+                        var _limit = process(elcoupon.limit_time);
+                        var left_day = parseInt(_limit - _today);
+                        console.log(left_day)
+                        // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
+                        if (left_day <= 10) {
+                            console.log('dang send')
+                            var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
+                            var userid = elcoupon.userid_get_coupon[0].id;
+                            io.sockets.emit('alert_coupon', userid, _message);
+                            // io.on('connection', function (socket) {
+                            //     var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
+                            //     var userid = elcoupon.userid_get_coupon[0].id;
+                            //     socket.broadcast.emit('alert_coupon', userid, _message);
+                            // })
+                        }
+                    });
                 }
             });
         }
