@@ -58,36 +58,7 @@ io.on('connection', function (socket) {
                             var left_day = parseInt(_limit) - parseInt(_today);
                             // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
                             if (left_day <= 10) {
-                                console.log('chuan bi send');
-                                var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
-                                var userid = elcoupon.userid_get_coupon[0].id;
-                                // io.on('connection', function (socket) {
-                                var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
-                                var userid = elcoupon.userid_get_coupon[0].id;
-                                
-                                var tokengcm;
-                                socket.on('gcmid', function(id){
-                                    tokengcm = id;
-                                })
-                                var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw';//put server key here
-                                var fcm = new FCM(serverKey);
-                                var token = tokengcm;// put token here which user you have to send push notification
-                                var message = {
-                                    to: token,
-                                    // collapse_key: 'your_collapse_key',
-                                    notification: { title: 'Thông Báo', body: 'test' },
-                                    data: { message: _message }
-                                };
-
-                                fcm.send(message, function (err, response) {
-                                    // if (err) {
-                                    //     res.json({ status: 0, message: err });
-                                    // } else {
-                                    //     res.json({ status: 1, message: response });
-                                    // }
-                                });
-                                // socket.broadcast.emit('alert_coupon', userid, _message);
-                                // })
+                                console.log(elcoupon);
                             }
                         });
                     }
