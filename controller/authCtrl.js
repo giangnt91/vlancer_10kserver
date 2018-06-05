@@ -76,11 +76,14 @@ function check_coupon() {
                         // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
                         if (left_day <= 10) {
                             console.log('dang send')
-                            io.on('connection', function (socket) {
-                                var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
-                                var userid = elcoupon.userid_get_coupon[0].id;
-                                io.sockets.emit('alert_coupon', userid, _message);
-                            })
+                            var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
+                            var userid = elcoupon.userid_get_coupon[0].id;
+                            io.sockets.emit('alert_coupon', userid, _message);
+                            // io.on('connection', function (socket) {
+                            //     var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
+                            //     var userid = elcoupon.userid_get_coupon[0].id;
+                            //     socket.broadcast.emit('alert_coupon', userid, _message);
+                            // })
                         }
                     });
                 }
@@ -94,7 +97,7 @@ schedule function
 1. function remove expired automatic every midnight
 */
 schedule.scheduleJob('/1* * * * *', function () {
-    remove_coupon_expired();
+    check_coupon();
 })
 
 
