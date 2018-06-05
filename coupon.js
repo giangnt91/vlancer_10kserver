@@ -56,25 +56,19 @@ io.on('connection', function (socket) {
                             var _dayp = elcoupon.limit_time.split('/');
                             var _limit = _dayp[2] + _dayp[1] + _dayp[0];
                             var left_day = parseInt(_limit) - parseInt(_today);
-                            // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
+                            // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông báo cho user
                             if (left_day < 10 && left_day > 0) {
 
                                 var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " ngày nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
                                 var userid = elcoupon.userid_get_coupon[0].id;
 
-                                var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw'; //put your server key here
+                                var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw';
                                 var fcm = new FCM(serverKey);
                                 var message = {
                                     to: 'dGqnVpVAtdc:APA91bFDD7I7VHB3fe-rcL-65SUnluWP0Zw08SwnwjHIdG8tld5RBGTfqcs6xzNLSqJ6e7P_Illx2_0RFuey7R50dnGoBuHtawL97F_XanlRIX3vEkRk4p7_iSaoZnal3esb2U3Ranoq',
                                     collapse_key: 'green',
-                                    // notification: {
-                                    //     title: 'Thông báo',
-                                    //     body: _message,
-                                    //     sound: 'default',
-                                    //     vibrate: "true"
-                                    // },
 
-                                    data: {  //you can send only notification or only data(or include both)
+                                    data: {
                                         title: 'Thông Báo',
                                         message: _message,
                                         sound: 'default',
@@ -83,13 +77,12 @@ io.on('connection', function (socket) {
                                 };
 
                                 fcm.send(message, function (err, response) {
-                                    if (err) {
-                                        console.log(err);
-                                    } else {
-                                        console.log('ok');
-                                    }
+                                    // if (err) {
+                                    //     console.log(err);
+                                    // } else {
+                                    //     console.log('ok');
+                                    // }
                                 });
-
                             }
                         });
                     }
@@ -158,6 +151,10 @@ var upload = multer({ storage: storage }).any();
 // auth
 app.post('/mobile', function (req, res) {
     auth.Mobile(req, res);
+})
+
+app.post('/rcoupon', function (req, res) {
+    auth.RemoveCoupon(req, res);
 })
 
 app.post('/couponfeed', function (req, res) {

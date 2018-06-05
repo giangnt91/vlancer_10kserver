@@ -249,6 +249,28 @@ module.exports = {
         })
     },
 
+    RemoveCoupon: function (req, res) {
+        auth_model.findById(req.body._id, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                data.total_list_coupon.forEach(element => {
+                    if (element._id === req.body.couponId) {
+                        data.total_list_coupon.splice(data.total_list_coupon.indexOf(element), 1);
+                    }
+                });
+                data.save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 3, 'message': 'error update data' };
+                    } else {
+                        response = { 'error_code': 0, 'message': 'Update coupon user success' };
+                    }
+                    res.status(200).json(response);
+                })
+            }
+        })
+    },
+
     //update profile info
     update: function (req, res) {
         auth_model.findById(req.body._id, function (err, data) {
