@@ -76,7 +76,7 @@ function check_coupon() {
                         // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
                         if (left_day <= 10) {
                             console.log('dang send')
-                            socket.on('send to server', function (data) {
+                            io.on('send to server', function (data) {
                                 socket.broadcast('alert_coupon', userid, _message);
                                 console.log('da send');
                                 // socketId = getSocketIdFromUserId(user_id);
