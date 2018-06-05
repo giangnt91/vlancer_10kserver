@@ -77,11 +77,11 @@ io.on('connection', function (socket) {
                                 };
 
                                 fcm.send(message, function (err, response) {
-                                    if (err) {
-                                        console.log(err);
-                                    } else {
-                                        console.log('ok');
-                                    }
+                                    // if (err) {
+                                    //     console.log(err);
+                                    // } else {
+                                    //     console.log('ok');
+                                    // }
                                 });
                             }
                         });
