@@ -58,7 +58,31 @@ io.on('connection', function (socket) {
                             var left_day = parseInt(_limit) - parseInt(_today);
                             // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
                             if (left_day <= 10) {
-                                console.log(elcoupon);
+                                var serverKey = 'AIzaSyAaME8hbsET8CDuFuuFg3-Hy34zPBydmBc'; //put your server key here
+                                var fcm = new FCM(serverKey);
+
+                                var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
+                                    to: 'registration_token',
+                                    collapse_key: 'green',
+
+                                    notification: {
+                                        title: 'Thông báo',
+                                        body: 'Body of your push notification'
+                                    },
+
+                                    data: {  //you can send only notification or only data(or include both)
+                                        message: 'giang den day'
+                                    }
+                                };
+
+                                fcm.send(message, function (err, response) {
+                                    if (err) {
+                                        console.log("Something has gone wrong!");
+                                    } else {
+                                        console.log("Successfully sent with response: ", response);
+                                    }
+                                });
+
                             }
                         });
                     }
