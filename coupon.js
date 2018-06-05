@@ -80,11 +80,11 @@ io.on('connection', function (socket) {
                                 };
 
                                 fcm.send(message, function (err, response) {
-                                    if (err) {
-                                        res.json({ status: 0, message: err });
-                                    } else {
-                                        res.json({ status: 1, message: response });
-                                    }
+                                    // if (err) {
+                                    //     res.json({ status: 0, message: err });
+                                    // } else {
+                                    //     res.json({ status: 1, message: response });
+                                    // }
                                 });
                                 // socket.broadcast.emit('alert_coupon', userid, _message);
                                 // })
