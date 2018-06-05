@@ -59,7 +59,7 @@ io.on('connection', function (socket) {
                             // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
                             if (left_day <= 10) {
                                 
-                                var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
+                                var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " ngày nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
                                 var userid = elcoupon.userid_get_coupon[0].id;
 
                                 var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw'; //put your server key here
