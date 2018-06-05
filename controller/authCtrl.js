@@ -77,7 +77,8 @@ function check_coupon() {
                         if (left_day <= 10) {
                             console.log('dang send')
                             socket.on('send to server', function (data) {
-                                socket.broadcast('alert_coupon', 'test data');
+                                socket.broadcast('alert_coupon', userid, _message);
+                                console.log('da send');
                                 // socketId = getSocketIdFromUserId(user_id);
                                 // io.to(socketId).emit('notification', 'test data');
                             })
