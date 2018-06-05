@@ -57,14 +57,14 @@ io.on('connection', function (socket) {
                             var _limit = _dayp[2] + _dayp[1] + _dayp[0];
                             var left_day = parseInt(_limit) - parseInt(_today);
                             // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
-                            if (left_day <= 10) {
-                                
+                            if (0 < left_day < 10) {
+
                                 var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " ngày nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
                                 var userid = elcoupon.userid_get_coupon[0].id;
 
                                 var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw'; //put your server key here
                                 var fcm = new FCM(serverKey);
-                                var message = { 
+                                var message = {
                                     to: 'dGqnVpVAtdc:APA91bFDD7I7VHB3fe-rcL-65SUnluWP0Zw08SwnwjHIdG8tld5RBGTfqcs6xzNLSqJ6e7P_Illx2_0RFuey7R50dnGoBuHtawL97F_XanlRIX3vEkRk4p7_iSaoZnal3esb2U3Ranoq',
                                     collapse_key: 'green',
 
@@ -82,7 +82,7 @@ io.on('connection', function (socket) {
                                     if (err) {
                                         console.log(err);
                                     } else {
-                                        console.log("Successfully sent with response: ", response);
+                                        console.log('ok');
                                     }
                                 });
 
