@@ -67,18 +67,18 @@ io.on('connection', function (socket) {
                                 var message = {
                                     to: 'dGqnVpVAtdc:APA91bFDD7I7VHB3fe-rcL-65SUnluWP0Zw08SwnwjHIdG8tld5RBGTfqcs6xzNLSqJ6e7P_Illx2_0RFuey7R50dnGoBuHtawL97F_XanlRIX3vEkRk4p7_iSaoZnal3esb2U3Ranoq',
                                     collapse_key: 'green',
-                                    priority: 'high',
-                                    delayWhileIdle: true,
-                                    timeToLive: 3,
                                     notification: {
                                         title: 'Thông báo',
-                                        body: _message
+                                        body: _message,
+                                        sound: 'default',
+                                        vibrate: "true",
+                                        priority: "0",
+			                            badge: 2
                                     },
 
                                     data: {  //you can send only notification or only data(or include both)
                                         title: 'Thông Báo',
                                         message: _message,
-                                        sound: 'default',
                                     }
                                 };
 
