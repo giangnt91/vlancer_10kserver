@@ -57,12 +57,14 @@ io.on('connection', function (socket) {
                             var left_day = parseInt(_limit) - parseInt(_today);
                             // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
                             if (left_day <= 10) {
+                                console.log('chuan bi send');
                                 var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
                                 var userid = elcoupon.userid_get_coupon[0].id;
                                 // io.on('connection', function (socket) {
                                     var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
                                     var userid = elcoupon.userid_get_coupon[0].id;
                                     socket.broadcast.emit('alert_coupon', userid, _message);
+                                    console.log('ok')
                                 // })
                             }
                         });
