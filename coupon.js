@@ -22,37 +22,31 @@ function process(x) {
 
 
 // auto check expired coupon and alert user
-function check_coupon() {
-    var _today = dateFormat(new Date(), "yyyymd");
-    auth_model.find({}, function (err, data) {
-        if (data) {
-            data.forEach(element => {
-                if (element.total_list_coupon.length > 0) {
-                    element.total_list_coupon.forEach(elcoupon => {
-                        var _limit = process(elcoupon.limit_time);
-                        var left_day = parseInt(_limit) - parseInt(_today);
-                        // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
-                        if (left_day <= 10) {
-                            console.log('dang send')
-                            var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
-                            var userid = elcoupon.userid_get_coupon[0].id;
-                            // io.sockets.emit('alert_coupon', userid, _message);
-                            io.on('connection', function (socket) {
-                                var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
-                                var userid = elcoupon.userid_get_coupon[0].id;
-                                socket.broadcast.emit('alert_coupon', userid, _message);
-                                // socket.on('get_nof', function () {
-                                //     console.log('da send')
-                                //     socket.broadcast.emit('alert_coupon', userid, _message);
-                                // })
-                            })
-                        }
-                    });
-                }
-            });
-        }
-    })
-}
+// function check_coupon() {
+//     var _today = dateFormat(new Date(), "yyyymd");
+//     auth_model.find({}, function (err, data) {
+//         if (data) {
+//             data.forEach(element => {
+//                 if (element.total_list_coupon.length > 0) {
+//                     element.total_list_coupon.forEach(elcoupon => {
+//                         var _limit = process(elcoupon.limit_time);
+//                         var left_day = parseInt(_limit) - parseInt(_today);
+//                         // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
+//                         if (left_day <= 10) {
+//                             var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
+//                             var userid = elcoupon.userid_get_coupon[0].id;
+//                             io.on('connection', function (socket) {
+//                                 var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
+//                                 var userid = elcoupon.userid_get_coupon[0].id;
+//                                 socket.broadcast.emit('alert_coupon', userid, _message);
+//                             })
+//                         }
+//                     });
+//                 }
+//             });
+//         }
+//     })
+// }
 
 /*
 schedule function
