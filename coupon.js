@@ -58,11 +58,15 @@ io.on('connection', function (socket) {
                             var left_day = parseInt(_limit) - parseInt(_today);
                             // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
                             if (left_day <= 10) {
+                                _the_id;
+                                socket.on('gcmid', function(id){
+                                    _the_id = id;
+                                })
                                 var serverKey = 'AIzaSyAaME8hbsET8CDuFuuFg3-Hy34zPBydmBc'; //put your server key here
                                 var fcm = new FCM(serverKey);
 
                                 var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
-                                    to: 'registration_token',
+                                    to: _the_id,
                                     collapse_key: 'green',
 
                                     notification: {
