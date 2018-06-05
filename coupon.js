@@ -71,9 +71,7 @@ io.on('connection', function (socket) {
                                         title: 'Thông báo',
                                         body: _message,
                                         sound: 'default',
-                                        vibrate: "true",
-                                        priority: "0",
-			                            badge: 2
+                                        vibrate: "true"
                                     },
 
                                     data: {  //you can send only notification or only data(or include both)
