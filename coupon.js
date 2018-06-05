@@ -15,10 +15,10 @@ app.use(express.static('./img/'));
 app.use(express.static('./node_modules/socket.io-client/dist/'));
 
 //conver day to int for compare
-function process(x) {
-    var parts = x.split("/");
-    return parts[2] + parts[1] + parts[0];
-}
+// function process(x) {
+//     var parts = x.split("/");
+//     return parts[2] + parts[1] + parts[0];
+// }
 
 
 // auto check expired coupon and alert user
