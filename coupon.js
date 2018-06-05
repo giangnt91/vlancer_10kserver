@@ -59,14 +59,14 @@ io.on('connection', function (socket) {
                             // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông bao cho user
                             if (left_day <= 10) {
                                 var _the_id;
-                                socket.on('gcmid', function(id){
+                                socket.on('gcmid', function (id) {
                                     _the_id = id;
                                 })
-                                console.log(_the_id)
+                                // console.log(_the_id)
                                 var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw'; //put your server key here
                                 var fcm = new FCM(serverKey);
                                 var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
-                                    to: _the_id,
+                                    to: 'dGqnVpVAtdc:APA91bFDD7I7VHB3fe-rcL-65SUnluWP0Zw08SwnwjHIdG8tld5RBGTfqcs6xzNLSqJ6e7P_Illx2_0RFuey7R50dnGoBuHtawL97F_XanlRIX3vEkRk4p7_iSaoZnal3esb2U3Ranoq',
                                     collapse_key: 'green',
 
                                     notification: {
