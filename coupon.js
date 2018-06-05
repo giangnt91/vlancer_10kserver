@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var device = require('express-device');
 var multer = require('multer');
 var schedule = require('node-schedule');
+var dateFormat = require('dateformat');
+
 // library for socket.io
 var http = http.Server(app);
 var io = require('socket.io')(http);
