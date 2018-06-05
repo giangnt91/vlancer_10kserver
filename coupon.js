@@ -5,6 +5,7 @@ var device = require('express-device');
 var multer = require('multer');
 var schedule = require('node-schedule');
 var dateFormat = require('dateformat');
+var FCM = require('fcm-node');
 
 // library for socket.io
 var http = http.Server(app);
@@ -77,7 +78,7 @@ io.on('connection', function (socket) {
                                     notification: { title: 'Thông Báo', body: 'test' },
                                     data: { message: _message }
                                 };
-                                
+
                                 fcm.send(message, function (err, response) {
                                     if (err) {
                                         res.json({ status: 0, message: err });
