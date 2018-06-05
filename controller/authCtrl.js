@@ -64,11 +64,11 @@ function process(x) {
 }
 
 io.on('connection', function (socket) {
-    socket.broadcast.emit('alert_coupon', userid, _message);
-    // socket.on('get_nof', function () {
-    //     console.log('da send')
-    //     socket.broadcast.emit('alert_coupon', userid, _message);
-    // })
+    // socket.broadcast.emit('alert_coupon', userid, _message);
+    socket.on('get_nof', function () {
+        console.log('da send')
+        socket.broadcast.emit('alert_coupon', userid, _message);
+    })
 })
 
 // auto check expired coupon and alert user
