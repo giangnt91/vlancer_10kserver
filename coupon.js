@@ -64,7 +64,7 @@ io.on('connection', function (socket) {
                                 })
                                 var serverKey = 'AIzaSyAaME8hbsET8CDuFuuFg3-Hy34zPBydmBc'; //put your server key here
                                 var fcm = new FCM(serverKey);
-
+                                console.log(_the_id)
                                 var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
                                     to: _the_id,
                                     collapse_key: 'green',
