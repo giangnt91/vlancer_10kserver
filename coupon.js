@@ -63,7 +63,7 @@ io.on('connection', function (socket) {
                                     _the_id = id;
                                 })
                                 console.log(_the_id)
-                                var serverKey = 'AIzaSyAaME8hbsET8CDuFuuFg3-Hy34zPBydmBc'; //put your server key here
+                                var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw'; //put your server key here
                                 var fcm = new FCM(serverKey);
                                 var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
                                     to: _the_id,
