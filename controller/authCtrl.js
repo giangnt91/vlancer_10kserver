@@ -64,8 +64,6 @@ function process(x) {
 }
 
 io.on('connection', function (socket) {
-    var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
-    var userid = elcoupon.userid_get_coupon[0].id;
     socket.broadcast.emit('alert_coupon', userid, _message);
     // socket.on('get_nof', function () {
     //     console.log('da send')
