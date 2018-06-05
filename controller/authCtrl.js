@@ -70,7 +70,7 @@ function check_coupon() {
         if (data) {
             data.forEach(element => {
                 if (element.total_list_coupon.length > 0) {
-                    element.forEach(elcoupon => {
+                    element.total_list_coupon.forEach(elcoupon => {
                         var _limit = process(elcoupon.limit_time);
                         var left_day = parseInt(_limit - _today);
                         console.log(left_day)
