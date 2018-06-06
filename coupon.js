@@ -32,8 +32,6 @@ schedule.scheduleJob('*/1 * * * *', function () {
                         var _dayp = elcoupon.limit_time.split('/');
                         var _limit = _dayp[2] + _dayp[1] + _dayp[0];
                         var left_day = parseInt(_limit) - parseInt(_today);
-                        var id = elcoupon.notif;
-                        console.log(elcoupon)
                         // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông báo cho user
                         if (left_day < 10 && left_day > 0) {
 
@@ -43,7 +41,7 @@ schedule.scheduleJob('*/1 * * * *', function () {
                             var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw';
                             var fcm = new FCM(serverKey);
                             var message = {
-                                to: elcoupon.notif,
+                                to: element.notif,
                                 collapse_key: 'green',
 
                                 data: {
