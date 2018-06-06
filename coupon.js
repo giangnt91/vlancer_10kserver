@@ -3,7 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var device = require('express-device');
 var multer = require('multer');
-var schedule = require('node-schedule');
+// var schedule = require('node-schedule');
 var dateFormat = require('dateformat');
 var FCM = require('fcm-node');
 
