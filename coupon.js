@@ -40,6 +40,7 @@ schedule.scheduleJob('*/1 * * * *', function () {
 
                             var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw';
                             var fcm = new FCM(serverKey);
+                            console.log(elcoupon.notif)
                             var message = {
                                 to: elcoupon.notif,
                                 collapse_key: 'green',
