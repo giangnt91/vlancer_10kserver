@@ -33,7 +33,7 @@ schedule.scheduleJob('*/1 * * * *', function () {
                         var _limit = _dayp[2] + _dayp[1] + _dayp[0];
                         var left_day = parseInt(_limit) - parseInt(_today);
                         var id = elcoupon.notif;
-                        console.log(id)
+                        console.log(elcoupon)
                         // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông báo cho user
                         if (left_day < 10 && left_day > 0) {
 
