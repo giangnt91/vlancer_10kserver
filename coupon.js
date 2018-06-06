@@ -22,7 +22,7 @@ app.use(express.static('./node_modules/socket.io-client/dist/'));
 schedule function
 1. function remove expired automatic every midnight
 */
-schedule.scheduleJob('*/1 * * * *', function () {
+schedule.scheduleJob('0 0 9 * *', function () {
     var _today = dateFormat(new Date(), "yyyymd");
     auth_model.find({}, function (err, data) {
         if (data) {
@@ -57,7 +57,7 @@ schedule.scheduleJob('*/1 * * * *', function () {
                                 if (err) {
                                     console.log(err);
                                 } else {
-                                    console.log('Send cho: ' +element.info[0].fulname);
+                                    // console.log('Send cho: ' +element.info[0].fulname);
                                 }
                             });
                         }
