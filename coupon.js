@@ -26,16 +26,13 @@ schedule.scheduleJob('*/1 * * * *', function () {
     var _today = dateFormat(new Date(), "yyyymd");
     auth_model.find({}, function (err, data) {
         if (data) {
-            console.log(data)
             data.forEach(element => {
-                console.log(element)
                 if (element.total_list_coupon.length > 0) {
                     element.total_list_coupon.forEach(elcoupon => {
                         var _dayp = elcoupon.limit_time.split('/');
                         var _limit = _dayp[2] + _dayp[1] + _dayp[0];
                         var left_day = parseInt(_limit) - parseInt(_today);
                         // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông báo cho user
-                        console.log(left_day)
                         if (left_day < 10 && left_day > 0) {
 
                             var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " ngày nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
