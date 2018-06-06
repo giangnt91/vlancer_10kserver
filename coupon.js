@@ -53,11 +53,11 @@ schedule.scheduleJob('*/1 * * * *', function () {
                             };
 
                             fcm.send(message, function (err, response) {
-                                // if (err) {
-                                //     console.log(err);
-                                // } else {
-                                //     console.log('ok');
-                                // }
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    console.log('Send');
+                                }
                             });
                         }
                     });
