@@ -50,7 +50,9 @@ io.on('connection', function (socket) {
         var _today = dateFormat(new Date(), "yyyymd");
         auth_model.find({}, function (err, data) {
             if (data) {
+                console.log(data)
                 data.forEach(element => {
+                    console.log(element)
                     if (element.total_list_coupon.length > 0) {
                         element.total_list_coupon.forEach(elcoupon => {
                             var _dayp = elcoupon.limit_time.split('/');
