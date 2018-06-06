@@ -56,7 +56,7 @@ schedule.scheduleJob('*/1 * * * *', function () {
                                 if (err) {
                                     console.log(err);
                                 } else {
-                                    console.log('Send');
+                                    console.log('Send cho: ' +element.info[0].fulname);
                                 }
                             });
                         }
