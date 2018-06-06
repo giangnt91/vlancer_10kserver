@@ -3,7 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var device = require('express-device');
 var multer = require('multer');
-// var schedule = require('node-schedule');
+var schedule = require('node-schedule');
 var dateFormat = require('dateformat');
 var FCM = require('fcm-node');
 
@@ -22,7 +22,53 @@ app.use(express.static('./node_modules/socket.io-client/dist/'));
 schedule function
 1. function remove expired automatic every midnight
 */
+schedule.scheduleJob('*/1 * * * *', function () {
+    var _today = dateFormat(new Date(), "yyyymd");
+    auth_model.find({}, function (err, data) {
+        if (data) {
+            console.log(data)
+            data.forEach(element => {
+                console.log(element)
+                if (element.total_list_coupon.length > 0) {
+                    element.total_list_coupon.forEach(elcoupon => {
+                        var _dayp = elcoupon.limit_time.split('/');
+                        var _limit = _dayp[2] + _dayp[1] + _dayp[0];
+                        var left_day = parseInt(_limit) - parseInt(_today);
+                        // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông báo cho user
+                        console.log(left_day)
+                        if (left_day < 10 && left_day > 0) {
 
+                            var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " ngày nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
+                            var userid = elcoupon.userid_get_coupon[0].id;
+
+                            var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw';
+                            var fcm = new FCM(serverKey);
+                            var message = {
+                                to: elcoupon.notif,
+                                collapse_key: 'green',
+
+                                data: {
+                                    title: 'Thông Báo',
+                                    message: _message,
+                                    sound: 'default',
+                                    vibrate: "true"
+                                }
+                            };
+
+                            fcm.send(message, function (err, response) {
+                                // if (err) {
+                                //     console.log(err);
+                                // } else {
+                                //     console.log('ok');
+                                // }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    })
+})
 
 /*
     socket get event from client
@@ -44,54 +90,6 @@ io.on('connection', function (socket) {
 
     socket.on('send_error', function (message, user_id, id) {
         socket.broadcast.emit('show_error', message, user_id, id);
-    })
-
-    schedule.scheduleJob('*/1 * * * *', function () {
-        var _today = dateFormat(new Date(), "yyyymd");
-        auth_model.find({}, function (err, data) {
-            if (data) {
-                console.log(data)
-                data.forEach(element => {
-                    console.log(element)
-                    if (element.total_list_coupon.length > 0) {
-                        element.total_list_coupon.forEach(elcoupon => {
-                            var _dayp = elcoupon.limit_time.split('/');
-                            var _limit = _dayp[2] + _dayp[1] + _dayp[0];
-                            var left_day = parseInt(_limit) - parseInt(_today);
-                            // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông báo cho user
-                            console.log(left_day)
-                            if (left_day < 10 && left_day > 0) {
-
-                                var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " ngày nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
-                                var userid = elcoupon.userid_get_coupon[0].id;
-
-                                var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw';
-                                var fcm = new FCM(serverKey);
-                                var message = {
-                                    to: elcoupon.notif,
-                                    collapse_key: 'green',
-
-                                    data: {
-                                        title: 'Thông Báo',
-                                        message: _message,
-                                        sound: 'default',
-                                        vibrate: "true"
-                                    }
-                                };
-
-                                fcm.send(message, function (err, response) {
-                                    // if (err) {
-                                    //     console.log(err);
-                                    // } else {
-                                    //     console.log('ok');
-                                    // }
-                                });
-                            }
-                        });
-                    }
-                });
-            }
-        })
     })
 })
 /*
