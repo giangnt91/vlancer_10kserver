@@ -20,11 +20,11 @@ module.exports = {
                     var new_auth = new auth_model({
                         user_id: req.body.user_id,
                         user_img: req.body.user_img,
-                        info: req.body.info,
+                        info: JSON.parse(req.body.info),
                         point_per_day: req.body.point_per_day,
                         point_per_today: req.body.point_per_today,
                         total_slot: req.body.total_slot,
-                        user_class: req.body.user_class,
+                        user_class: JSON.parse(req.body.user_class),
                         download: req.body.download,
                         access_time_per_day: req.body.access_time_per_day,
                         point_plus: req.body.point_plus,
