@@ -793,7 +793,7 @@ module.exports = {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                var shop_use_coupon = data[0].shop_use_coupon[0];
+                var shop_use_coupon = data[0].shop_use_coupon;
                 // var the_new;
                 console.log(shop_use_coupon.length);
                 if (shop_use_coupon.length > 0) {
