@@ -794,6 +794,7 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
                 var shop_use_coupon = data[0].shop_use_coupon;
+                console.log(data)
                 // var the_new;
                 if (shop_use_coupon.length > 0) {
                     shop_use_coupon.forEach(element => {
