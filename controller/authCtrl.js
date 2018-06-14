@@ -673,7 +673,7 @@ module.exports = {
                             ],
                             userid_get_coupon: element.userid_get_coupon,
                             time_user_get: element.time_user_get,
-                            time_user_use: _today,
+                            time_user_use: element.time_user_use,
                             rating: req.body.rating,
                             rfeedback: [
                                 {
