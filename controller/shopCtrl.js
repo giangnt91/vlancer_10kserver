@@ -846,12 +846,13 @@ module.exports = {
                                 approved: true,
                                 coupon: _coupon
                             }
+                            shop_use_coupon.push(the_new);
                             shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
                         }
                     });
                 }
 
-                shop_use_coupon.push(the_new);
+                
                 data[0].shop_use_coupon = shop_use_coupon;
                 data[0].save(function (err) {
                     if (err) {
