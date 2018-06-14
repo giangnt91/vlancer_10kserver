@@ -124,6 +124,7 @@ module.exports = {
                         res.status(200).json(response);
                     });
                 } else {
+                    console.log(req.body.user_id)
                     auth_model.find({ user_id: req.body.user_id }, function (err, the_data) {
                         if (err) {
                             response = { 'error_code': 1, 'message': 'error fetching data !' };
