@@ -642,7 +642,8 @@ module.exports = {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                data.use_coupon.forEach(element => {
+                var use_coupon = data.use_coupon;
+                use_coupon.forEach(element => {
                     if (element._id === req.body.couponId) {
                         the_new = {
                             shop_name: element.shop_name,
@@ -685,9 +686,11 @@ module.exports = {
                             approved: element.approved,
                             _id: element._id
                         }
-                        element = the_new;
+                        use_coupon.splice(use_coupon.indexOf(element), 1);
+                        use_coupon.push(the_new);
                     }
                 });
+                data.use_coupon = use_coupon;
                 data.save(function (err) {
                     if (err) {
                         response = { 'error_code': 3, 'message': 'error update data' };
