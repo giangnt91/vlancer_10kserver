@@ -46,8 +46,6 @@ function Create_User(_user_id, _user_img, _info, _point_per_day, _point_per_toda
         _status: JSON.parse(_status)
     });
 
-    console.log(create);
-
     create.save(function (err) {
         if (err) return err;
     })
@@ -65,11 +63,38 @@ module.exports = {
                 if (data.length > 0) {
                     response = { 'error_code': 2, 'message': 'username already exists, retry with another username !' }
                 } else {
-                    Create_User(req.body.user_id, req.body.user_img, req.body.info, req.body.point_per_day, req.body.point_per_today, req.body.total_slot, req.body.user_class, req.body.download, req.body.access_time_per_day, req.body.point_plus, req.body.point_bad, req.body.total_list_coupon, req.body.empty_slot, req.body.use_coupon, req.body.call_server_in_day, req.body.role, null, req.body._status);
-                    response = { 'error_code': 0, 'message': 'user is created !' };
+
+                    var new_auth = new auth_model({
+                        user_id: req.body.user_id,
+                        user_img: req.body.user_img,
+                        info: req.body.info,
+                        point_per_day: req.body.point_per_day,
+                        point_per_today: req.body.point_per_today,
+                        total_slot: req.body.total_slot,
+                        user_class: req.body.user_class,
+                        download: req.body.download,
+                        access_time_per_day: req.body.access_time_per_day,
+                        point_plus: req.body.point_plus,
+                        point_bad: req.body.point_bad,
+                        total_list_coupon: [],
+                        empty_slot: req.body.empty_slot,
+                        use_coupon: req.body.use_coupon,
+                        call_server_in_day: req.body.call_server_in_day,
+                        role: JSON.parse(req.body.role),
+                        notif: null,
+                        _status: JSON.parse(req.body._status)
+                    });
+
+                    new_auth.save(function (err) {
+                        if (err) {
+                            response = { 'error_code': 1, 'message': 'error fetching data' };
+                        } else {
+                            response = { 'error_code': 0, 'message': 'user is created !' };
+                        }
+                        res.status(200).json(response);
+                    })
                 }
             }
-            res.status(200).json(response);
         });
     },
 
