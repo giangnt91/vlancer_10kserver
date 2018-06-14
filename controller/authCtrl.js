@@ -46,6 +46,8 @@ function Create_User(_user_id, _user_img, _info, _point_per_day, _point_per_toda
         _status: JSON.parse(_status)
     });
 
+    console.log(create);
+
     create.save(function (err) {
         if (err) return err;
     })
