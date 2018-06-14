@@ -794,7 +794,6 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
                 var shop_use_coupon = data[0].shop_use_coupon[0];
-                console.log(shop_use_coupon)
                 // var the_new;
                 if (shop_use_coupon.length > 0) {
                     shop_use_coupon.forEach(element => {
@@ -846,8 +845,8 @@ module.exports = {
                                 approved: true,
                                 coupon: _coupon
                             }
-                            shop_use_coupon.push(the_new);
                             shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
+                            shop_use_coupon.push(the_new);
                         }
                     });
                 }
