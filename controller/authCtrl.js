@@ -5,55 +5,8 @@ var dateFormat = require('dateformat');
 auth_model = require('../model/auth');
 shop_model = require('../model/shop');
 
-// Sign up function
-function Create_User(_user_id, _user_img, _info, _point_per_day, _point_per_today, _total_slot, _class, _download, _access_time_per_day, _point_plus, _point_bad, _total_list_coupon, _empty_slot, _use_coupon, _call_server_in_day, _role, _notif, _status) {
-    if (_info !== undefined) {
-        var tmp_info = JSON.parse(_info);
-    } else {
-        tmp_info = null;
-    }
-
-    if (_class !== undefined) {
-        var tmp_class = JSON.parse(_class);
-    } else {
-        tmp_class = null;
-    }
-
-    if (_call_server_in_day !== undefined) {
-        var tmp_call_server_in_day = JSON.parse(_call_server_in_day);
-    } else {
-        tmp_call_server_in_day = null;
-    }
-
-    var create = new auth_model({
-        user_id: _user_id,
-        user_img: _user_img,
-        info: tmp_info,
-        point_per_day: _point_per_day,
-        point_per_today: _point_per_today,
-        total_slot: _total_slot,
-        user_class: tmp_class,
-        download: _download,
-        access_time_per_day: _access_time_per_day,
-        point_plus: _point_plus,
-        point_bad: _point_bad,
-        total_list_coupon: [],
-        empty_slot: _empty_slot,
-        use_coupon: [],
-        call_server_in_day: tmp_call_server_in_day,
-        role: JSON.parse(_role),
-        notif: _notif,
-        _status: JSON.parse(_status)
-    });
-
-    create.save(function (err) {
-        if (err) return err;
-    })
-}
-
 // Api
 module.exports = {
-
     // Sign up
     signUp: function (req, res) {
         auth_model.find({ user_id: req.body.user_id }, function (err, data) {
@@ -170,9 +123,8 @@ module.exports = {
                                 the_data[0].save(function (err) { });
                                 response = { 'error_code': 0, 'auth': the_data };
                             } else {
-                                response = { 'error_code': 4, 'message': 'user id incorrect' };
+                                response = { 'error_code': 2, 'message': 'user id incorrect' };
                             }
-                            console.log(response);
                         }
                         res.status(200).json(response);
                     });
