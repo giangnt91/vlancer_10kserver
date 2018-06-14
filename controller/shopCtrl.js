@@ -862,18 +862,5 @@ module.exports = {
                 });
             }
         })
-    },
-    AfterShopUse: function (req, res) {
-        shop_model.find({ shopId: req.body.shopid }, function (err, data) {
-            if (err) {
-                response = { 'error_code': 1, 'message': 'error fetching data' };
-            } else {
-                data[0].shop_use_coupon.forEach(element => {
-                    if (element.coupon._id === req.body.couponId) {
-                        
-                    }
-                });
-            }
-        })
     }
 }
