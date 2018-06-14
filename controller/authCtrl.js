@@ -636,5 +636,27 @@ module.exports = {
                 })
             }
         });
+    },
+    UpdateAfterUse: function (req, res) {
+        auth_model.findById(req.body._id, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                data.use_coupon.forEach(element => {
+                    if (element._id === req.body.couponId) {
+                        element.rating = req.body.rating;
+                        element.feedback = req.body.feedback;
+                    }
+                });
+                data.save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 3, 'message': 'error update data' };
+                    } else {
+                        response = { 'error_code': 0, 'message': 'Update coupon user success' };
+                    }
+                    res.status(200).json(response);
+                })
+            }
+        })
     }
 }

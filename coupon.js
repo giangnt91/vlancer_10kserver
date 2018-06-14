@@ -164,6 +164,10 @@ app.post('/couponfeed', function (req, res) {
     auth.CouponUsefeed(req, res);
 })
 
+app.post('/afteruser', function(req, res){
+    auth.UpdateAfterUse(req, res);
+})
+
 app.post('/signin', function (req, res) {
     auth.signIn(req, res);
 })

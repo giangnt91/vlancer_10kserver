@@ -43,7 +43,7 @@ function process(x) {
 // check coupon expired
 function remove_coupon_expired() {
     var _today = dateFormat(new Date(), "yyyymd");
-    
+
     shop_model.find({}, function (err, data) {
         var _arr = []
         data.forEach(element => {
@@ -859,6 +859,19 @@ module.exports = {
                         response = { 'error_code': 0, 'message': 'coupon is approved' };
                     }
                     res.status(200).json(response);
+                });
+            }
+        })
+    },
+    AfterShopUse: function (req, res) {
+        shop_model.find({ shopId: req.body.shopid }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                data[0].shop_use_coupon.forEach(element => {
+                    if (element.coupon._id === req.body.couponId) {
+                        
+                    }
                 });
             }
         })
