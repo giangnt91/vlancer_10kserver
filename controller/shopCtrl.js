@@ -795,10 +795,9 @@ module.exports = {
             } else {
                 var shop_use_coupon = data[0].shop_use_coupon[0];
                 // var the_new;
-                console.log(req.body.couponId)
                 if (shop_use_coupon.length > 0) {
                     shop_use_coupon.forEach(element => {
-                        if (element._id === req.body.couponId) {
+                        if (element._id.toString() === req.body.couponId) {
                             console.log('da vao');
                             _coupon = {
                                 shop_name: element.shop_name,
