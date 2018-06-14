@@ -642,12 +642,14 @@ module.exports = {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                data.use_coupon.forEach(element => {
+                var use_coupon = data.use_coupon;
+                use_coupon.forEach(element => {
                     if (element._id === req.body.couponId) {
                         element.rating = req.body.rating;
                         element.feedback = req.body.feedback;
                     }
                 });
+                data.use_coupon = use_coupon;
                 data.save(function (err) {
                     if (err) {
                         response = { 'error_code': 3, 'message': 'error update data' };
