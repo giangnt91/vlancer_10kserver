@@ -16,7 +16,10 @@ module.exports = {
                 if (data.length > 0) {
                     response = { 'error_code': 2, 'message': 'username already exists, retry with another username !' }
                 } else {
-
+                    _access = [{
+                        id: 0,
+                        value: '2018'
+                    }]
                     var new_auth = new auth_model({
                         user_id: req.body.user_id,
                         user_img: req.body.user_img,
@@ -26,7 +29,7 @@ module.exports = {
                         total_slot: req.body.total_slot,
                         user_class: JSON.parse(req.body.user_class),
                         download: req.body.download,
-                        access_time_per_day: req.body.access_time_per_day,
+                        access_time_per_day: _access,
                         point_plus: req.body.point_plus,
                         point_bad: req.body.point_bad,
                         total_list_coupon: [],
