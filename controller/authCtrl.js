@@ -71,25 +71,45 @@ module.exports = {
                                     }];
                                     data[0].role = _role;
                                     data[0].user_img = req.body.user_img;
-                                    var access_time_per_day = data[0].access_time_per_day;
+                                    var access_time_per_day = data[0].access_time_per_day[0].value;
                                     var point = data[0].point_plus;
                                     var day = dateFormat(new Date(), "yyyymmdd");
                                     if (access_time_per_day !== day) {
                                         point = point + 50;
-                                        data[0].access_time_per_day = day;
+                                        new_access_time = [{
+                                            id: 1,
+                                            value: day
+                                        }]
+                                        data[0].access_time_per_day = new_access_time;
                                         data[0].point_per_today = 0;
+                                    } else {
+                                        new_access_time = [{
+                                            id: 0,
+                                            value: day
+                                        }]
+                                        data[0].access_time_per_day = new_access_time;
                                     }
                                     data[0].point_plus = point;
                                     data[0].save(function (err) { });
                                 } else {
                                     data[0].user_img = req.body.user_img;
-                                    var access_time_per_day = data[0].access_time_per_day;
+                                    var access_time_per_day = data[0].access_time_per_day[0].value;
                                     var point = data[0].point_plus;
                                     var day = dateFormat(new Date(), "yyyymmdd");
                                     if (access_time_per_day !== day) {
                                         point = point + 50;
-                                        data[0].access_time_per_day = day;
+                                        new_access_time = [{
+                                            id: 1,
+                                            value: day
+                                        }]
+                                        data[0].access_time_per_day = new_access_time;
                                         data[0].point_per_today = 0;
+                                    } else {
+                                        new_access_time = [{
+                                            id: 0,
+                                            value: day
+                                        }]
+                                        data[0].access_time_per_day = new_access_time;
                                     }
                                     data[0].point_plus = point;
                                     data[0].save(function (err) { });
@@ -111,13 +131,23 @@ module.exports = {
                         else {
                             if (the_data.length > 0) {
                                 the_data[0].user_img = req.body.user_img;
-                                var access_time_per_day = the_data[0].access_time_per_day;
+                                var access_time_per_day = the_data[0].access_time_per_day[0].value;
                                 var point = the_data[0].point_plus;
                                 var day = dateFormat(new Date(), "yyyymmdd");
                                 if (access_time_per_day !== day) {
                                     point = point + 50;
-                                    the_data[0].access_time_per_day = day;
+                                    new_access_time = [{
+                                        id: 1,
+                                        value: day
+                                    }]
+                                    the_data[0].access_time_per_day = new_access_time;
                                     the_data[0].point_per_today = 0;
+                                } else {
+                                    new_access_time = [{
+                                        id: 0,
+                                        value: day
+                                    }]
+                                    the_data[0].access_time_per_day = new_access_time;
                                 }
                                 the_data[0].point_plus = point;
                                 the_data[0].save(function (err) { });
@@ -159,25 +189,45 @@ module.exports = {
                                     }];
                                     data[0].role = _role;
                                     data[0].user_img = req.body.user_img;
-                                    var access_time_per_day = data[0].access_time_per_day;
+                                    var access_time_per_day = data[0].access_time_per_day[0];
                                     var point = data[0].point_plus;
                                     var day = dateFormat(new Date(), "yyyymmdd");
                                     if (access_time_per_day !== day) {
                                         point = point + 50;
-                                        data[0].access_time_per_day = day;
+                                        new_access_time = [{
+                                            id: 1,
+                                            value: day
+                                        }]
+                                        data[0].access_time_per_day = new_access_time;
                                         data[0].point_per_today = 0;
+                                    } else {
+                                        new_access_time = [{
+                                            id: 0,
+                                            value: day
+                                        }]
+                                        data[0].access_time_per_day = new_access_time;
                                     }
                                     data[0].point_plus = point;
                                     data[0].save(function (err) { });
                                 } else {
                                     data[0].user_img = req.body.user_img;
-                                    var access_time_per_day = data[0].access_time_per_day;
+                                    var access_time_per_day = data[0].access_time_per_day[0].value;
                                     var point = data[0].point_plus;
                                     var day = dateFormat(new Date(), "yyyymmdd");
                                     if (access_time_per_day !== day) {
                                         point = point + 50;
-                                        data[0].access_time_per_day = day;
+                                        new_access_time = [{
+                                            id: 1,
+                                            value: day
+                                        }]
+                                        data[0].access_time_per_day = new_access_time;
                                         data[0].point_per_today = 0;
+                                    } else {
+                                        new_access_time = [{
+                                            id: 0,
+                                            value: day
+                                        }]
+                                        data[0].access_time_per_day = new_access_time;
                                     }
                                     data[0].point_plus = point;
                                     data[0].save(function (err) { });
@@ -206,13 +256,23 @@ module.exports = {
                                 //end check
 
                                 the_data[0].user_img = req.body.user_img;
-                                var access_time_per_day = the_data[0].access_time_per_day;
+                                var access_time_per_day = the_data[0].access_time_per_day[0].value;
                                 var point = the_data[0].point_plus;
                                 var day = dateFormat(new Date(), "yyyymmdd");
                                 if (access_time_per_day !== day) {
                                     point = point + 50;
-                                    the_data[0].access_time_per_day = day;
+                                    new_access_time = [{
+                                        id: 1,
+                                        value: day
+                                    }]
+                                    the_data[0].access_time_per_day = new_access_time;
                                     the_data[0].point_per_today = 0;
+                                }else{
+                                    new_access_time = [{
+                                        id: 0,
+                                        value: day
+                                    }]
+                                    the_data[0].access_time_per_day = new_access_time;
                                 }
                                 the_data[0].point_plus = point;
                                 the_data[0].save(function (err) { });

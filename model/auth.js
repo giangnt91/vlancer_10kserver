@@ -14,7 +14,7 @@ var user = new mongoose.Schema({
     total_slot: Number,
     user_class: Array,
     download: Boolean,
-    access_time_per_day: String,
+    access_time_per_day: Array,
     point_plus: Number,
     point_bad: Number,
     total_list_coupon: Array,
