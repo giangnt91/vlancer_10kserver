@@ -50,9 +50,19 @@ function getRandom(arr, n) {
 // api
 module.exports = {
     create: function (req, res) {
-        create_action(req.body.action_kind, req.body.action_url, req.body.action_id, req.body.action_shop_id, req.body.action_user);
-        response = { 'error_code': 0, 'message': 'new action is created !' };
-        res.status(200).json(response);
+        action_model.find({ action_id: req.body.action_id }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error_fetching data' };
+            } else {
+                if (data.length > 0) {
+                    response = { 'error_code': 2, 'message': 'ID tác vụ đã tồn tại vui lòng nhập ID khác.' };
+                } else {
+                    create_action(req.body.action_kind, req.body.action_url, req.body.action_id, req.body.action_shop_id, req.body.action_user);
+                    response = { 'error_code': 0, 'message': 'new action is created !' };
+                }
+            }
+            res.status(200).json(response);
+        })
     },
     update_action_user: function (req, res) {
         action_model.findById(req.body._id, function (err, data) {
