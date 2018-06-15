@@ -104,12 +104,12 @@ schedule.scheduleJob('0 0 * * *', function () {
 module.exports = {
     // create new shop
     shop: function (req, res) {
-        shop_model.find({ shopId: req.body.shopId }, function (err, data) {
+        shop_model.find({$or:[{shopId: req.body.shopId },{shop_boss: req.body.shop_boss}]}, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
                 if (data.length > 0) {
-                    response = { 'error_code': 4, 'message': 'Shop exist on db' };
+                    response = { 'error_code': 4, 'message': 'Shop hoặc Chủ shop đã tồn tại!' };
                 } else {
                     create_shop(req.body.shopId, req.body.shop_boss, req.body.shop_manager, req.body.shop_coupon, req.body.server_coupon, req.body.user_get_coupon, req.body.expire_coupon, req.body.shop_use_coupon, req.body.wallet, req.body.shop_status, req.body.shop_rank, req.body.shop_info);
                     response = { 'error_code': 0, 'message': 'new shop is created !' };
