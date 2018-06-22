@@ -435,7 +435,7 @@ module.exports = {
                     var _class;
                     var new_empty;
 
-                    if (point_plus >= 2000) {
+                    if (point_plus >= 400) {
                         if (data.user_class[0].id !== 1) {
                             _class = [{
                                 id: 1,
@@ -453,7 +453,7 @@ module.exports = {
                             slot = data.total_slot
                             new_empty = data.empty_slot;
                         }
-                    } else if (point_plus >= 1500) {
+                    } else if (point_plus >= 300) {
                         if (data.user_class[0].id !== 2) {
                             _class = [{
                                 id: 2,
@@ -471,7 +471,7 @@ module.exports = {
                             slot = data.total_slot
                             new_empty = data.empty_slot;
                         }
-                    } else if (point_plus >= 1000) {
+                    } else if (point_plus >= 200) {
                         if (data.user_class[0].id !== 3) {
                             _class = [{
                                 id: 3,
