@@ -453,7 +453,46 @@ module.exports = {
                     info: data[0].shop_info[0].info,
                     shop_avatar: avatar,
                     shop_cover: data[0].shop_info[0].shop_cover,
-                    shop_album: data[0].shop_info[0].shop_album
+                    shop_album: data[0].shop_info[0].shop_album,
+                    shop_vip: data[0].shop_info[0].shop_vip
+                }
+                data[0].shop_info = _info;
+                data[0].save(function (err) {
+                    if (err) {
+                        response = {
+                            'error_code': 1,
+                            'message': 'error updating data'
+                        };
+                    } else {
+                        response = {
+                            'error_code': 0,
+                            'message': 'data is updated'
+                        };
+                    }
+                    res.status(200).json(response);
+                });
+            }
+        });
+    },
+    vip: function (req, res, server_url) {
+        shop_model.find({ shopId: req.body.shopId }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                var img = JSON.parse(req.body.img);
+                vip = server_url + img[0].avatar;
+
+                _info = {
+                    shop_name: data[0].shop_info[0].shop_name,
+                    kind: data[0].shop_info[0].kind,
+                    time: data[0].shop_info[0].time,
+                    address: data[0].shop_info[0].address,
+                    service: data[0].shop_info[0].service,
+                    info: data[0].shop_info[0].info,
+                    shop_avatar: data[0].shop_info[0].shop_avatar,
+                    shop_cover: data[0].shop_info[0].shop_cover,
+                    shop_album: data[0].shop_info[0].shop_album,
+                    shop_vip: vip
                 }
                 data[0].shop_info = _info;
                 data[0].save(function (err) {
@@ -490,7 +529,8 @@ module.exports = {
                     info: data[0].shop_info[0].info,
                     shop_avatar: data[0].shop_info[0].shop_avatar,
                     shop_cover: cover,
-                    shop_album: data[0].shop_info[0].shop_album
+                    shop_album: data[0].shop_info[0].shop_album,
+                    shop_vip: data[0].shop_info[0].shop_vip
                 }
                 data[0].shop_info = _info;
                 data[0].save(function (err) {
@@ -533,7 +573,8 @@ module.exports = {
                     info: data[0].shop_info[0].info,
                     shop_avatar: data[0].shop_info[0].shop_avatar,
                     shop_cover: data[0].shop_info[0].shop_cover,
-                    shop_album: album
+                    shop_album: album,
+                    shop_vip: data[0].shop_info[0].shop_vip
                 }
                 data[0].shop_info = _info;
                 data[0].save(function (err) {

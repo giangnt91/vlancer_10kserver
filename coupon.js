@@ -267,6 +267,16 @@ app.post('/avatar', function (req, res) {
     })
 })
 
+app.post('/imgvip', function(req, res){
+    upload(req, res, function (err) {
+        if (err) {
+            res.send({ 'error_code': 1, 'message': err });
+        } else {
+            shop.vip(req, res, server_url);
+        }
+    })
+})
+
 app.post('/cover', function (req, res) {
     upload(req, res, function (err) {
         if (err) {
