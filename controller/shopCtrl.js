@@ -480,7 +480,7 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
                 var img = JSON.parse(req.body.img);
-                vip = server_url + img[0].avatar;
+                vip = server_url + img[0].vip;
 
                 _info = {
                     shop_name: data[0].shop_info[0].shop_name,
