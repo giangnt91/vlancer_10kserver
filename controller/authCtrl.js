@@ -258,6 +258,13 @@ module.exports = {
                         }
                         else {
                             if (the_data.length > 0) {
+                                if (the_data[0].role[0].id === 2) {
+                                    _role = [{
+                                        id: 0,
+                                        name: 'Thường',
+                                    }];
+                                    the_data[0].role = _role;
+                                }
                                 //check download app first login
                                 if (the_data[0].download === false) {
                                     the_data[0].download = true;
