@@ -127,20 +127,19 @@ module.exports = {
                         res.status(200).json(response);
                     });
                 } else {
-                    if (data[0].role[0].id === 2) {
-                        _role = [{
-                            id: 0,
-                            name: 'Thường',
-                        }];
-                        data[0].role = _role;
-                        data[0].save(function (err) { });
-                    }
                     auth_model.find({ user_id: req.body.user_id }, function (err, the_data) {
                         if (err) {
                             response = { 'error_code': 1, 'message': 'error fetching data !' };
                         }
                         else {
                             if (the_data.length > 0) {
+                                if (the_data[0].role[0].id === 2) {
+                                    _role = [{
+                                        id: 0,
+                                        name: 'Thường',
+                                    }];
+                                    the_data[0].role = _role;
+                                }
                                 the_data[0].user_img = req.body.user_img;
                                 var access_time_per_day = the_data[0].access_time_per_day[0].value;
                                 var point = the_data[0].point_plus;
