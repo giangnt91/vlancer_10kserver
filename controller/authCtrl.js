@@ -127,6 +127,14 @@ module.exports = {
                         res.status(200).json(response);
                     });
                 } else {
+                    if (data[0].role[0].id === 2) {
+                        _role = [{
+                            id: 0,
+                            name: 'Thường',
+                        }];
+                        data[0].role = _role;
+                        data[0].save(function (err) { });
+                    }
                     auth_model.find({ user_id: req.body.user_id }, function (err, the_data) {
                         if (err) {
                             response = { 'error_code': 1, 'message': 'error fetching data !' };
