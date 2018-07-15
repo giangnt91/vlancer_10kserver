@@ -284,7 +284,7 @@ module.exports = {
                                     }]
                                     the_data[0].access_time_per_day = new_access_time;
                                     the_data[0].point_per_today = 0;
-                                }else{
+                                } else {
                                     new_access_time = [{
                                         id: 0,
                                         value: day
@@ -333,15 +333,17 @@ module.exports = {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                data.notif = req.body.notifId;
-                data.save(function (err) {
-                    if (err) {
-                        response = { 'error_code': 3, 'message': 'error update data' };
-                    } else {
-                        response = { 'error_code': 0, 'message': 'Update NotifId success' };
-                    }
-                    res.status(200).json(response);
-                })
+                if (data.length > 0) {
+                    data.notif = req.body.notifId;
+                    data.save(function (err) {
+                        if (err) {
+                            response = { 'error_code': 3, 'message': 'error update data' };
+                        } else {
+                            response = { 'error_code': 0, 'message': 'Update NotifId success' };
+                        }
+                        res.status(200).json(response);
+                    })
+                }
             }
         })
     },
