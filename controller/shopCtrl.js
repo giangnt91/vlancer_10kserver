@@ -42,7 +42,8 @@ function process(x) {
 
 // check coupon expired
 function remove_coupon_expired() {
-    var _today = dateFormat(new Date(), "yyyymmdd");
+    // var _today = dateFormat(new Date(), "yyyymmdd");
+    var _today = dateFormat(new Date(), "yyyymd");
     console.log(_today);
 
     shop_model.find({}, function (err, data) {
