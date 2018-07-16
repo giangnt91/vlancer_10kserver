@@ -258,7 +258,7 @@ module.exports = {
                         }
                         else {
                             if (the_data.length > 0) {
-                                if (the_data[0].role[0].id === 2) {
+                                if (the_data[0].role[0].id === 3) {
                                     _role = [{
                                         id: 0,
                                         name: 'Thường',
