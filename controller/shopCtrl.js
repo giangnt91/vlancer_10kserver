@@ -101,7 +101,7 @@ schedule function
 //     remove_coupon_expired();
 // })
 
-schedule.scheduleJob('*/5 * * * *', function () {
+schedule.scheduleJob('*/5 * * * * *', function () {
         remove_coupon_expired();
     })
 // api
