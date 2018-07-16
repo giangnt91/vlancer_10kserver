@@ -44,7 +44,6 @@ function process(x) {
 function remove_coupon_expired() {
     // var _today = dateFormat(new Date(), "yyyymmdd");
     var _today = dateFormat(new Date(), "yyyymd");
-    console.log(_today);
 
     shop_model.find({}, function (err, data) {
         var _arr = []
@@ -53,7 +52,7 @@ function remove_coupon_expired() {
                 if (element.shop_coupon[0].approved === true) {
                     _arr = element.expire_coupon;
                     var _expire_day = process(element.shop_coupon[0].coupon[0].limit_time);
-
+                    console.log("het han: " + _expire_day + " ngay hien tai: " + _today);
                     if (_expire_day > _today) {
                         element.shop_coupon[0].coupon.forEach(el => {
                             el.status_coupon = [{
@@ -103,13 +102,13 @@ schedule function
 // })
 
 schedule.scheduleJob('*/5 * * * * *', function () {
-        remove_coupon_expired();
-    })
+    remove_coupon_expired();
+})
 // api
 module.exports = {
     // create new shop
     shop: function (req, res) {
-        shop_model.find({$or:[{shopId: req.body.shopId },{shop_boss: req.body.shop_boss}]}, function (err, data) {
+        shop_model.find({ $or: [{ shopId: req.body.shopId }, { shop_boss: req.body.shop_boss }] }, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
