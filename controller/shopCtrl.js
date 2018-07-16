@@ -43,6 +43,7 @@ function process(x) {
 // check coupon expired
 function remove_coupon_expired() {
     var _today = dateFormat(new Date(), "yyyymd");
+    console.log(_today);
 
     shop_model.find({}, function (err, data) {
         var _arr = []
@@ -96,10 +97,13 @@ function remove_coupon_expired() {
 schedule function
 1. function remove expired automatic every midnight
 */
-schedule.scheduleJob('0 0 * * *', function () {
-    remove_coupon_expired();
-})
+// schedule.scheduleJob('0 0 * * *', function () {
+//     remove_coupon_expired();
+// })
 
+schedule.scheduleJob('*/5 * * * *', function () {
+        remove_coupon_expired();
+    })
 // api
 module.exports = {
     // create new shop
