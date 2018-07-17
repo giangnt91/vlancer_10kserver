@@ -54,7 +54,7 @@ function remove_coupon_expired() {
                     _arr = element.expire_coupon;
                     var _expire_day = process(element.shop_coupon[0].coupon[0].limit_time);
                     console.log("ngay het han cua shop: " + _expire_day);
-                    if (_expire_day > _today) {
+                    if (parseInt(_expire_day) > parseInt(_today)) {
                         element.shop_coupon[0].coupon.forEach(el => {
                             el.status_coupon = [{
                                 id: 2,
@@ -75,7 +75,7 @@ function remove_coupon_expired() {
                 _arr = element.expire_coupon;
                 var _expire_day = process(element.server_coupon[0].coupon[0].limit_time);
                 console.log("ngay het han cua server: " + _expire_day);
-                if (_expire_day < _today) {
+                if (parseInt(_expire_day) > parseInt(_today)) {
                     element.server_coupon[0].coupon.forEach(el => {
                         el.status_coupon = [{
                             id: 2,
