@@ -95,13 +95,13 @@ function remove_coupon_expired() {
 schedule function
 1. function remove expired automatic every midnight
 */
-// schedule.scheduleJob('0 0 * * *', function () {
-//     remove_coupon_expired();
-// })
-
-schedule.scheduleJob('*/5 * * * * *', function () {
+schedule.scheduleJob('0 0 * * *', function () {
     remove_coupon_expired();
 })
+
+// schedule.scheduleJob('*/5 * * * * *', function () {
+//     remove_coupon_expired();
+// })
 // api
 module.exports = {
     // create new shop
