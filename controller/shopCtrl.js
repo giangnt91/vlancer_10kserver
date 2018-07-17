@@ -44,6 +44,7 @@ function process(x) {
 function remove_coupon_expired() {
     // var _today = dateFormat(new Date(), "yyyymmdd");
     var _today = dateFormat(new Date(), "yyyymmdd");
+    console.log(_today);
 
     shop_model.find({}, function (err, data) {
         var _arr = []
@@ -52,6 +53,7 @@ function remove_coupon_expired() {
                 if (element.shop_coupon[0].approved === true) {
                     _arr = element.expire_coupon;
                     var _expire_day = process(element.shop_coupon[0].coupon[0].limit_time);
+                    console.log("ngay het han cua shop: " + _expire_day);
                     if (_expire_day > _today) {
                         element.shop_coupon[0].coupon.forEach(el => {
                             el.status_coupon = [{
@@ -72,6 +74,7 @@ function remove_coupon_expired() {
             if (element.server_coupon.length > 0) {
                 _arr = element.expire_coupon;
                 var _expire_day = process(element.server_coupon[0].coupon[0].limit_time);
+                console.log("ngay het han cua server: " + _expire_day);
                 if (_expire_day < _today) {
                     element.server_coupon[0].coupon.forEach(el => {
                         el.status_coupon = [{
@@ -95,13 +98,13 @@ function remove_coupon_expired() {
 schedule function
 1. function remove expired automatic every midnight
 */
-schedule.scheduleJob('0 0 * * *', function () {
-    remove_coupon_expired();
-})
-
-// schedule.scheduleJob('*/5 * * * * *', function () {
+// schedule.scheduleJob('0 0 * * *', function () {
 //     remove_coupon_expired();
 // })
+
+schedule.scheduleJob('*/5 * * * * *', function () {
+    remove_coupon_expired();
+})
 // api
 module.exports = {
     // create new shop
