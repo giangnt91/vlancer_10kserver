@@ -8,31 +8,6 @@ var dateFormat = require('dateformat');
 shop_model = require('../model/shop');
 auth_model = require('../model/auth');
 
-// create shop
-function create_shop(_shopId, _shop_boss, _shop_manager, _shop_coupon, _server_coupon, _user_get_coupon, _expire_coupon, _shop_use_coupon, _wallet, _status, _shop_rank, _shop_info) {
-    var shop = new shop_model({
-        shopId: _shopId,
-        shop_boss: _shop_boss,
-        shop_manager: _shop_manager,
-        shop_coupon: _shop_coupon,
-        server_coupon: _server_coupon,
-        user_get_coupon: _user_get_coupon,
-        expire_coupon: _expire_coupon,
-        shop_use_coupon: _shop_use_coupon,
-        wallet: _wallet,
-        shop_status: JSON.parse(_status),
-        shop_rank: JSON.parse(_shop_rank),
-        shop_info: JSON.parse(_shop_info)
-    });
-
-    shop.save(function (err) {
-        if (err) {
-            response = { 'error_code': 2, 'message': 'error create new shop' };
-        } else {
-            response = { 'error_code': 0, 'message': 'new shop is created !' };
-        }
-    });
-}
 
 //conver day to int for compare
 function process(x) {
@@ -113,11 +88,32 @@ module.exports = {
                 if (data.length > 0) {
                     response = { 'error_code': 4, 'message': 'Shop hoặc Chủ shop đã tồn tại!' };
                 } else {
-                    create_shop(req.body.shopId, req.body.shop_boss, req.body.shop_manager, req.body.shop_coupon, req.body.server_coupon, req.body.user_get_coupon, req.body.expire_coupon, req.body.shop_use_coupon, req.body.wallet, req.body.shop_status, req.body.shop_rank, req.body.shop_info);
-                    response = { 'error_code': 0, 'message': 'new shop is created !' };
+
+                    var shop = new shop_model({
+                        shopId: req.body.shopId,
+                        shop_boss: req.body.shop_boss,
+                        shop_manager: req.body.shop_manager,
+                        shop_coupon: req.body.shop_coupon,
+                        server_coupon: req.body.server_coupon,
+                        user_get_coupon: req.body.user_get_coupon,
+                        expire_coupon: req.body.expire_coupon,
+                        shop_use_coupon: req.body.shop_use_coupon,
+                        wallet: req.body.wallet,
+                        shop_status: JSON.parse(req.body.shop_status),
+                        shop_rank: JSON.parse(req.body.shop_rank),
+                        shop_info: JSON.parse(req.body.shop_info)
+                    });
+
+                    shop.save(function (err) {
+                        if (err) {
+                            response = { 'error_code': 2, 'message': 'error create new shop' };
+                        } else {
+                            response = { 'error_code': 0, 'message': 'new shop is created !' };
+                        }
+                        res.status(200).json(response);
+                    });
                 }
             }
-            res.status(200).json(response);
         });
     },
     getall: function (req, res) {
@@ -392,9 +388,9 @@ module.exports = {
 
                 avatar = server_url + img[0].avatar;
                 cover = server_url + img[0].cover;
-                if(img[0].vip !== null){
+                if (img[0].vip !== null) {
                     vip = server_url + img[0].vip;
-                }else{
+                } else {
                     vip = null;
                 }
                 img[0].album.forEach(function (item) {
