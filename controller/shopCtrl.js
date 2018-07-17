@@ -52,6 +52,7 @@ function remove_coupon_expired() {
                 if (element.shop_coupon[0].approved === true) {
                     _arr = element.expire_coupon;
                     var _expire_day = process(element.shop_coupon[0].coupon[0].limit_time);
+                    console.log(_expire_day)
                     if (_expire_day < _today) {
                         element.shop_coupon[0].coupon.forEach(el => {
                             el.status_coupon = [{
