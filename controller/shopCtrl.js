@@ -720,6 +720,33 @@ module.exports = {
             }
         })
     },
+    TimeoutCoupon: function(req, res){
+        shop_model.find({ shopId: req.body.shopid }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                console.log(data)
+                var shop_use_coupon = data[0].shop_use_coupon;
+                if (shop_use_coupon.length > 0) {
+                    shop_use_coupon.forEach(element => {
+                        if (element._id.toString() === req.body.couponId) {
+                            console.log(element);
+                            shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
+                        }
+                    });
+                }
+                data[0].shop_use_coupon = shop_use_coupon;
+                data[0].save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 2, 'message': err }
+                    } else {
+                        response = { 'error_code': 0, 'message': 'coupon remove success' };
+                    }
+                    res.status(200).json(response);
+                })
+            }
+        })
+    },
     RemoveCouponShopreject: function (req, res) {
         shop_model.find({ shopId: req.body.shopid }, function (err, data) {
             if (err) {
@@ -729,7 +756,6 @@ module.exports = {
                 if (shop_use_coupon.length > 0) {
                     shop_use_coupon.forEach(element => {
                         if (element._id.toString() === req.body.couponId) {
-                            console.log(element);
                             shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
                         }
                     });

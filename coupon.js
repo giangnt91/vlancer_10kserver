@@ -164,7 +164,7 @@ app.post('/couponfeed', function (req, res) {
     auth.CouponUsefeed(req, res);
 })
 
-app.post('/afteruser', function(req, res){
+app.post('/afteruser', function (req, res) {
     auth.UpdateAfterUse(req, res);
 })
 
@@ -267,7 +267,7 @@ app.post('/avatar', function (req, res) {
     })
 })
 
-app.post('/imgvip', function(req, res){
+app.post('/imgvip', function (req, res) {
     upload(req, res, function (err) {
         if (err) {
             res.send({ 'error_code': 1, 'message': err });
@@ -331,6 +331,10 @@ app.post('/cancelapproved', function (req, res) {
 
 app.post('/removecouponcancel', function (req, res) {
     shop.RemoveCouponShopreject(req, res);
+})
+
+app.post('/timeoutcoupon', function (req, res) {
+    shop.TimeoutCoupon(req, res);
 })
 
 app.post('/updateshopLike', function (req, res) {
