@@ -728,6 +728,8 @@ module.exports = {
                 var shop_use_coupon = data[0].shop_use_coupon;
                 if (shop_use_coupon.length > 0) {
                     shop_use_coupon.forEach(element => {
+                        console.log(element._id);
+                        console.log(req.body.couponId);
                         if (element._id === req.body.couponId) {
                             console.log(element);
                             shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
