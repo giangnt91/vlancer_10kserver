@@ -725,11 +725,10 @@ module.exports = {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                console.log(data)
                 var shop_use_coupon = data[0].shop_use_coupon;
                 if (shop_use_coupon.length > 0) {
                     shop_use_coupon.forEach(element => {
-                        if (element._id.toString() === req.body.couponId) {
+                        if (element._id === req.body.couponId) {
                             console.log(element);
                             shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
                         }
