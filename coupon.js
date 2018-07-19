@@ -91,8 +91,8 @@ io.on('connection', function (socket) {
     })
 
     //1 connect to coupon for shop
-    socket.on('oneconnect', function(couponid, fulname){
-        socket.broadcast.emit('disableconnect', couponid, fulname);
+    socket.on('oneconnect', function(couponid, fulname, avatar){
+        socket.broadcast.emit('disableconnect', couponid, fulname, avatar);
     })
 })
 /*
