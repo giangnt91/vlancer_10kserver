@@ -89,6 +89,11 @@ io.on('connection', function (socket) {
     socket.on('send_error', function (message, user_id, id) {
         socket.broadcast.emit('show_error', message, user_id, id);
     })
+
+    //1 connect to coupon for shop
+    socket.on('oneconnect', function(couponid, fulname){
+        socket.broadcast.emit('disableconnect', couponid, fulname);
+    })
 })
 /*
     End
