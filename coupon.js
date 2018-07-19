@@ -23,8 +23,8 @@ schedule function
 1. function remove expired automatic every midnight
 */
 // 0 0 9 * *
-schedule.scheduleJob('*/5 * * * * *', function () {
-    var _today = dateFormat(new Date(), "yyyymd");
+schedule.scheduleJob('*/1 * * * *', function () {
+    var _today = dateFormat(new Date(), "yyyymmdd");
     auth_model.find({}, function (err, data) {
         if (data) {
             data.forEach(element => {
