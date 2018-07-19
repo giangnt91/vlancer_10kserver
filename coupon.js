@@ -35,7 +35,7 @@ schedule.scheduleJob('*/5 * * * * *', function () {
                         var left_day = parseInt(_limit) - parseInt(_today);
                         // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông báo cho user
                         if (left_day < 10 && left_day > 0) {
-
+                            console.log('da send messager');
                             var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " ngày nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
                             var userid = elcoupon.userid_get_coupon[0].id;
 
