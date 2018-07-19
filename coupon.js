@@ -22,8 +22,8 @@ app.use(express.static('./node_modules/socket.io-client/dist/'));
 schedule function
 1. function remove expired automatic every midnight
 */
-// 0 0 9 * *
-schedule.scheduleJob('*/1 * * * *', function () {
+// */1 * * * *
+schedule.scheduleJob('0 0 9 * *', function () {
     var _today = dateFormat(new Date(), "yyyymmdd");
     auth_model.find({}, function (err, data) {
         if (data) {
@@ -35,7 +35,6 @@ schedule.scheduleJob('*/1 * * * *', function () {
                         var left_day = parseInt(_limit) - parseInt(_today);
                         // số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông báo cho user
                         if (left_day < 10 && left_day > 0) {
-                            console.log('da send messager');
                             var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " ngày nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
                             var userid = elcoupon.userid_get_coupon[0].id;
 
@@ -58,7 +57,7 @@ schedule.scheduleJob('*/1 * * * *', function () {
                                 if (err) {
                                     console.log(err);
                                 } else {
-                                    console.log('Send cho: ' +element.info[0].fulname);
+                                    // console.log('Send cho: ' +element.info[0].fulname);
                                 }
                             });
                         }
