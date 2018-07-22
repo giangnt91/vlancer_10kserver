@@ -173,7 +173,7 @@ module.exports = {
 
                             // save total point per day
                             for (var i = 0; i < list_action_per_day.length; i++) {
-                                point = point + 20;
+                                point = point + 1000;
                             }
                             auth.point_per_day = point;
                             auth.save(function (err) {
@@ -219,7 +219,7 @@ module.exports = {
                         } else {
                             var rest_point = auth.point_per_day - auth.point_per_today;
                             if (rest_point > 0) {
-                                if (rest_point <= 20) {
+                                if (rest_point <= 1000) {
                                     if (data !== null) {
                                         for (var i = 0; i < data.length; i++) {
                                             if (data[i].action_user.length === 0) {
@@ -251,7 +251,7 @@ module.exports = {
                                         list_action_per_day = tmp_list;
                                     }
                                 }
-                                else if (rest_point <= 40) {
+                                else if (rest_point <= 2000) {
                                     if (data !== null) {
                                         for (var i = 0; i < data.length; i++) {
                                             if (data[i].action_user.length === 0) {
