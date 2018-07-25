@@ -775,7 +775,7 @@ module.exports = {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                if (data) {
+                if (data !== null) {
                     var user_get_coupon = data[0].user_get_coupon;
                     var shop_use_coupon = data[0].shop_use_coupon;
                     var _today = dateFormat(new Date(), "dd/mm/yyyy");
