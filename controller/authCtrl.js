@@ -203,7 +203,7 @@ module.exports = {
                                     }];
                                     data[0].role = _role;
                                     data[0].user_img = req.body.user_img;
-                                    var access_time_per_day = data[0].access_time_per_day[0];
+                                    var access_time_per_day = data[0].access_time_per_day[0].value;
                                     var point = data[0].point_plus;
                                     var day = dateFormat(new Date(), "yyyymmdd");
                                     if (access_time_per_day !== day) {
@@ -228,6 +228,7 @@ module.exports = {
                                     var access_time_per_day = data[0].access_time_per_day[0].value;
                                     var point = data[0].point_plus;
                                     var day = dateFormat(new Date(), "yyyymmdd");
+									
                                     if (access_time_per_day !== day) {
                                         point = point + 50;
                                         new_access_time = [{
