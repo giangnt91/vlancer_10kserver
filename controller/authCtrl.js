@@ -135,35 +135,39 @@ module.exports = {
                         }
                         else {
                             if (the_data.length > 0) {
-                                if (the_data[0].role[0].id === 2) {
-                                    _role = [{
-                                        id: 0,
-                                        name: 'Thường',
-                                    }];
-                                    the_data[0].role = _role;
-                                }
-                                the_data[0].user_img = req.body.user_img;
-                                var access_time_per_day = the_data[0].access_time_per_day[0].value;
-                                var point = the_data[0].point_plus;
-                                var day = dateFormat(new Date(), "yyyymmdd");
-                                if (access_time_per_day !== day) {
-                                    point = point + 50;
-                                    new_access_time = [{
-                                        id: 1,
-                                        value: day
-                                    }]
-                                    the_data[0].access_time_per_day = new_access_time;
-                                    the_data[0].point_per_today = 0;
+                                if (the_data[0]._status.id === 0) {
+                                    if (the_data[0].role[0].id === 2) {
+                                        _role = [{
+                                            id: 0,
+                                            name: 'Thường',
+                                        }];
+                                        the_data[0].role = _role;
+                                    }
+                                    the_data[0].user_img = req.body.user_img;
+                                    var access_time_per_day = the_data[0].access_time_per_day[0].value;
+                                    var point = the_data[0].point_plus;
+                                    var day = dateFormat(new Date(), "yyyymmdd");
+                                    if (access_time_per_day !== day) {
+                                        point = point + 50;
+                                        new_access_time = [{
+                                            id: 1,
+                                            value: day
+                                        }]
+                                        the_data[0].access_time_per_day = new_access_time;
+                                        the_data[0].point_per_today = 0;
+                                    } else {
+                                        new_access_time = [{
+                                            id: 0,
+                                            value: day
+                                        }]
+                                        the_data[0].access_time_per_day = new_access_time;
+                                    }
+                                    the_data[0].point_plus = point;
+                                    the_data[0].save(function (err) { });
+                                    response = { 'error_code': 0, 'auth': the_data };
                                 } else {
-                                    new_access_time = [{
-                                        id: 0,
-                                        value: day
-                                    }]
-                                    the_data[0].access_time_per_day = new_access_time;
+                                    response = { 'error_code': 5, 'message': 'your account is block' };
                                 }
-                                the_data[0].point_plus = point;
-                                the_data[0].save(function (err) { });
-                                response = { 'error_code': 0, 'auth': the_data };
                             } else {
                                 response = { 'error_code': 2, 'message': 'user id incorrect' };
                             }
@@ -263,46 +267,50 @@ module.exports = {
                         }
                         else {
                             if (the_data.length > 0) {
-                                if (the_data[0].role[0].id === 3) {
-                                    _role = [{
-                                        id: 0,
-                                        name: 'Thường',
-                                    }];
-                                    the_data[0].role = _role;
-                                }
-                                //check download app first login
-                                if (the_data[0].download === false) {
-                                    the_data[0].download = true;
-                                    the_data[0].save(function (err) { });
-                                }
-                                //end check
+                                if (the_data[0]._status[0].id === 0) {
+                                    if (the_data[0].role[0].id === 3) {
+                                        _role = [{
+                                            id: 0,
+                                            name: 'Thường',
+                                        }];
+                                        the_data[0].role = _role;
+                                    }
+                                    
+                                    //check download app first login
+                                    if (the_data[0].download === false) {
+                                        the_data[0].download = true;
+                                        the_data[0].save(function (err) { });
+                                    }
+                                    //end check
 
-                                the_data[0].user_img = req.body.user_img;
-                                var access_time_per_day = the_data[0].access_time_per_day[0].value;
-                                var point = the_data[0].point_plus;
-                                var day = dateFormat(new Date(), "yyyymmdd");
-                                if (access_time_per_day !== day) {
-                                    point = point + 50;
-                                    new_access_time = [{
-                                        id: 1,
-                                        value: day
-                                    }]
-                                    the_data[0].access_time_per_day = new_access_time;
-                                    the_data[0].point_per_today = 0;
+                                    the_data[0].user_img = req.body.user_img;
+                                    var access_time_per_day = the_data[0].access_time_per_day[0].value;
+                                    var point = the_data[0].point_plus;
+                                    var day = dateFormat(new Date(), "yyyymmdd");
+                                    if (access_time_per_day !== day) {
+                                        point = point + 50;
+                                        new_access_time = [{
+                                            id: 1,
+                                            value: day
+                                        }]
+                                        the_data[0].access_time_per_day = new_access_time;
+                                        the_data[0].point_per_today = 0;
+                                    } else {
+                                        new_access_time = [{
+                                            id: 0,
+                                            value: day
+                                        }]
+                                        the_data[0].access_time_per_day = new_access_time;
+                                    }
+                                    the_data[0].point_plus = point;
+                                    the_data[0].save(function (err) { });
+                                    response = { 'error_code': 0, 'auth': the_data };
                                 } else {
-                                    new_access_time = [{
-                                        id: 0,
-                                        value: day
-                                    }]
-                                    the_data[0].access_time_per_day = new_access_time;
+                                    response = { 'error_code': 5, 'message': 'your account is block' };
                                 }
-                                the_data[0].point_plus = point;
-                                the_data[0].save(function (err) { });
-                                response = { 'error_code': 0, 'auth': the_data };
                             } else {
                                 response = { 'error_code': 2, 'message': 'user id incorrect' };
                             }
-
                         }
                         res.status(200).json(response);
                     });
