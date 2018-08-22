@@ -460,11 +460,14 @@ module.exports = {
             } else {
                 if (data) {
                     var point_plus = data.point_plus;
+                    var bach_kim = 2000;
+                    var vang = 1500;
+                    var bac = 1000;
                     var slot;
                     var _class;
                     var new_empty;
 
-                    if (point_plus >= 400) {
+                    if (point_plus >= bach_kim) {
                         if (data.user_class[0].id !== 1) {
                             _class = [{
                                 id: 1,
@@ -482,7 +485,7 @@ module.exports = {
                             slot = data.total_slot
                             new_empty = data.empty_slot;
                         }
-                    } else if (point_plus >= 300) {
+                    } else if (point_plus >= vang) {
                         if (data.user_class[0].id !== 2) {
                             _class = [{
                                 id: 2,
@@ -500,7 +503,7 @@ module.exports = {
                             slot = data.total_slot
                             new_empty = data.empty_slot;
                         }
-                    } else if (point_plus >= 200) {
+                    } else if (point_plus >= bac) {
                         if (data.user_class[0].id !== 3) {
                             _class = [{
                                 id: 3,
