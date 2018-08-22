@@ -547,8 +547,7 @@ module.exports = {
                         } else {
                             response = { 'error_code': 0, 'message': 'your class is updated' };
                         }
-                        console.log(response)
-                        res.status(200).json(response);
+                        res.status(200).json(data);
                     })
                 }
 
