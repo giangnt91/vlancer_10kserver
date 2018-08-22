@@ -458,7 +458,7 @@ module.exports = {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                if (data) {
+                if (data !== null) {
                     var point_plus = data.point_plus;
                     var bach_kim = 2000;
                     var vang = 1500;
@@ -525,29 +525,19 @@ module.exports = {
                         _class = data.user_class;
                         new_empty = data.empty_slot;
                     }
-                    // else {
-                    //     _class = [{
-                    //         id: 4,
-                    //         name: "Thường"
-                    //     }]
-                    //     slot = 5;
 
-                    //     if (data.empty_slot === data.total_slot) {
-                    //         new_empty = 5;
-                    //     } else {
-                    //         new_empty = 5 - data.total_slot + data.empty_slot;
-                    //     }
-                    // }
+
                     data.user_class = _class;
                     data.total_slot = slot;
                     data.empty_slot = new_empty;
+
                     data.save(function (err) {
                         if (err) {
                             response = { 'error_code': 2, 'message': 'error updating class for user' };
                         } else {
                             response = { 'error_code': 0, 'message': 'your class is updated' };
                         }
-                        res.status(200).json(data);
+                        res.status(200).json(response);
                     })
                 }
 
