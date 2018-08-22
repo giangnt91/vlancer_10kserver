@@ -504,6 +504,7 @@ module.exports = {
                             new_empty = data.empty_slot;
                         }
                     } else if (point_plus >= bac) {
+                        console.log('da vao bac');
                         if (data.user_class[0].id !== 3) {
                             _class = [{
                                 id: 3,
@@ -516,6 +517,7 @@ module.exports = {
                             } else {
                                 new_empty = 10 - data.total_slot + data.empty_slot;
                             }
+                            console.log('id khac 4')
                         } else {
                             _class = data.user_class;
                             slot = data.total_slot
@@ -538,10 +540,10 @@ module.exports = {
                     //         new_empty = 5 - data.total_slot + data.empty_slot;
                     //     }
                     // }
-
                     data.user_class = _class;
                     data.total_slot = slot;
                     data.empty_slot = new_empty;
+                    console.log(data)
                     data.save(function (err) {
                         if (err) {
                             response = { 'error_code': 2, 'message': 'error updating class for user' };
