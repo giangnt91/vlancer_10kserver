@@ -458,7 +458,6 @@ module.exports = {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                console.log(data)
                 if (data !== null) {
                     var point_plus = data.point_plus;
                     var bach_kim = 2000;
@@ -531,6 +530,8 @@ module.exports = {
                     data.user_class = _class;
                     data.total_slot = slot;
                     data.empty_slot = new_empty;
+                    console.log(_class);
+                    console.log(data);
 
                     data.save(function (err) {
                         if (err) {
