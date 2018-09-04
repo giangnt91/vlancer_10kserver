@@ -232,7 +232,7 @@ module.exports = {
                                     var access_time_per_day = data[0].access_time_per_day[0].value;
                                     var point = data[0].point_plus;
                                     var day = dateFormat(new Date(), "yyyymmdd");
-									
+
                                     if (access_time_per_day !== day) {
                                         point = point + 50;
                                         new_access_time = [{
@@ -466,7 +466,7 @@ module.exports = {
                     var slot;
                     var _class;
                     var new_empty;
-                    console.log(point_plus);
+
                     if (point_plus >= bach_kim) {
                         if (data.user_class[0].id !== 1) {
                             _class = [{
@@ -482,7 +482,7 @@ module.exports = {
                             }
                         } else {
                             _class = data.user_class;
-                            slot = data.total_slot
+                            slot = data.total_slot;
                             new_empty = data.empty_slot;
                         }
                     } else if (point_plus >= vang) {
@@ -500,7 +500,7 @@ module.exports = {
                             }
                         } else {
                             _class = data.user_class;
-                            slot = data.total_slot
+                            slot = data.total_slot;
                             new_empty = data.empty_slot;
                         }
                     } else if (point_plus >= bac) {
@@ -518,11 +518,12 @@ module.exports = {
                             }
                         } else {
                             _class = data.user_class;
-                            slot = data.total_slot
+                            slot = data.total_slot;
                             new_empty = data.empty_slot;
                         }
                     } else {
                         _class = data.user_class;
+                        slot = data.total_slot;
                         new_empty = data.empty_slot;
                     }
 
