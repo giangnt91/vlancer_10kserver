@@ -466,7 +466,7 @@ module.exports = {
                     var slot;
                     var _class;
                     var new_empty;
-
+                    console.log(point_plus);
                     if (point_plus >= bach_kim) {
                         if (data.user_class[0].id !== 1) {
                             _class = [{
@@ -530,8 +530,6 @@ module.exports = {
                     data.user_class = _class;
                     data.total_slot = slot;
                     data.empty_slot = new_empty;
-                    console.log(_class);
-                    console.log(data);
 
                     data.save(function (err) {
                         if (err) {
