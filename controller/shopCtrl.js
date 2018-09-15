@@ -22,19 +22,40 @@ function remove_coupon_expired() {
 
     shop_model.find({}, function (err, data) {
         var _arr = []
-        data.forEach(element => {
-            if (element.shop_coupon.length > 0) {
-                if (element.shop_coupon[0].approved === true) {
+        if (data !== undefined) {
+            data.forEach(element => {
+                if (element.shop_coupon.length > 0) {
+                    if (element.shop_coupon[0].approved === true) {
+                        _arr = element.expire_coupon;
+                        var _expire_day = process(element.shop_coupon[0].coupon[0].limit_time);
+                        if (_expire_day < _today) {
+                            element.shop_coupon[0].coupon.forEach(el => {
+                                el.status_coupon = [{
+                                    id: 2,
+                                    status: "Hết hạn và chưa sử dụng"
+                                }]
+                                _arr.push(el);
+                                element.shop_coupon = [];
+                                element.expire_coupon = _arr
+                                element.save(function (err) {
+                                    if (err) return err;
+                                })
+                            });
+                        }
+                    }
+
+                }
+                if (element.server_coupon.length > 0) {
                     _arr = element.expire_coupon;
-                    var _expire_day = process(element.shop_coupon[0].coupon[0].limit_time);
+                    var _expire_day = process(element.server_coupon[0].coupon[0].limit_time);
                     if (_expire_day < _today) {
-                        element.shop_coupon[0].coupon.forEach(el => {
+                        element.server_coupon[0].coupon.forEach(el => {
                             el.status_coupon = [{
                                 id: 2,
                                 status: "Hết hạn và chưa sử dụng"
                             }]
                             _arr.push(el);
-                            element.shop_coupon = [];
+                            element.server_coupon = [];
                             element.expire_coupon = _arr
                             element.save(function (err) {
                                 if (err) return err;
@@ -42,27 +63,9 @@ function remove_coupon_expired() {
                         });
                     }
                 }
+            });
+        }
 
-            }
-            if (element.server_coupon.length > 0) {
-                _arr = element.expire_coupon;
-                var _expire_day = process(element.server_coupon[0].coupon[0].limit_time);
-                if (_expire_day < _today) {
-                    element.server_coupon[0].coupon.forEach(el => {
-                        el.status_coupon = [{
-                            id: 2,
-                            status: "Hết hạn và chưa sử dụng"
-                        }]
-                        _arr.push(el);
-                        element.server_coupon = [];
-                        element.expire_coupon = _arr
-                        element.save(function (err) {
-                            if (err) return err;
-                        })
-                    });
-                }
-            }
-        });
     });
 }
 
@@ -855,7 +858,7 @@ module.exports = {
                         }
                         res.status(200).json(response);
                     });
-                }else{
+                } else {
                     response = { 'error_code': 2, 'message': 'Shop id incorrect' };
                     res.status(200).json(response);
                 }
