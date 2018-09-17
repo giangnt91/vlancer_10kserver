@@ -8,6 +8,7 @@ var dateFormat = require('dateformat');
 var FCM = require('fcm-node');
 
 // library for socket.io
+var fs = require('fs');
 var options = {
     key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
     cert: fs.readFileSync('test/fixtures/keys/agent2-cert.cert')
