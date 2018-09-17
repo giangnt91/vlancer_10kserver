@@ -1,4 +1,4 @@
-var express = require('express'), http = require('http');
+var express = require('express'), https = require('https');
 var app = express();
 var bodyParser = require('body-parser');
 var device = require('express-device');
@@ -8,8 +8,8 @@ var dateFormat = require('dateformat');
 var FCM = require('fcm-node');
 
 // library for socket.io
-var http = http.Server(app);
-var io = require('socket.io')(http);
+var https = https.Server(app);
+var io = require('socket.io')(https);
 // end library
 port = process.env.port || 2018;
 
@@ -407,7 +407,7 @@ app.post('/getreac', function (req, res) {
 
 
 //-- Run server --//
-http.listen(port);
+https.listen(port);
 console.log('Server Coupon is running on port ' + port);
 
 
