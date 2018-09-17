@@ -250,7 +250,7 @@ app.post('/cshop', function (req, res) {
 })
 
 // var server_url = 'http://localhost:2018/';
-var server_url = 'http://35.240.165.98:2018/';
+var server_url = 'https://35.240.165.98:2018/';
 
 app.post('/img', function (req, res) {
     upload(req, res, function (err) {
