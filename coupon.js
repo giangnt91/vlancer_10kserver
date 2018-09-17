@@ -1,4 +1,4 @@
-var express = require('express'), http = require('http');
+var express = require('express'), http = require('http'), https = require('https');
 var app = express();
 var bodyParser = require('body-parser');
 var device = require('express-device');
@@ -8,7 +8,15 @@ var dateFormat = require('dateformat');
 var FCM = require('fcm-node');
 
 // library for socket.io
+var options = {
+    key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
+    cert: fs.readFileSync('test/fixtures/keys/agent2-cert.cert')
+};
 var http = http.Server(app);
+var https = https.Server(options, app);
+
+
+
 var io = require('socket.io')(http);
 // end library
 port = process.env.port || 2018;
@@ -91,7 +99,7 @@ io.on('connection', function (socket) {
     })
 
     //1 connect to coupon for shop
-    socket.on('oneconnect', function(couponid, fulname, avatar){
+    socket.on('oneconnect', function (couponid, fulname, avatar) {
         socket.broadcast.emit('disableconnect', couponid, fulname, avatar);
     })
 })
@@ -408,6 +416,7 @@ app.post('/getreac', function (req, res) {
 
 //-- Run server --//
 http.listen(port);
+https.listen(443);
 console.log('Server Coupon is running on port ' + port);
 
 
