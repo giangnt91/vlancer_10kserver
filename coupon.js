@@ -1,4 +1,4 @@
-var express = require('express'), https = require('https');
+var express = require('express'), http = require('http');
 var app = express();
 var bodyParser = require('body-parser');
 var device = require('express-device');
@@ -8,8 +8,8 @@ var dateFormat = require('dateformat');
 var FCM = require('fcm-node');
 
 // library for socket.io
-var https = https.Server(app);
-var io = require('socket.io')(https);
+var http = http.Server(app);
+var io = require('socket.io')(http);
 // end library
 port = process.env.port || 2018;
 
@@ -107,7 +107,7 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
     //allow connect
     // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-    var allowedOrigins = ['https://35.240.165.98:8080', 'https://localhost:8080', 'https://coupon10k.com', 'https://shop.coupon10k.com'];
+    var allowedOrigins = ['http://35.240.165.98:8080', 'http://localhost:8080', 'http://localhost:8081', 'http://192.168.1.111:8100', 'http://coupon10k.com', 'http://shop.coupon10k.com'];
     var origin = req.headers.origin;
     if (allowedOrigins.indexOf(origin) > -1) {
         res.setHeader('Access-Control-Allow-Origin', origin);
@@ -250,7 +250,7 @@ app.post('/cshop', function (req, res) {
 })
 
 // var server_url = 'http://localhost:2018/';
-var server_url = 'https://35.240.165.98:2018/';
+var server_url = 'http://35.240.165.98:2018/';
 
 app.post('/img', function (req, res) {
     upload(req, res, function (err) {
@@ -407,7 +407,7 @@ app.post('/getreac', function (req, res) {
 
 
 //-- Run server --//
-https.listen(port);
+http.listen(port);
 console.log('Server Coupon is running on port ' + port);
 
 
