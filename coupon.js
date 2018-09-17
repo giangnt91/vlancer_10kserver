@@ -416,6 +416,6 @@ app.post('/getreac', function (req, res) {
 
 //-- Run server --//
 https.listen(port);
-console.log('Server Coupon is running on port ' + port);
+console.log('Server Coupon is running on https port ' + port);
 
 
