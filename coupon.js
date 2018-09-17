@@ -10,8 +10,8 @@ var FCM = require('fcm-node');
 // library for socket.io
 var fs = require('fs');
 var options = {
-    key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
-    cert: fs.readFileSync('test/fixtures/keys/agent2-cert.cert')
+    key: fs.readFileSync('agent2-key.pem'),
+    cert: fs.readFileSync('agent2-cert.cert')
 };
 var http = http.Server(app);
 var https = https.Server(options, app);
