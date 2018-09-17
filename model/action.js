@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
 
 // connect mongodb
-mongoose.createConnection('mongodb://localhost:27017/coupon10k');
+// mongoose.createConnection('mongodb://localhost:27017/coupon10k');
+mongoose.createConnection('mongodb://cp_sa:91411902@localhost:19899/coupon10k');
 
 // action schema
 var action = new mongoose.Schema({
