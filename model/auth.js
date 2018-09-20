@@ -25,6 +25,7 @@ var user = new mongoose.Schema({
     call_server_in_day: Array,
     role: Array,
     notif: String,
+    loyal: Array,
     _status: Array
 }, {
         versionKey: false

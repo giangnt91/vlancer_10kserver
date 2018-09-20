@@ -156,6 +156,10 @@ var upload = multer({ storage: storage }).any();
 
 
 // auth
+app.post('/checkin', function (req, res) {
+    auth.CheckinLoyal(req, res);
+})
+
 app.post('/mobile', function (req, res) {
     auth.Mobile(req, res);
 })

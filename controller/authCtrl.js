@@ -1,9 +1,83 @@
 var dateFormat = require('dateformat');
+var schedule = require('node-schedule');
 
 
 // Get model
 auth_model = require('../model/auth');
 shop_model = require('../model/shop');
+
+// check loyal đầu mỗi tháng
+function MonthLayol() {
+    auth_model.find({ 'role.id': 0 }, function (err, data) {
+        if (err) {
+            console.log('MonthLayol ' + err);
+        } else {
+            if (data.length > 0) {
+                var day = dateFormat(new Date(), "yyyymmdd");
+                var d = new Date();
+                var _premonth = d.getMonth();
+                data.forEach(element => {
+                    if (element.loyal[0].prePoint >= 20) {
+                        let _tmp = {
+                            today: day,
+                            preMonth: element.loyal[0].preMonth,
+                            prePoint: element.loyal[0].prePoint,
+                            Month: _premonth + 1,
+                            Point: 0,
+                            Loyal: 1,
+                            Expired: 1
+                        }
+                        element.loyal = [_tmp];
+                        element.save(function (err) {
+                            if (err) {
+                                console.log(err);
+                            }
+                        })
+                    } else {
+                        if (element.loyal[0].Expired === 1) {
+                            let _tmp = {
+                                today: day,
+                                preMonth: element.loyal[0].preMonth,
+                                prePoint: element.loyal[0].prePoint,
+                                Month: _premonth + 1,
+                                Point: 0,
+                                Loyal: 1,
+                                Expired: 0
+                            }
+                            element.loyal = [_tmp];
+                            element.save(function (err) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                            })
+                        } else {
+                            let _tmp = {
+                                today: day,
+                                preMonth: element.loyal[0].preMonth,
+                                prePoint: element.loyal[0].prePoint,
+                                Month: _premonth + 1,
+                                Point: 0,
+                                Loyal: 0,
+                                Expired: 0
+                            }
+                            element.loyal = [_tmp];
+                            element.save(function (err) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                            })
+                        }
+                    }
+                });
+            }
+        }
+    })
+}
+
+// chạy mỗi đầu tháng cho loyal
+schedule.scheduleJob('0 0 1 * *', function () {
+    MonthLayol();
+});
 
 // Api
 module.exports = {
@@ -20,6 +94,20 @@ module.exports = {
                         id: 0,
                         value: '2018'
                     }]
+                    var day = dateFormat(new Date(), "yyyymmdd");
+                    var d = new Date();
+                    var _premonth = d.getMonth();
+
+                    _loyal = [{
+                        today: day,
+                        preMonth: _premonth,
+                        prePoint: 0,
+                        Month: _premonth + 1,
+                        Point: 1,
+                        Loyal: 0,
+                        Expired: 0
+                    }]
+
                     var new_auth = new auth_model({
                         user_id: req.body.user_id,
                         user_img: req.body.user_img,
@@ -38,6 +126,7 @@ module.exports = {
                         call_server_in_day: req.body.call_server_in_day,
                         role: JSON.parse(req.body.role),
                         notif: null,
+                        loyal: _loyal,
                         _status: JSON.parse(req.body._status)
                     });
 
@@ -52,6 +141,51 @@ module.exports = {
                 }
             }
         });
+    },
+
+    CheckinLoyal: function (req, res) {
+        auth_model.findById({ _id: req.body._id }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data !' };
+            } else {
+                var day = dateFormat(new Date(), "yyyymmdd");
+                let _tmp;
+                let _tmp_loyal;
+
+                if (day !== data.loyal[0].today) {
+
+                    if (data.loyal[0].Point + 1 >= 20) {
+                        if (data.loyal[0].Loyal === 0) {
+                            _tmp_loyal = 1;
+                        } else {
+                            _tmp_loyal = data.loyal[0].Loyal;
+                        }
+                    } else {
+                        _tmp_loyal = data.loyal[0].Loyal;
+                    }
+
+                    _tmp = {
+                        today: day,
+                        preMonth: data.loyal[0].preMonth,
+                        prePoint: data.loyal[0].prePoint,
+                        Month: data.loyal[0].Month,
+                        Point: data.loyal[0].Point + 1,
+                        Loyal: _tmp_loyal,
+                        Expired: data.loyal[0]
+                    }
+
+                    data.loyal = [_tmp];
+                    data.save(function (err) {
+                        if (err) {
+                            response = { 'error_code': 1, 'message': 'error fetching data' };
+                        } else {
+                            response = { 'error_code': 0, 'auth': data }
+                            res.status(200).json(response);
+                        }
+                    })
+                }
+            }
+        })
     },
 
     // Sign in
