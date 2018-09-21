@@ -225,6 +225,15 @@ app.post('/alluser', function (req, res) {
 })
 
 // basic code
+
+app.post('/getemarket', function (req, res) {
+    code.getEmarket(req, res);
+})
+
+app.post('/emarket', function (req, res) {
+    code.emarket(req, res);
+})
+
 app.post('/basic', function (req, res) {
     code.basic_code(req, res);
 })

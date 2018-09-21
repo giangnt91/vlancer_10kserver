@@ -1,16 +1,33 @@
 // get model
 code_model = require('../model/code');
+emarket_model = require('../model/emarket');
+
+// create emarket
+function create_emarket(_ename, _eimg) {
+    var emarket = new emarket_model({
+        Ename: _ename,
+        Eimg: _eimg
+    });
+
+    emarket.save(function (err) {
+        if (err) {
+            console.log('create emarket ' + err)
+        }
+    })
+}
 
 // create basic code
-function create_basic_code(_shopid, _shop_img, _info_coupon, _value, _code_coupon, _expire_day, _shop_url) {
+function create_basic_code(_Eid, _Ename, _Eimg, _Code, _Url, _Industry, _Info, _ValueC, _Expireday) {
     var code = new code_model({
-        shopId: _shopid,
-        shopImg: _shop_img,
-        info_coupon: _info_coupon,
-        value: _value,
-        code_coupon: _code_coupon,
-        expire_day: _expire_day,
-        shopUrl: _shop_url
+        Eid: _Eid,
+        Ename: _Ename,
+        Eimg: _Eimg,
+        Code: _Code,
+        Url: _Url,
+        Industry: _Industry,
+        Info: _Info,
+        ValueC: _ValueC,
+        Expireday: _Expireday
     });
 
     code.save(function (err) {
@@ -25,9 +42,29 @@ function create_basic_code(_shopid, _shop_img, _info_coupon, _value, _code_coupo
 
 // api
 module.exports = {
+
+    // get emarket
+    getEmarket: function (req, res) {
+        emarket_model.find({}, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                response = { 'error_code': 0, 'emarket': data }
+            }
+            res.status(200).json(response);
+        });
+    },
+
+    // create emarket
+    emarket: function (req, res) {
+        create_emarket(req.body.ename, req.body.eimg);
+        response = { 'error_code': 0, 'message': 'emarket  is created !' }
+        res.status(200).json(response);
+    },
+
     // create basic
     basic_code: function (req, res) {
-        create_basic_code(req.body.shopId, req.body.shopImg, req.body.info_coupon, req.body.value, req.body.code_coupon, req.body.expire_day, req.body.shopUrl);
+        create_basic_code(req.body.Eid, req.body.Ename, req.body.Eimg, req.body.Code, req.body.Url, req.body.Industry, req.body.Info, req.body.ValueC, req.body.Expireday);
         response = { 'error_code': 0, 'message': 'new Basic coupon  is created !' }
         res.status(200).json(response);
     },
@@ -71,18 +108,21 @@ module.exports = {
         });
     },
     Update: function (req, res) {
-        code_model.find({ code_coupon: req.body.code_coupon }, function (err, data) {
+        code_model.findById({_id: req.body._id}, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                data[0].shopId = req.body.shopId;
-                data[0].info_coupon = req.body.info_coupon;
-                data[0].value = req.body.value;
-                data[0].code_coupon = req.body.code_coupon;
-                data[0].expire_day = req.body.expire_day;
-                data[0].shopUrl = req.body.shopUrl;
+                data.Eid = req.body.Eid;
+                data.Ename = req.body.Ename;
+                data.Eimg = req.body.Eimg;
+                data.Code = req.body.Code;
+                data.Url = req.body.Url;
+                data.Industry = req.body.Industry;
+                data.Info = req.body.Info;
+                data.ValueC = req.body.ValueC;
+                data.Expireday = req.body.Expireday;
 
-                data[0].save(function (err) {
+                data.save(function (err) {
                     if (err) {
                         response = {
                             'error_code': 1,

@@ -5,20 +5,12 @@ var mongoose = require('mongoose');
 mongoose.createConnection('mongodb://cp_sa:91411902@localhost:19899/coupon10k');
 
 // Create basic code
-var code = new mongoose.Schema({
-    Eid: String,
+var Emarket = new mongoose.Schema({
     Ename: String,
     Eimg: String,
-    Code: String,
-    Url: String,
-    Industry: String,
-    Info: String,
-    ValueC: Array,
-    Expireday: String,
-
 }, {
         versionKey: false
     });
 
 // Create model based a schema
-module.exports = mongoose.model('Basic_Coupon', code);
+module.exports = mongoose.model('Emarket', Emarket);
