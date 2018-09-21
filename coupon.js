@@ -226,6 +226,18 @@ app.post('/alluser', function (req, res) {
 
 // basic code
 
+app.post('/cslider', function (req, res) {
+    code.Slider(req, res);
+})
+
+app.post('/getslider', function (req, res) {
+    code.getSlider(req, res);
+})
+
+app.post('/rmslider', function(req, res){
+    code.rmSlider(req, res);
+})
+
 app.post('/getemarket', function (req, res) {
     code.getEmarket(req, res);
 })
@@ -267,6 +279,16 @@ app.post('/cshop', function (req, res) {
 
 // var server_url = 'http://localhost:2018/';
 var server_url = 'http://35.240.165.98:2018/';
+
+app.post('/slider', function (req, res) {
+    upload(req, res, function (err) {
+        if (err) {
+            res.send({ 'error_code': 1, 'message': err });
+        } else {
+            code.upSlider(req, res, server_url);
+        }
+    })
+});
 
 app.post('/img', function (req, res) {
     upload(req, res, function (err) {

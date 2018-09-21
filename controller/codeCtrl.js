@@ -1,6 +1,7 @@
 // get model
 code_model = require('../model/code');
 emarket_model = require('../model/emarket');
+slider_model = require('../model/slider');
 
 // create emarket
 function create_emarket(_ename, _eimg) {
@@ -42,6 +43,73 @@ function create_basic_code(_Eid, _Ename, _Eimg, _Code, _Url, _Industry, _Info, _
 
 // api
 module.exports = {
+    // create slider
+    Slider: function (req, res) {
+        let _slider = new slider_model({
+            ShopId: req.body.ShopId,
+            Button: req.body.Button,
+            Url: req.body.Url,
+            Image: null
+        });
+
+        _slider.save(function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                response = { 'error_code': 0, '_id': data.id };
+                res.status(200).json(response);
+            }
+        })
+    },
+
+    upSlider: function (req, res, server_url) {
+        slider_model.findById({ _id: req.body.shopId }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                var img = JSON.parse(req.body.img);
+                _slider = server_url + img[0].slider;
+
+                data.Image = _slider;
+                data.save(function (err) {
+                    if (err) {
+                        response = {
+                            'error_code': 1,
+                            'message': 'error updating data'
+                        };
+                    } else {
+                        response = {
+                            'error_code': 0,
+                            'message': 'data is updated'
+                        };
+                    }
+                    res.status(200).json(response);
+                });
+            }
+        });
+    },
+
+    getSlider: function (req, res) {
+        slider_model.find({}, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                response = { 'error_code': 0, 'sliders': data }
+            }
+            res.status(200).json(response);
+        })
+    },
+
+    rmSlider: function (req, res) {
+        slider_model.findByIdAndRemove({ _id: req.body._id }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                response = { 'error_code': 0, 'message': 'slider is remove' };
+            }
+            res.status(200).json(response);
+        })
+    },
 
     // get emarket
     getEmarket: function (req, res) {
@@ -76,8 +144,8 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
                 response = { 'error_code': 0, 'basic': data }
+                res.status(200).json(response);
             }
-            res.status(200).json(response);
         });
     },
 
@@ -108,7 +176,7 @@ module.exports = {
         });
     },
     Update: function (req, res) {
-        code_model.findById({_id: req.body._id}, function (err, data) {
+        code_model.findById({ _id: req.body._id }, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {

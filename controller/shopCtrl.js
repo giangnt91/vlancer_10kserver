@@ -391,11 +391,7 @@ module.exports = {
 
                 avatar = server_url + img[0].avatar;
                 cover = server_url + img[0].cover;
-                if (img[0].vip !== null) {
-                    vip = server_url + img[0].vip;
-                } else {
-                    vip = null;
-                }
+
                 img[0].album.forEach(function (item) {
                     _album.push({
                         url: server_url + item
@@ -412,8 +408,7 @@ module.exports = {
                     info: data[0].shop_info[0].info,
                     shop_avatar: avatar,
                     shop_cover: cover,
-                    shop_album: album,
-                    shop_vip: vip
+                    shop_album: album
                 }
 
                 data[0].shop_info = _info;
