@@ -152,7 +152,7 @@ module.exports = {
                 let _tmp;
                 let _tmp_loyal;
 				
-				console.load(data.loyal[0]);
+				console.log(data.loyal[0]);
 
                 // if (day !== data.loyal[0].today) {
 
