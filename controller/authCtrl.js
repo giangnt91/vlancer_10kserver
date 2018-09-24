@@ -151,41 +151,39 @@ module.exports = {
                 var day = dateFormat(new Date(), "yyyymmdd");
                 let _tmp;
                 let _tmp_loyal;
-				
-				console.log(data.loyal[0]);
 
-                // if (day !== data.loyal[0].today) {
+                if (day !== data.loyal[0].today) {
 
-                    // if (data.loyal[0].Point + 1 >= 20) {
-                        // if (data.loyal[0].Loyal === 0) {
-                            // _tmp_loyal = 1;
-                        // } else {
-                            // _tmp_loyal = data.loyal[0].Loyal;
-                        // }
-                    // } else {
-                        // _tmp_loyal = data.loyal[0].Loyal;
-                    // }
+                    if (data.loyal[0].Point + 1 >= 20) {
+                        if (data.loyal[0].Loyal === 0) {
+                            _tmp_loyal = 1;
+                        } else {
+                            _tmp_loyal = data.loyal[0].Loyal;
+                        }
+                    } else {
+                        _tmp_loyal = data.loyal[0].Loyal;
+                    }
 
-                    // _tmp = {
-                        // today: day,
-                        // preMonth: data.loyal[0].preMonth,
-                        // prePoint: data.loyal[0].prePoint,
-                        // Month: data.loyal[0].Month,
-                        // Point: data.loyal[0].Point + 1,
-                        // Loyal: _tmp_loyal,
-                        // Expired: data.loyal[0]
-                    // }
+                    _tmp = {
+                        today: day,
+                        preMonth: data.loyal[0].preMonth,
+                        prePoint: data.loyal[0].prePoint,
+                        Month: data.loyal[0].Month,
+                        Point: data.loyal[0].Point + 1,
+                        Loyal: _tmp_loyal,
+                        Expired: data.loyal[0]
+                    }
 
-                    // data.loyal = [_tmp];
-                    // data.save(function (err) {
-                        // if (err) {
-                            // response = { 'error_code': 1, 'message': 'error fetching data' };
-                        // } else {
-                            // response = { 'error_code': 0, 'auth': data }
-                            // res.status(200).json(response);
-                        // }
-                    // })
-                // }
+                    data.loyal = [_tmp];
+                    data.save(function (err) {
+                        if (err) {
+                            response = { 'error_code': 1, 'message': 'error fetching data' };
+                        } else {
+                            response = { 'error_code': 0, 'auth': data }
+                            res.status(200).json(response);
+                        }
+                    })
+                }
             }
         })
     },
