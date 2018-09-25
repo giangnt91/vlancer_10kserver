@@ -95,9 +95,16 @@ module.exports = {
                         value: '2018'
                     }]
                     var day = dateFormat(new Date(), "yyyymmdd");
+					let dayreg = dateFormat(new Date(), "dd/mm/yyyy");
+					
                     var d = new Date();
+					year = d.getFullYear();
+					month = d.getMonth() + 1;
+					dt = d.getDate();
+					
                     var _premonth = d.getMonth();
-
+					let isoday = year + '-' + month + '-' + dt;
+					
                     _loyal = [{
                         today: day,
                         preMonth: _premonth,
@@ -127,6 +134,8 @@ module.exports = {
                         role: JSON.parse(req.body.role),
                         notif: null,
                         loyal: _loyal,
+						regday: dayreg,
+						regdayiso: isoday
                         _status: JSON.parse(req.body._status)
                     });
 

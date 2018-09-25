@@ -26,6 +26,8 @@ var user = new mongoose.Schema({
     role: Array,
     notif: String,
     loyal: Array,
+	regday: String,
+	regdayiso: Date
     _status: Array
 }, {
         versionKey: false
