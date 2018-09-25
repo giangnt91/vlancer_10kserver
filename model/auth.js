@@ -27,7 +27,7 @@ var user = new mongoose.Schema({
     notif: String,
     loyal: Array,
 	regday: String,
-	regdayiso: Date
+	regdayiso: Date,
     _status: Array
 }, {
         versionKey: false
