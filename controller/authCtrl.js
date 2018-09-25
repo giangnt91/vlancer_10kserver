@@ -135,7 +135,7 @@ module.exports = {
                         notif: null,
                         loyal: _loyal,
 						regday: dayreg,
-						regdayiso: isoday
+						regdayiso: isoday,
                         _status: JSON.parse(req.body._status)
                     });
 
