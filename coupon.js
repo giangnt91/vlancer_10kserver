@@ -156,6 +156,10 @@ var upload = multer({ storage: storage }).any();
 
 
 // auth
+app.post('/accesstoken', function(req, res){
+	auth.AcessToken(req, res);
+}
+
 app.post('/checkin', function (req, res) {
     auth.CheckinLoyal(req, res);
 })
@@ -306,16 +310,6 @@ app.post('/avatar', function (req, res) {
             res.send({ 'error_code': 1, 'message': err });
         } else {
             shop.avatar(req, res, server_url);
-        }
-    })
-})
-
-app.post('/imgvip', function (req, res) {
-    upload(req, res, function (err) {
-        if (err) {
-            res.send({ 'error_code': 1, 'message': err });
-        } else {
-            shop.vip(req, res, server_url);
         }
     })
 })

@@ -136,6 +136,7 @@ module.exports = {
                         loyal: _loyal,
 						regday: dayreg,
 						regdayiso: isoday,
+						access_token: req.body.access_token,
                         _status: JSON.parse(req.body._status)
                     });
 
@@ -701,6 +702,23 @@ module.exports = {
                         response = { 'error_code': 2, 'message': 'error updating point_bad for user' };
                     } else {
                         response = { 'error_code': 0, 'message': 'your data is updated' };
+                    }
+                    res.status(200).json(response);
+                })
+            }
+        });
+    },
+	AcessToken: function (req, res) {
+        auth_model.findById(req.body._id, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                data.access_token = req.body.access_token;
+                data.save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 2, 'message': 'error updating access_token for user' };
+                    } else {
+                        response = { 'error_code': 0, 'auth': data };
                     }
                     res.status(200).json(response);
                 })
