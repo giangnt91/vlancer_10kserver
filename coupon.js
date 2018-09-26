@@ -156,6 +156,10 @@ var upload = multer({ storage: storage }).any();
 
 
 // auth
+app.post('/minuspoints', function(req, res){
+	auth.Minuspoints(req, res);
+})
+
 app.post('/accesstoken', function(req, res){
 	auth.AcessToken(req, res);
 })

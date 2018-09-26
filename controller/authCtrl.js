@@ -725,6 +725,23 @@ module.exports = {
             }
         });
     },
+	Minuspoints: function(req, res){
+		auth_model.findById(req.body._id, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                data.point_plus = req.body.point;
+                data.save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 2, 'message': 'error updating point_plus for user' };
+                    } else {
+                        response = { 'error_code': 0, 'auth': data };
+                    }
+                    res.status(200).json(response);
+                })
+            }
+        });
+	}),
     getAlluser: function (req, res) {
         auth_model.find({}, function (err, data) {
             if (err) {
