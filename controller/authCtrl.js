@@ -713,16 +713,15 @@ module.exports = {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-			console.log(req.body.access_token)
-                // data.access_token = req.body.access_token;
-                // data.save(function (err) {
-                    // if (err) {
-                        // response = { 'error_code': 2, 'message': 'error updating access_token for user' };
-                    // } else {
-                        // response = { 'error_code': 0, 'auth': data };
-                    // }
-                    // res.status(200).json(response);
-                // })
+                data.access_token = req.body.access_token;
+                data.save(function (err) {
+                    if (err) {
+                        response = { 'error_code': 2, 'message': 'error updating access_token for user' };
+                    } else {
+                        response = { 'error_code': 0, 'auth': data };
+                    }
+                    res.status(200).json(response);
+                })
             }
         });
     },
