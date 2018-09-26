@@ -158,7 +158,7 @@ var upload = multer({ storage: storage }).any();
 // auth
 app.post('/accesstoken', function(req, res){
 	auth.AcessToken(req, res);
-}
+})
 
 app.post('/checkin', function (req, res) {
     auth.CheckinLoyal(req, res);
