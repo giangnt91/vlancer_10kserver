@@ -741,7 +741,7 @@ module.exports = {
                 })
             }
         });
-	}),
+	},
     getAlluser: function (req, res) {
         auth_model.find({}, function (err, data) {
             if (err) {
