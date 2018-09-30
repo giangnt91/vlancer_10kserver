@@ -707,23 +707,25 @@ module.exports = {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                var shop_use_coupon = data[0].shop_use_coupon;
-                if (shop_use_coupon.length > 0) {
-                    shop_use_coupon.forEach(element => {
-                        if (element._id.toString() === req.body.couponId) {
-                            shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
-                        }
-                    });
-                }
-                data[0].shop_use_coupon = shop_use_coupon;
-                data[0].save(function (err) {
-                    if (err) {
-                        response = { 'error_code': 2, 'message': err }
-                    } else {
-                        response = { 'error_code': 0, 'message': 'coupon remove success' };
-                    }
-                    res.status(200).json(response);
-                })
+				if(data !== undefined && data !== null){
+					var shop_use_coupon = data[0].shop_use_coupon;
+					if (shop_use_coupon.length > 0) {
+						shop_use_coupon.forEach(element => {
+							if (element._id.toString() === req.body.couponId) {
+								shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
+							}
+						});
+					}
+					data[0].shop_use_coupon = shop_use_coupon;
+					data[0].save(function (err) {
+						if (err) {
+							response = { 'error_code': 2, 'message': err }
+						} else {
+							response = { 'error_code': 0, 'message': 'coupon remove success' };
+						}
+						res.status(200).json(response);
+					})
+				}
             }
         })
     },
