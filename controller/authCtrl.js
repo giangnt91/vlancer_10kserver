@@ -97,10 +97,10 @@ module.exports = {
                     var day = dateFormat(new Date(), "yyyymmdd");
 					let dayreg = dateFormat(new Date(), "dd/mm/yyyy");
 					
-                    var d = new Date() + 1;
+                    var d = new Date();
 					year = d.getFullYear();
 					month = d.getMonth() + 1;
-					dt = d.getDate();
+					dt = d.getDate() + 1;
 					
                     var _premonth = d.getMonth();
 					let isoday = year + '-' + month + '-' + dt;
