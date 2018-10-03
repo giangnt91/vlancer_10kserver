@@ -13,7 +13,7 @@ const fs = require('fs');
 var http = http.Server(app);
 var io = require('socket.io')(http);
 // end library
-port = process.env.port || 2018;
+port = process.env.port || 80;
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 app.use(express.static('./img/'));

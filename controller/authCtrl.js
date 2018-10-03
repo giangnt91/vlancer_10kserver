@@ -97,7 +97,7 @@ module.exports = {
                     var day = dateFormat(new Date(), "yyyymmdd");
 					let dayreg = dateFormat(new Date(), "dd/mm/yyyy");
 					
-                    var d = new Date();
+                    var d = new Date() + 1;
 					year = d.getFullYear();
 					month = d.getMonth() + 1;
 					dt = d.getDate();
