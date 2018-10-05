@@ -1,4 +1,4 @@
-var express = require('express'), http = require('http'), https = require('https');
+var express = require('express'), http = require('http');
 var app = express();
 var bodyParser = require('body-parser');
 var device = require('express-device');
@@ -9,10 +9,8 @@ var FCM = require('fcm-node');
 
 // library for socket.io
 const fs = require('fs');
-const redirectHttps = require('redirect-https')
 
 var http = http.Server(app);
-var https = https.Server(app);
 var io = require('socket.io')(http);
 // end library
 port = process.env.port || 2018;
@@ -446,7 +444,6 @@ app.post('/getreac', function (req, res) {
 
 //-- Run server --//
 http.listen(port);
-https.listen(2443);
 console.log('Server Coupon is running on https port ' + port);
 
 
