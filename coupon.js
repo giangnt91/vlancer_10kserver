@@ -130,6 +130,28 @@ app.use(function (req, res, next) {
     next();
 })
 
+var helmet = require('helmet');
+
+// @see https://github.com/evilpacket/helmet
+// you should activate even more headers provided by helmet
+app.use(helmet.csp({
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'"],
+    styleSrc: ["'self'"],
+    imgSrc: ["'self'"],
+    connectSrc: ["'self'"],
+    fontSrc: ["'self'"],
+    objectSrc: ["'none'"],
+    mediaSrc: ["'self'"],
+    frameSrc: ["'none'"],
+    // reportUri: '/report-violation',
+    reportOnly: false, // set to true if you only want to report errors
+    setAllHeaders: false, // set to true if you want to set all headers
+    safari5: false // set to true if you want to force buggy CSP in Safari 5
+}));
+
+
+
 //-- Controller --//
 var auth = require('./controller/authCtrl');
 var code = require('./controller/codeCtrl');
