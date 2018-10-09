@@ -1,22 +1,21 @@
-var express = require('express'), http = require('http');
+var express = require('./public/node_modules/express'), http = require('http');
 var app = express();
-var bodyParser = require('body-parser');
-var device = require('express-device');
-var multer = require('multer');
-var schedule = require('node-schedule');
-var dateFormat = require('dateformat');
-var FCM = require('fcm-node');
+var bodyParser = require('./public/node_modules/body-parser');
+var device = require('./public/node_modules/express-device');
+var multer = require('./public/node_modules/multer');
+var schedule = require('./public/node_modules/node-schedule');
+var dateFormat = require('./public/node_modules/dateformat');
+var FCM = require('./public/node_modules/fcm-node');
 
 // library for socket.io
-const fs = require('fs');
+// const fs = require('./public/node_modules/fs');
 
 var http = http.Server(app);
-var io = require('socket.io')(http);
+var io = require('./public/node_modules/socket.io')(http);
 // end library
 port = process.env.port || 2018;
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
-app.use(express.static('./img/'));
+app.use(express.static('./public/img/'));
 
 app.use(express.static('./node_modules/socket.io-client/dist/'));
 
@@ -131,11 +130,11 @@ app.use(function (req, res, next) {
 })
 
 //-- Controller --//
-var auth = require('./controller/authCtrl');
-var code = require('./controller/codeCtrl');
-var shop = require('./controller/shopCtrl');
-var action = require('./controller/actionCtrl');
-var reaction = require('./controller/reactionCtrl')
+var auth = require('./public/controller/authCtrl');
+var code = require('./public/controller/codeCtrl');
+var shop = require('./public/controller/shopCtrl');
+var action = require('./public/controller/actionCtrl');
+var reaction = require('./public/controller/reactionCtrl')
 
 
 //-- Api --//
