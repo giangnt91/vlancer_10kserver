@@ -13,10 +13,12 @@ function MonthLayol() {
             console.log('MonthLayol ' + err);
         } else {
             if (data.length > 0) {
+
                 var day = dateFormat(new Date(), "yyyymmdd");
                 var d = new Date();
                 var _premonth = d.getMonth();
                 data.forEach(element => {
+					
                     if (element.loyal[0].prePoint >= 20) {
                         let _tmp = {
                             today: day,
@@ -27,6 +29,7 @@ function MonthLayol() {
                             Loyal: 1,
                             Expired: 1
                         }
+						
                         element.loyal = [_tmp];
                         element.save(function (err) {
                             if (err) {
@@ -44,7 +47,8 @@ function MonthLayol() {
                                 Loyal: 1,
                                 Expired: 0
                             }
-                            element.loyal = [_tmp];
+
+							element.loyal = [_tmp];
                             element.save(function (err) {
                                 if (err) {
                                     console.log(err);
@@ -60,7 +64,8 @@ function MonthLayol() {
                                 Loyal: 0,
                                 Expired: 0
                             }
-                            element.loyal = [_tmp];
+
+							element.loyal = [_tmp];
                             element.save(function (err) {
                                 if (err) {
                                     console.log(err);
@@ -78,6 +83,10 @@ function MonthLayol() {
 schedule.scheduleJob('0 0 1 * *', function () {
     MonthLayol();
 });
+
+// schedule.scheduleJob('*/2 * * * * *', function () {
+    // MonthLayol();
+// });
 
 // Api
 module.exports = {
@@ -181,7 +190,7 @@ module.exports = {
                         Month: data.loyal[0].Month,
                         Point: data.loyal[0].Point + 1,
                         Loyal: _tmp_loyal,
-                        Expired: data.loyal[0]
+                        Expired: data.loyal[0].Expired
                     }
 
                     data.loyal = [_tmp];
