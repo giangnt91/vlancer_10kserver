@@ -222,6 +222,7 @@ module.exports = {
                                     data[0].user_img = req.body.user_img;
                                     var access_time_per_day = data[0].access_time_per_day[0].value;
                                     var point = data[0].point_plus;
+									var point_today = 50;
                                     var day = dateFormat(new Date(), "yyyymmdd");
                                     if (access_time_per_day !== day) {
                                         point = point + 50;
@@ -230,7 +231,7 @@ module.exports = {
                                             value: day
                                         }]
                                         data[0].access_time_per_day = new_access_time;
-                                        data[0].point_per_today = 0;
+                                        data[0].point_per_today = point_today;
                                     } else {
                                         new_access_time = [{
                                             id: 0,
@@ -244,6 +245,7 @@ module.exports = {
                                     data[0].user_img = req.body.user_img;
                                     var access_time_per_day = data[0].access_time_per_day[0].value;
                                     var point = data[0].point_plus;
+									var point_today = 50;
                                     var day = dateFormat(new Date(), "yyyymmdd");
                                     if (access_time_per_day !== day) {
                                         point = point + 50;
@@ -252,7 +254,7 @@ module.exports = {
                                             value: day
                                         }]
                                         data[0].access_time_per_day = new_access_time;
-                                        data[0].point_per_today = 0;
+                                        data[0].point_per_today = point_today;
                                     } else {
                                         new_access_time = [{
                                             id: 0,
@@ -290,6 +292,7 @@ module.exports = {
                                     the_data[0].user_img = req.body.user_img;
                                     var access_time_per_day = the_data[0].access_time_per_day[0].value;
                                     var point = the_data[0].point_plus;
+									var point_today = 50;
                                     var day = dateFormat(new Date(), "yyyymmdd");
                                     if (access_time_per_day !== day) {
                                         point = point + 50;
@@ -298,7 +301,7 @@ module.exports = {
                                             value: day
                                         }]
                                         the_data[0].access_time_per_day = new_access_time;
-                                        the_data[0].point_per_today = 0;
+                                        the_data[0].point_per_today = point_today;
                                     } else {
                                         new_access_time = [{
                                             id: 0,
@@ -353,6 +356,7 @@ module.exports = {
                                     data[0].user_img = req.body.user_img;
                                     var access_time_per_day = data[0].access_time_per_day[0].value;
                                     var point = data[0].point_plus;
+									var point_today = 50;
                                     var day = dateFormat(new Date(), "yyyymmdd");
                                     if (access_time_per_day !== day) {
                                         point = point + 50;
@@ -361,7 +365,7 @@ module.exports = {
                                             value: day
                                         }]
                                         data[0].access_time_per_day = new_access_time;
-                                        data[0].point_per_today = 0;
+                                        data[0].point_per_today = point_today;
                                     } else {
                                         new_access_time = [{
                                             id: 0,
@@ -375,6 +379,7 @@ module.exports = {
                                     data[0].user_img = req.body.user_img;
                                     var access_time_per_day = data[0].access_time_per_day[0].value;
                                     var point = data[0].point_plus;
+									var point_today = 50;
                                     var day = dateFormat(new Date(), "yyyymmdd");
 
                                     if (access_time_per_day !== day) {
@@ -384,7 +389,7 @@ module.exports = {
                                             value: day
                                         }]
                                         data[0].access_time_per_day = new_access_time;
-                                        data[0].point_per_today = 0;
+                                        data[0].point_per_today = point_today;
                                     } else {
                                         new_access_time = [{
                                             id: 0,
@@ -430,6 +435,7 @@ module.exports = {
                                     the_data[0].user_img = req.body.user_img;
                                     var access_time_per_day = the_data[0].access_time_per_day[0].value;
                                     var point = the_data[0].point_plus;
+									var point_today = 50;
                                     var day = dateFormat(new Date(), "yyyymmdd");
                                     if (access_time_per_day !== day) {
                                         point = point + 50;
@@ -438,7 +444,7 @@ module.exports = {
                                             value: day
                                         }]
                                         the_data[0].access_time_per_day = new_access_time;
-                                        the_data[0].point_per_today = 0;
+                                        the_data[0].point_per_today = point_today;
                                     } else {
                                         new_access_time = [{
                                             id: 0,
