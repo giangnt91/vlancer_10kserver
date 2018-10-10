@@ -585,6 +585,7 @@ module.exports = {
                 // console.log(req.body._id)
                 data[0].shop_coupon[0].coupon.forEach(element => {
                     element.approved = true;
+					element.point = parseInt(req.body.point);
                 });
 
                 var the_new = [{
