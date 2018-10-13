@@ -1,1 +1,0 @@
-Server Coupon is running on https port \\.\pipe\5cb71f1c-e09f-43f1-b0ba-bae74f8c7d4e
