@@ -283,11 +283,13 @@ module.exports = {
                                 // }                             
                             } else {
                                 response = { 'error_code': 5, 'message': 'your account is block' };
+								res.status(200).json(response);
                             }
                         } else {
                             response = { 'error_code': 2, 'message': 'user id incorrect' };
+							res.status(200).json(response);
                         }
-                        res.status(200).json(response);
+                        
                     });
                 } else {
                     auth_model.find({ user_id: req.body.user_id }, function (err, the_data) {
