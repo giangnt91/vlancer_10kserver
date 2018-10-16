@@ -325,16 +325,27 @@ module.exports = {
                                         the_data[0].access_time_per_day = new_access_time;
                                     }
                                     the_data[0].point_plus = point;
-                                    the_data[0].save(function (err) { });
-                                    response = { 'error_code': 0, 'auth': the_data };
+                                    the_data[0].save(function (err, user) {
+		
+										if(err){
+											response = { 'error_code': 1, 'message': 'error fetching data' };
+										}else{
+											response = { 'error_code': 0, 'auth': user };
+										}
+										res.status(200).json(response);
+
+									});
+                                 
                                 } else {
                                     response = { 'error_code': 5, 'message': 'your account is block' };
+									res.status(200).json(response);
                                 }
                             } else {
                                 response = { 'error_code': 2, 'message': 'user id incorrect' };
+								res.status(200).json(response);
                             }
                         }
-                        res.status(200).json(response);
+                        
                     });
                 }
             }
