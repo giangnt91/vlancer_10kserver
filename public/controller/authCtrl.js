@@ -220,7 +220,7 @@ module.exports = {
                     auth_model.find({ user_id: req.body.user_id }, function (err, data) {
                         if (data.length > 0) {
                             if (data[0]._status[0].id === 0) {
-                                if (data[0].role[0].id !== 2) {
+                                // if (data[0].role[0].id !== 2) {
                                     _role = [{
                                         id: 2,
                                         name: 'Shop Owner',
@@ -250,30 +250,30 @@ module.exports = {
                                     }
                                     data[0].point_plus = point;
                                     data[0].save(function (err) { });
-                                } else {
-                                    data[0].user_img = req.body.user_img;
-                                    var access_time_per_day = data[0].access_time_per_day[0].value;
-                                    var point = data[0].point_plus;
-									var point_today = 50;
-                                    var day = dateFormat(new Date(), "yyyymmdd");
-                                    if (access_time_per_day !== day) {
-                                        point = point + 50;
-                                        new_access_time = [{
-                                            id: 1,
-                                            value: day
-                                        }]
-                                        data[0].access_time_per_day = new_access_time;
-                                        data[0].point_per_today = point_today;
-                                    } else {
-                                        new_access_time = [{
-                                            id: 0,
-                                            value: day
-                                        }]
-                                        data[0].access_time_per_day = new_access_time;
-                                    }
-                                    data[0].point_plus = point;
-                                    data[0].save(function (err) { });
-                                }
+                                // } else {
+                                    // data[0].user_img = req.body.user_img;
+                                    // var access_time_per_day = data[0].access_time_per_day[0].value;
+                                    // var point = data[0].point_plus;
+									// var point_today = 50;
+                                    // var day = dateFormat(new Date(), "yyyymmdd");
+                                    // if (access_time_per_day !== day) {
+                                        // point = point + 50;
+                                        // new_access_time = [{
+                                            // id: 1,
+                                            // value: day
+                                        // }]
+                                        // data[0].access_time_per_day = new_access_time;
+                                        // data[0].point_per_today = point_today;
+                                    // } else {
+                                        // new_access_time = [{
+                                            // id: 0,
+                                            // value: day
+                                        // }]
+                                        // data[0].access_time_per_day = new_access_time;
+                                    // }
+                                    // data[0].point_plus = point;
+                                    // data[0].save(function (err) { });
+                                // }
                                 response = { 'error_code': 0, 'auth': data };
                             } else {
                                 response = { 'error_code': 5, 'message': 'your account is block' };
