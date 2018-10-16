@@ -249,7 +249,14 @@ module.exports = {
                                         data[0].access_time_per_day = new_access_time;
                                     }
                                     data[0].point_plus = point;
-                                    data[0].save(function (err) { });
+                                    data[0].save(function (err, user) {
+										if(err){
+											response = { 'error_code': 1, 'message': 'error fetching data' };
+										}else{
+											response = { 'error_code': 0, 'auth': user };
+										}
+										res.status(200).json(response);
+									});
                                 // } else {
                                     // data[0].user_img = req.body.user_img;
                                     // var access_time_per_day = data[0].access_time_per_day[0].value;
@@ -273,8 +280,7 @@ module.exports = {
                                     // }
                                     // data[0].point_plus = point;
                                     // data[0].save(function (err) { });
-                                // }
-                                response = { 'error_code': 0, 'auth': data };
+                                // }                             
                             } else {
                                 response = { 'error_code': 5, 'message': 'your account is block' };
                             }
