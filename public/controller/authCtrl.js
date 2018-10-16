@@ -253,7 +253,7 @@ module.exports = {
 										if(err){
 											response = { 'error_code': 1, 'message': 'error fetching data' };
 										}else{
-											response = { 'error_code': 0, 'auth': user };
+											response = { 'error_code': 0, 'auth': [user] };
 										}
 										res.status(200).json(response);
 									});
@@ -332,7 +332,7 @@ module.exports = {
 										if(err){
 											response = { 'error_code': 1, 'message': 'error fetching data' };
 										}else{
-											response = { 'error_code': 0, 'auth': user };
+											response = { 'error_code': 0, 'auth': [user] };
 										}
 										res.status(200).json(response);
 
