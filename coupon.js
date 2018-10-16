@@ -142,7 +142,7 @@ var reaction = require('./public/controller/reactionCtrl')
 // save file from upload
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './img/')
+        cb(null, './public/img/')
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();
