@@ -6,6 +6,7 @@ var user_model = require('../model/auth');
 function create(_kind_reaction, _id_post_reaction, _url_post_reaction, _click_reaction_day, _id_shop, _id_user) {
     if (_kind_reaction !== undefined) {
         var tmp_kind_reaction = JSON.parse(_kind_reaction);
+		capnhat(_id_user, tmp_kind_reaction[0].id);
     } else {
         tmp_kind_reaction = null;
     }
@@ -27,10 +28,11 @@ function create(_kind_reaction, _id_post_reaction, _url_post_reaction, _click_re
 
 // cập nhật điểm like và comment cho user
 function capnhat(id, _role){
-	user_model.find(id , function(err, data){
+	user_model.findOne({user_id: id} , function(err, data){
 		if(err){
 			console.log('cập nhật like và comment cho user '+ err);
 		}else{
+		console.log(_role);
 			if(data){
 				if(_role === 1){
 					data.likecount = data.likecount + 1;
@@ -54,7 +56,6 @@ module.exports = {
     create: function (req, res) {
         create(req.body.kind_reaction, req.body.id_post_reaction, req.body.url_post_reaction, req.body.click_reaction_day, req.body.id_shop, req.body.id_user);
 		repsonse = { 'error_code': 0, 'message': 'create reaction complete' };
-		capnhat(req.body.id_user, req.body.kind_reaction[0].id);
         res.status(200).json(repsonse);
     },
     getAll: function (req, res) {
