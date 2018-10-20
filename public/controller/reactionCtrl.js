@@ -20,11 +20,7 @@ function create(_kind_reaction, _id_post_reaction, _url_post_reaction, _click_re
     });
 
     reaction.save(function (err) {
-        if (err){
-			return err
-		}else{
-			capnhat(_id_user, _kind_reaction[0].id)
-		}
+        if (err) return err	
     });
 }
 
@@ -34,6 +30,7 @@ function capnhat(_id, _role){
 		if(err){
 			console.log('cập nhật like và comment cho user '+ err);
 		}else{
+			console.log(data);
 			if(data){
 				if(_role === 1){
 					data.likecount = data.likecount + 1;
@@ -52,6 +49,7 @@ module.exports = {
     //create reaction
     create: function (req, res) {
         create(req.body.kind_reaction, req.body.id_post_reaction, req.body.url_post_reaction, req.body.click_reaction_day, req.body.id_shop, req.body.id_user);
+		capnhat(_id_user, _kind_reaction[0].id)
 		repsonse = { 'error_code': 0, 'message': 'create reaction complete' };
         res.status(200).json(repsonse);
     },
