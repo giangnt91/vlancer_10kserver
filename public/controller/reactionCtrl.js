@@ -22,7 +22,7 @@ function create(_kind_reaction, _id_post_reaction, _url_post_reaction, _click_re
 
     reaction.save(function (err) {
         if (err){ return err }else{
-			capnhat(_id_user, _id);
+			// capnhat(_id_user, _id);
 		}
     });
 
