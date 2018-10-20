@@ -6,7 +6,6 @@ var user_model = require('../model/auth');
 function create(_kind_reaction, _id_post_reaction, _url_post_reaction, _click_reaction_day, _id_shop, _id_user) {
     if (_kind_reaction !== undefined) {
         var tmp_kind_reaction = JSON.parse(_kind_reaction);
-		capnhat(_id_user, tmp_kind_reaction[0].id);
     } else {
         tmp_kind_reaction = null;
     }
@@ -23,6 +22,8 @@ function create(_kind_reaction, _id_post_reaction, _url_post_reaction, _click_re
     reaction.save(function (err) {
         if (err) return err	
     });
+	
+	capnhat(_id_user, tmp_kind_reaction[0].id);
 
 }
 
