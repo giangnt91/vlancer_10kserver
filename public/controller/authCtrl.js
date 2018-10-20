@@ -146,7 +146,9 @@ module.exports = {
 						regday: dayreg,
 						regdayiso: isoday,
 						access_token: req.body.access_token,
-                        _status: JSON.parse(req.body._status)
+                        _status: JSON.parse(req.body._status),
+						likecount: 0,
+						commentcount: 0
                     });
 
                     new_auth.save(function (err) {

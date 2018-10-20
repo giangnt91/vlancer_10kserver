@@ -29,6 +29,8 @@ var user = new mongoose.Schema({
 	regday: String,
 	regdayiso: Date,
 	access_token: String,
+	likecount: Number,
+	commentcount: Number
     _status: Array
 }, {
         versionKey: false
