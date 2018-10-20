@@ -22,8 +22,7 @@ function create(_kind_reaction, _id_post_reaction, _url_post_reaction, _click_re
     reaction.save(function (err) {
         if (err) return err	
     });
-	
-	capnhat(_id_user, _kind_reaction[0].id)
+
 }
 
 // cập nhật điểm like và comment cho user
@@ -56,6 +55,7 @@ module.exports = {
     create: function (req, res) {
         create(req.body.kind_reaction, req.body.id_post_reaction, req.body.url_post_reaction, req.body.click_reaction_day, req.body.id_shop, req.body.id_user);
 		repsonse = { 'error_code': 0, 'message': 'create reaction complete' };
+		capnhat(req.body.id_user, req.body.kind_reaction[0].id);
         res.status(200).json(repsonse);
     },
     getAll: function (req, res) {
