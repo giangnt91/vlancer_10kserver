@@ -3,7 +3,7 @@ var reaction_model = require('../model/reaction');
 var user_model = require('../model/auth');
 
 // function
-function create(_kind_reaction, _id_post_reaction, _url_post_reaction, _click_reaction_day, _id_shop, _id_user, _id) {
+function create(_kind_reaction, _id_post_reaction, _url_post_reaction, _click_reaction_day, _id_shop, _id_user) {
     if (_kind_reaction !== undefined) {
         var tmp_kind_reaction = JSON.parse(_kind_reaction);
     } else {
@@ -20,9 +20,7 @@ function create(_kind_reaction, _id_post_reaction, _url_post_reaction, _click_re
     });
 
     reaction.save(function (err) {
-        if (err){ return err }else{
-			capnhat(_id_user, _id);
-		}
+        if (err) return err 
     });
 
 }
@@ -54,8 +52,9 @@ function capnhat(id, _role){
 module.exports = {
     //create reaction
     create: function (req, res) {
-        create(req.body.kind_reaction, req.body.id_post_reaction, req.body.url_post_reaction, req.body.click_reaction_day, req.body.id_shop, req.body.id_user, req.body._id);
+        create(req.body.kind_reaction, req.body.id_post_reaction, req.body.url_post_reaction, req.body.click_reaction_day, req.body.id_shop, req.body.id_user);
 		repsonse = { 'error_code': 0, 'message': 'create reaction complete' };
+		capnhat(req.body.id_user, req.body._id);
         res.status(200).json(repsonse);
     },
     getAll: function (req, res) {
