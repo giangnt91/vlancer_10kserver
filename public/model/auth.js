@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 // Connect mongodb
 // mongoose.createConnection('mongodb://supadmin:914119@localhost:27017/coupon10k');
 // mongoose.connect('mongodb://localhost:27017/coupon10k');
-mongoose.connect('mongodb://cp_sa:91411902@35.240.165.98:19899/coupon10k');
+mongoose.connect('mongodb://cp_sa:91411902@localhost:19899/coupon10k');
 
 
 // Sign up
