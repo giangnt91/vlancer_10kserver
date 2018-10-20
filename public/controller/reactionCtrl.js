@@ -31,20 +31,19 @@ function capnhat(id, _role){
 		if(err){
 			console.log('cập nhật like và comment cho user '+ err);
 		}else{
-		console.log(_role);
-			// if(data){
-				// if(_role === 1){
-					// data.likecount = data.likecount + 1;
-					// data.save(function(err){
-						// if(err) console.log(err);
-					// });
-				// }else if(_role === 2){
-					// data.commentcount = data.commentcount + 1;
-					// data.save(function(err){
-						// if(err) console.log(err);
-					// });
-				// }
-			// }
+			if(data){
+				if(_role[0].id === 1){
+					data.likecount = data.likecount + 1;
+					data.save(function(err){
+						if(err) console.log(err);
+					});
+				}else if(_role[0].id === 2){
+					data.commentcount = data.commentcount + 1;
+					data.save(function(err){
+						if(err) console.log(err);
+					});
+				}
+			}
 		}
 	})
 }
@@ -53,10 +52,10 @@ function capnhat(id, _role){
 module.exports = {
     //create reaction
     create: function (req, res) {
-        // create(req.body.kind_reaction, req.body.id_post_reaction, req.body.url_post_reaction, req.body.click_reaction_day, req.body.id_shop, req.body.id_user);
-		// repsonse = { 'error_code': 0, 'message': 'create reaction complete' };
-		capnhat(_id_user, req.body.kind_reaction);
-        // res.status(200).json(repsonse);
+        create(req.body.kind_reaction, req.body.id_post_reaction, req.body.url_post_reaction, req.body.click_reaction_day, req.body.id_shop, req.body.id_user);
+		repsonse = { 'error_code': 0, 'message': 'create reaction complete' };
+		capnhat(_id_user, JSON.parse(req.body.kind_reaction));
+        res.status(200).json(repsonse);
     },
     getAll: function (req, res) {
         reaction_model.find({}, function (err, data) {
