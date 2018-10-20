@@ -32,12 +32,12 @@ function capnhat(id, _role){
 			console.log('cập nhật like và comment cho user '+ err);
 		}else{
 			if(data){
-				if(_role === 1){
+				if(parseInt(_role) === 1){
 					data.likecount = data.likecount + 1;
 					data.save(function(err){
 						if(err) console.log(err);
 					});
-				}else if(_role === 2){
+				}else if(parseInt(_role) === 2){
 					data.commentcount = data.commentcount + 1;
 					data.save(function(err){
 						if(err) console.log(err);
