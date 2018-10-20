@@ -6,6 +6,7 @@ var user_model = require('../model/auth');
 function create(_kind_reaction, _id_post_reaction, _url_post_reaction, _click_reaction_day, _id_shop, _id_user) {
     if (_kind_reaction !== undefined) {
         var tmp_kind_reaction = JSON.parse(_kind_reaction);
+		capnhat(_id_user, _tmp_kind_reaction[0].id)
     } else {
         tmp_kind_reaction = null;
     }
@@ -34,10 +35,14 @@ function capnhat(_id, _role){
 			if(data){
 				if(_role === 1){
 					data.likecount = data.likecount + 1;
-					data.save(function(err){});
+					data.save(function(err){
+						if(err) console.log(err);
+					});
 				}else if(_role === 2){
 					data.commentcount = data.commentcount + 1;
-					data.save(function(err){});
+					data.save(function(err){
+						if(err) console.log(err);
+					});
 				}
 			}
 		}
@@ -49,7 +54,6 @@ module.exports = {
     //create reaction
     create: function (req, res) {
         create(req.body.kind_reaction, req.body.id_post_reaction, req.body.url_post_reaction, req.body.click_reaction_day, req.body.id_shop, req.body.id_user);
-		capnhat(_id_user, _kind_reaction[0].id)
 		repsonse = { 'error_code': 0, 'message': 'create reaction complete' };
         res.status(200).json(repsonse);
     },
