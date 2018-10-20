@@ -26,12 +26,11 @@ function create(_kind_reaction, _id_post_reaction, _url_post_reaction, _click_re
 }
 
 // cập nhật điểm like và comment cho user
-function capnhat(_id, _role){
-	user_model.findOne({user_id: _id}, function(err, data){
+function capnhat(id, _role){
+	user_model.find(id , function(err, data){
 		if(err){
 			console.log('cập nhật like và comment cho user '+ err);
 		}else{
-			console.log(data);
 			if(data){
 				if(_role === 1){
 					data.likecount = data.likecount + 1;
