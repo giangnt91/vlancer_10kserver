@@ -30,7 +30,7 @@ var user = new mongoose.Schema({
 	regdayiso: Date,
 	access_token: String,
 	likecount: Number,
-	commentcount: Number
+	commentcount: Number,
     _status: Array
 }, {
         versionKey: false
