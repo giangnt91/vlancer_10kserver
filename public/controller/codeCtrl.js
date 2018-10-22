@@ -2,6 +2,40 @@
 code_model = require('../model/code');
 emarket_model = require('../model/emarket');
 slider_model = require('../model/slider');
+var dateFormat = require('dateformat');
+
+// compare day
+function compareday(x) {
+    var parts = x.split("/");
+    return parts[2] + '' + parts[1] + '' + parts[0];
+}
+
+function CheckCodeExpired(){
+	let day = dateFormat(new Date(), "yyyymmdd");
+	code_model.find({}, function(err,data){
+		if(err){
+			console.log(err);
+		}else{
+			if(data.length > 0){
+				data.forEach( element =>{
+					let expired = compareday(element.Expireday);
+					if(expired < day){
+						element._Status = {
+							id: 0,
+							name: "Hết Hạn"
+						}
+						element.save(function(err){});
+					}
+				})
+			}
+		}
+	})
+}
+
+// chạy mỗi nửa đêm cho basic coupon
+schedule.scheduleJob('0 0 * * *', function () {
+    CheckCodeExpired();
+});
 
 // create emarket
 function create_emarket(_ename, _eimg) {
@@ -19,6 +53,11 @@ function create_emarket(_ename, _eimg) {
 
 // create basic code
 function create_basic_code(_Eid, _Ename, _Eimg, _Code, _Url, _Industry, _Info, _ValueC, _Expireday) {
+	var day = dateFormat(new Date(), "dd/mm/yyyy");
+	let _status = {
+			id: 1,
+			name: "Còn Hạn"
+		}
     var code = new code_model({
         Eid: _Eid,
         Ename: _Ename,
@@ -28,7 +67,9 @@ function create_basic_code(_Eid, _Ename, _Eimg, _Code, _Url, _Industry, _Info, _
         Industry: _Industry,
         Info: _Info,
         ValueC: _ValueC,
-        Expireday: _Expireday
+        Expireday: _Expireday,
+		Releaseday: day,
+		_Status: _status
     });
 
     code.save(function (err) {

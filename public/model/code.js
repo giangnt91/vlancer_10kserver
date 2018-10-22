@@ -15,10 +15,11 @@ var code = new mongoose.Schema({
     Info: String,
     ValueC: Array,
     Expireday: String,
-
-}, {
-        versionKey: false
-    });
+	Releaseday: String,
+	_Status: Array
+	}, {
+	versionKey: false
+});
 
 // Create model based a schema
 module.exports = mongoose.model('Basic_Coupon', code);
