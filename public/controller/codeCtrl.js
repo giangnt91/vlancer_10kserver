@@ -2,7 +2,9 @@
 code_model = require('../model/code');
 emarket_model = require('../model/emarket');
 slider_model = require('../model/slider');
+
 var dateFormat = require('dateformat');
+var schedule = require('node-schedule');
 
 // compare day
 function compareday(x) {
