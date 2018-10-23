@@ -413,6 +413,10 @@ module.exports = {
                         tmp_user = [];
                     }
                     data.action_user = tmp_user;
+					data.action_expiredday = req.body.action_expiredday;
+					data.action_likemax = req.body.action_likemax;
+					data.action_commentmax = req.body.action_commentmax;
+					data.action_status = req.body._status;
 
                     data.save(function (err) { });
                     response = { 'error_code': 0, 'message': 'update action_user complete' };
