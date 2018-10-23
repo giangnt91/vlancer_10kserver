@@ -27,7 +27,7 @@ function create_action(_kind, _url, _id, _shop_id, _action_user, _action_expired
         action_shop_id: _shop_id,
         action_user: _action_user,
 		action_releaseday: day,
-		action_expiredday: _expireday,
+		action_expiredday: _action_expireday,
 		action_likemax: parseInt(_action_likemax),
 		action_like: 0,
 		action_commentmax: parseInt(_action_commentmax),
