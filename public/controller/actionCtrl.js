@@ -28,9 +28,9 @@ function create_action(_kind, _url, _id, _shop_id, _action_user, _action_expired
         action_user: _action_user,
 		action_releaseday: day,
 		action_expiredday: _expireday,
-		action_likemax: _action_likemax,
+		action_likemax: parseInt(_action_likemax),
 		action_like: 0,
-		action_commentmax: _action_commentmax,
+		action_commentmax: parseInt(_action_commentmax),
 		action_comment: 0,
 		action_status: _status
     });
