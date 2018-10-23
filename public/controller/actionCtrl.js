@@ -45,6 +45,41 @@ function create_action(_kind, _url, _id, _shop_id, _action_user, _action_expired
     });
 }
 
+
+// compare day
+function compareday(x) {
+    var parts = x.split("/");
+    return parts[2] + '' + parts[1] + '' + parts[0];
+}
+
+// kiểm tra action hết hạn
+function CheckActionExpired(){
+	let day = dateFormat(new Date(), "yyyymmdd");
+	action_model.find({}, function(err,data){
+		if(err){
+			console.log(err);
+		}else{
+			if(data.length > 0){
+				data.forEach( element =>{
+					let expired = compareday(element.action_expiredday);
+					if(expired < day){
+						element.action_status = {
+							id: 0,
+							name: "Hết Hạn"
+						}
+						element.save(function(err){});
+					}
+				})
+			}
+		}
+	})
+}
+
+// chạy mỗi nửa đêm cho basic coupon
+schedule.scheduleJob('0 0 * * *', function () {
+    CheckActionExpired();
+});
+
 function getRandom(arr, n) {
     var result = new Array(n),
         len = arr.length,

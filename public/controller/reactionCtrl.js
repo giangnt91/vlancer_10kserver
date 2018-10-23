@@ -1,6 +1,7 @@
 // get model
 var reaction_model = require('../model/reaction');
 var user_model = require('../model/auth');
+var action_model = require('../model/action');
 
 // function
 function create(_kind_reaction, _id_post_reaction, _url_post_reaction, _click_reaction_day, _id_shop, _id_user) {
@@ -48,6 +49,29 @@ function capnhat(id, _role){
 	})
 }
 
+// cập nhật like và comment cho action
+function capnhataction(action_id, _role){
+	action_model.findOne({action_id: action_id} , function(err, data){
+		if(err){
+			console.log('cập nhật like và comment cho action '+ err);
+		}else{
+			if(data){
+				if(parseInt(_role) === 1){
+					data.action_like = data.action_like + 1;
+					data.save(function(err){
+						if(err) console.log(err);
+					});
+				}else if(parseInt(_role) === 2){
+					data.action_comment = data.action_comment + 1;
+					data.save(function(err){
+						if(err) console.log(err);
+					});
+				}
+			}
+		}
+	})
+}
+
 // api
 module.exports = {
     //create reaction
@@ -55,6 +79,7 @@ module.exports = {
         create(req.body.kind_reaction, req.body.id_post_reaction, req.body.url_post_reaction, req.body.click_reaction_day, req.body.id_shop, req.body.id_user);
 		repsonse = { 'error_code': 0, 'message': 'create reaction complete' };
 		capnhat(req.body.id_user, req.body._id);
+		capnhataction(req.body.id_post_reaction, req.body._id);
         res.status(200).json(repsonse);
     },
     getAll: function (req, res) {
