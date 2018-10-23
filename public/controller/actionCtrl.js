@@ -173,7 +173,7 @@ module.exports = {
             // res.status(200).json(response);
         });
 
-        action_model.find({}, function (err, data) {
+        action_model.find({'action_status.id': 1}, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
@@ -184,15 +184,24 @@ module.exports = {
                     var point = 0;
                     var inside;
                     var BreakException = {};
+					var list_action = [];
+					
+					if(data.length > 0){
+						data.forEach( element => {
+							if(element.action_likemax > element.action_like && element.action_commentmax > element.action_comment){
+								list_action.push(element);
+							}
+						})
+					}
 
                     if (auth.call_server_in_day[0].id === 1) {
-                        if (data !== null) {
-                            for (var i = 0; i < data.length; i++) {
-                                if (data[i].action_user.length === 0) {
-                                    tmp_list.push(data[i]);
+                        if (list_action.length > 0) {
+                            for (var i = 0; i < list_action.length; i++) {
+                                if (list_action[i].action_user.length === 0) {
+                                    tmp_list.push(list_action[i]);
                                 } else {
                                     try {
-                                        data[i].action_user.forEach(function (item) {
+                                        list_action[i].action_user.forEach(function (item) {
                                             if (item.user_id === auth.user_id) {
                                                 inside = 1;
                                                 throw BreakException;
@@ -200,7 +209,7 @@ module.exports = {
                                         });
 
                                         if (inside === 0) {
-                                            tmp_list.push(data[i]);
+                                            tmp_list.push(list_action[i]);
                                         }
 
                                         inside = 0;
@@ -233,13 +242,13 @@ module.exports = {
                         response = { 'error_code': 0, 'list_action_per_day': list_action_per_day, 'device': req.device.type }
                     } else {
                         if (auth.point_per_today === 0) {
-                            if (data !== null) {
-                                for (var i = 0; i < data.length; i++) {
-                                    if (data[i].action_user.length === 0) {
-                                        tmp_list.push(data[i]);
+                            if (list_action.length > 0) {
+                                for (var i = 0; i < list_action.length; i++) {
+                                    if (list_action[i].action_user.length === 0) {
+                                        tmp_list.push(list_action[i]);
                                     } else {
                                         try {
-                                            data[i].action_user.forEach(function (item) {
+                                            list_action[i].action_user.forEach(function (item) {
                                                 if (item.user_id === auth.user_id) {
                                                     inside = 1;
                                                     throw BreakException;
@@ -247,7 +256,7 @@ module.exports = {
                                             });
 
                                             if (inside === 0) {
-                                                tmp_list.push(data[i]);
+                                                tmp_list.push(list_action[i]);
                                             }
 
                                             inside = 0;
@@ -268,13 +277,13 @@ module.exports = {
                             var rest_point = auth.point_per_day - auth.point_per_today;
                             if (rest_point > 0) {
                                 if (rest_point <= 1000) {
-                                    if (data !== null) {
-                                        for (var i = 0; i < data.length; i++) {
-                                            if (data[i].action_user.length === 0) {
-                                                tmp_list.push(data[i]);
+                                    if (list_action.length > 0) {
+                                        for (var i = 0; i < list_action.length; i++) {
+                                            if (list_action[i].action_user.length === 0) {
+                                                tmp_list.push(list_action[i]);
                                             } else {
                                                 try {
-                                                    data[i].action_user.forEach(function (item) {
+                                                    list_action[i].action_user.forEach(function (item) {
                                                         if (item.user_id === auth.user_id) {
                                                             inside = 1;
                                                             throw BreakException;
@@ -282,7 +291,7 @@ module.exports = {
                                                     });
 
                                                     if (inside === 0) {
-                                                        tmp_list.push(data[i]);
+                                                        tmp_list.push(list_action[i]);
                                                     }
 
                                                     inside = 0;
@@ -300,13 +309,13 @@ module.exports = {
                                     }
                                 }
                                 else if (rest_point <= 2000) {
-                                    if (data !== null) {
-                                        for (var i = 0; i < data.length; i++) {
-                                            if (data[i].action_user.length === 0) {
-                                                tmp_list.push(data[i]);
+                                    if (list_action.length > 0) {
+                                        for (var i = 0; i < list_action.length; i++) {
+                                            if (list_action[i].action_user.length === 0) {
+                                                tmp_list.push(list_action[i]);
                                             } else {
                                                 try {
-                                                    data[i].action_user.forEach(function (item) {
+                                                    list_action[i].action_user.forEach(function (item) {
                                                         if (item.user_id === auth.user_id) {
                                                             inside = 1;
                                                             throw BreakException;
@@ -314,7 +323,7 @@ module.exports = {
                                                     });
 
                                                     if (inside === 0) {
-                                                        tmp_list.push(data[i]);
+                                                        tmp_list.push(list_action[i]);
                                                     }
 
                                                     inside = 0;
@@ -332,13 +341,13 @@ module.exports = {
                                     }
                                 }
                                 else {
-                                    if (data !== null) {
-                                        for (var i = 0; i < data.length; i++) {
-                                            if (data[i].action_user.length === 0) {
-                                                tmp_list.push(data[i]);
+                                    if (list_action.length > 0) {
+                                        for (var i = 0; i < list_action.length; i++) {
+                                            if (list_action[i].action_user.length === 0) {
+                                                tmp_list.push(list_action[i]);
                                             } else {
                                                 try {
-                                                    data[i].action_user.forEach(function (item) {
+                                                    list_action[i].action_user.forEach(function (item) {
                                                         if (item.user_id === auth.user_id) {
                                                             inside = 1;
                                                             throw BreakException;
@@ -346,7 +355,7 @@ module.exports = {
                                                     });
 
                                                     if (inside === 0) {
-                                                        tmp_list.push(data[i]);
+                                                        tmp_list.push(list_action[i]);
                                                     }
 
                                                     inside = 0;
