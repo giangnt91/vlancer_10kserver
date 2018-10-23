@@ -8,19 +8,31 @@ var social_model = require('../model/reaction');
 var auth;
 
 // create action
-function create_action(_kind, _url, _id, _shop_id, _action_user) {
+function create_action(_kind, _url, _id, _shop_id, _action_user, _action_expireday, _action_likemax, _action_commentmax) {
+	var day = dateFormat(new Date(), "dd/mm/yyyy");
     // if (_action_user !== undefined) {
     //     var tmp_action_user = JSON.parse(_action_user);
     // } else {
     //     tmp_action_user = null;
     // }
+	var _status = {
+			id: 1,
+			name: "Hoạt Động"
+		}
 
     var action = new action_model({
         action_kind: _kind,
         action_url: _url,
         action_id: _id,
         action_shop_id: _shop_id,
-        action_user: _action_user
+        action_user: _action_user,
+		action_releaseday: day,
+		action_expiredday: _expireday,
+		action_likemax: _action_likemax,
+		action_like: 0,
+		action_commentmax: _action_commentmax,
+		action_comment: 0,
+		action_status: _status
     });
 
     action.save(function (err) {
@@ -57,7 +69,7 @@ module.exports = {
                 if (data.length > 0) {
                     response = { 'error_code': 2, 'message': 'ID tác vụ đã tồn tại vui lòng nhập ID khác.' };
                 } else {
-                    create_action(req.body.action_kind, req.body.action_url, req.body.action_id, req.body.action_shop_id, req.body.action_user);
+                    create_action(req.body.action_kind, req.body.action_url, req.body.action_id, req.body.action_shop_id, req.body.action_user, req.body.action_expiredday, req.body.action_likemax, req.body.action_commentmax);
                     response = { 'error_code': 0, 'message': 'new action is created !' };
                 }
             }
