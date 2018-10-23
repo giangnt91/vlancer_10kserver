@@ -3,6 +3,8 @@ var reaction_model = require('../model/reaction');
 var user_model = require('../model/auth');
 var action_model = require('../model/action');
 
+var schedule = require('node-schedule');
+
 // function
 function create(_kind_reaction, _id_post_reaction, _url_post_reaction, _click_reaction_day, _id_shop, _id_user) {
     if (_kind_reaction !== undefined) {
