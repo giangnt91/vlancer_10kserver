@@ -84,8 +84,8 @@ io.on('connection', function (socket) {
     })
 
     //mobile
-	socket.on('user_get_coupon', function(uid){
-		socket.broadcast.emit('user_mobile', uid);
+	socket.on('api_user_get_coupon', function(uid){
+		socket.broadcast.emit('api_user_mobile', uid);
 	})
 	
     socket.on('user_use_coupon', function (shop_id, user_img, user_name) {
