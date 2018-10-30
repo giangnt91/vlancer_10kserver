@@ -766,6 +766,7 @@ module.exports = {
                                         }
                                     ],
                                     release_day: element.coupon.release_day,
+									limit_time: element.coupon.limit_time,
                                     time_expire: element.coupon.time_expire,
                                     the_issuer: [
                                         {
@@ -846,6 +847,7 @@ module.exports = {
                                     }
                                 ],
                                 release_day: element.coupon.release_day,
+								limit_time: element.coupon.limit_time,
                                 time_expire: element.coupon.time_expire,
                                 the_issuer: [
                                     {

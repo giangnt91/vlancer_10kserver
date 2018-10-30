@@ -867,6 +867,7 @@ module.exports = {
                                     }
                                 ],
                                 release_day: element.release_day,
+								limit_time: element.limit_time,
                                 time_expire: element.time_expire,
                                 the_issuer: [
                                     {
@@ -937,6 +938,7 @@ module.exports = {
                                 }
                             ],
                             release_day: element.release_day,
+							limit_time: element.limit_time,
                             time_expire: element.time_expire,
                             the_issuer: [
                                 {

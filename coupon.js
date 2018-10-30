@@ -12,11 +12,6 @@ var FCM = require('./public/node_modules/fcm-node');
 
 var http = http.Server(app);
 var io = require('./public/node_modules/socket.io')(http);
-
-io.configure(function(){
-  io.set('transports',['xhr-polling']); //No Websockets!
-});
-
 // end library
 port = process.env.port || 2018;
 
