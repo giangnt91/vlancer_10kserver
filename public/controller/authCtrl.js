@@ -536,7 +536,10 @@ module.exports = {
                         }
                         res.status(200).json(response);
                     })
-                }
+                }else{
+					response = { 'error_code': 2, 'message': 'User id not found !' };
+					res.status(200).json(response);
+				}
             }
         })
     },
