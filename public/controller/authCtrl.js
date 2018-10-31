@@ -526,7 +526,7 @@ module.exports = {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                if (data.length > 0) {
+                if (data) {
                     data.notif = req.body.notifId;
                     data.save(function (err) {
                         if (err) {
