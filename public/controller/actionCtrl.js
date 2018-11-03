@@ -182,7 +182,7 @@ module.exports = {
                     var list_action_per_day;
                     var tmp_list = [];
                     var point = 0;
-                    var inside;
+                    var inside = 0;
                     var BreakException = {};
 					var list_action = [];
 					
