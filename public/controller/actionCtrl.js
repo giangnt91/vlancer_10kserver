@@ -203,7 +203,7 @@ module.exports = {
                                     try {
 									
 										list_action[i].action_user.forEach(element => {
-											if (element.user_id === auth.user_id) {
+											if (element.user_id.toString() === auth.user_id.toString()) {
                                                 inside = 1;
                                                 throw BreakException;
                                             }
@@ -256,12 +256,19 @@ module.exports = {
                                         tmp_list.push(list_action[i]);
                                     } else {
                                         try {
-                                            list_action[i].action_user.forEach(function (item) {
-                                                if (item.user_id === auth.user_id) {
-                                                    inside = 1;
-                                                    throw BreakException;
-                                                }
-                                            });
+                                            // list_action[i].action_user.forEach(function (item) {
+                                                // if (item.user_id === auth.user_id) {
+                                                    // inside = 1;
+                                                    // throw BreakException;
+                                                // }
+                                            // });
+											
+											list_action[i].action_user.forEach(element => {
+												if (element.user_id.toString() === auth.user_id.toString()) {
+													inside = 1;
+													throw BreakException;
+												}
+											});
 
                                             if (inside === 0) {
                                                 tmp_list.push(list_action[i]);
@@ -291,12 +298,19 @@ module.exports = {
                                                 tmp_list.push(list_action[i]);
                                             } else {
                                                 try {
-                                                    list_action[i].action_user.forEach(function (item) {
-                                                        if (item.user_id === auth.user_id) {
-                                                            inside = 1;
-                                                            throw BreakException;
-                                                        }
-                                                    });
+                                                    // list_action[i].action_user.forEach(function (item) {
+                                                        // if (item.user_id === auth.user_id) {
+                                                            // inside = 1;
+                                                            // throw BreakException;
+                                                        // }
+                                                    // });
+													
+													list_action[i].action_user.forEach(element => {
+														if (element.user_id.toString() === auth.user_id.toString()) {
+															inside = 1;
+															throw BreakException;
+														}
+													});
 
                                                     if (inside === 0) {
                                                         tmp_list.push(list_action[i]);
@@ -323,12 +337,19 @@ module.exports = {
                                                 tmp_list.push(list_action[i]);
                                             } else {
                                                 try {
-                                                    list_action[i].action_user.forEach(function (item) {
-                                                        if (item.user_id === auth.user_id) {
-                                                            inside = 1;
-                                                            throw BreakException;
-                                                        }
-                                                    });
+                                                    // list_action[i].action_user.forEach(function (item) {
+                                                        // if (item.user_id === auth.user_id) {
+                                                            // inside = 1;
+                                                            // throw BreakException;
+                                                        // }
+                                                    // });
+													
+													list_action[i].action_user.forEach(element => {
+														if (element.user_id.toString() === auth.user_id.toString()) {
+															inside = 1;
+															throw BreakException;
+														}
+													});
 
                                                     if (inside === 0) {
                                                         tmp_list.push(list_action[i]);
@@ -355,12 +376,19 @@ module.exports = {
                                                 tmp_list.push(list_action[i]);
                                             } else {
                                                 try {
-                                                    list_action[i].action_user.forEach(function (item) {
-                                                        if (item.user_id === auth.user_id) {
-                                                            inside = 1;
-                                                            throw BreakException;
-                                                        }
-                                                    });
+                                                    // list_action[i].action_user.forEach(function (item) {
+                                                        // if (item.user_id === auth.user_id) {
+                                                            // inside = 1;
+                                                            // throw BreakException;
+                                                        // }
+                                                    // });
+													
+													list_action[i].action_user.forEach(element => {
+														if (element.user_id.toString() === auth.user_id.toString()) {
+															inside = 1;
+															throw BreakException;
+														}
+													});
 
                                                     if (inside === 0) {
                                                         tmp_list.push(list_action[i]);
