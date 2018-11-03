@@ -186,16 +186,6 @@ module.exports = {
                     var BreakException = {};
 					var list_action = [];
 					
-					Array.prototype.contains = function(obj) {
-						var i = this.length;
-						while (i--) {
-							if (this[i]._id === obj) {
-								return true;
-							}
-						}
-						return false;
-					}
-					
 					if(data.length > 0){
 						data.forEach( element => {
 							if(element.action_likemax > element.action_like && element.action_commentmax > element.action_comment){
@@ -210,26 +200,22 @@ module.exports = {
                                 if (list_action[i].action_user.length === 0) {
                                     tmp_list.push(list_action[i]);
                                 } else {
-								
-									if (ist_action[i].action_user.contains(auth.user_id) === false) {
-                                        tmp_list.push(list_action[i])
+                                    try {
+                                        list_action[i].action_user.forEach(function (item) {
+                                            if (item.user_id === auth.user_id) {
+                                                inside = 1;
+                                                throw BreakException;
+                                            }
+                                        });
+
+                                        if (inside === 0) {
+                                            tmp_list.push(list_action[i]);
+                                        }
+
+                                        inside = 0;
+                                    } catch (e) {
+                                        if (e !== BreakException) throw e;
                                     }
-                                    // try {
-                                        // list_action[i].action_user.forEach(function (item) {
-                                            // if (item.user_id === auth.user_id) {
-                                                // inside = 1;
-                                                // throw BreakException;
-                                            // }
-                                        // });
-
-                                        // if (inside === 0) {
-                                            // tmp_list.push(list_action[i]);
-                                        // }
-
-                                        // inside = 0;
-                                    // } catch (e) {
-                                        // if (e !== BreakException) throw e;
-                                    // }
                                 }
                             }
 
