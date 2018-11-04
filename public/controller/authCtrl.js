@@ -898,8 +898,8 @@ module.exports = {
                                 approved: element.approved,
                                 _id: element._id
                             }
-                            use_coupon.push(the_new);
-                            total_list_coupon.splice(total_list_coupon.indexOf(element), 1);
+							total_list_coupon.splice(total_list_coupon.indexOf(element), 1);
+                            use_coupon.push(the_new); 
                         }
                     });
                 }
