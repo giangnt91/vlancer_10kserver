@@ -88,8 +88,8 @@ io.on('connection', function (socket) {
 		socket.broadcast.emit('user_mobile', uid);
 	})
 	
-    socket.on('user_use_coupon', function (shop_id, user_img, user_name) {
-        socket.broadcast.emit('show_coupon_for_shop', shop_id, user_img, user_name);
+    socket.on('user_use_coupon', function (shop_id, _id) {
+        socket.broadcast.emit('show_coupon_for_shop', shop_id, _id);
     })
 
     socket.on('send_error', function (message, user_id, id) {
