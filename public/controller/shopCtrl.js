@@ -144,7 +144,7 @@ module.exports = {
         })
     },
 	getShopbyId: function(req, res){
-		shop_model.findById(_id, function(err, data){
+		shop_model.findById(req.body._id, function(err, data){
 			if (err) {
                 response = { 'error_code': 1, 'error_message': 'error fetching data' };
             } else {
