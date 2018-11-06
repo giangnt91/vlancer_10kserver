@@ -354,6 +354,10 @@ app.post('/getshopbyboss', function (req, res) {
     shop.getshopByboss(req, res);
 })
 
+app.post('/getshopbyid', function(req, res){
+	shop.getShopbyId(req, res);
+})
+
 app.post('/getallcoupon', function (req, res) {
     shop.getallCoupon(req, res);
 })

@@ -143,6 +143,16 @@ module.exports = {
             }
         })
     },
+	getShopbyId: function(req, res){
+		shop_model.findById(_id, function(err, data){
+			if (err) {
+                response = { 'error_code': 1, 'error_message': 'error fetching data' };
+            } else {
+                response = { 'error_code': 0, 'shop': data };
+                res.status(200).json(response);
+            }
+		})
+	},
     getallCoupon: function (req, res) {
         shop_model.find({}, function (err, data) {
             if (err) {
