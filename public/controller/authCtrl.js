@@ -892,7 +892,7 @@ module.exports = {
                                     }
                                 ],
                                 feedback: element.feedback,
-                                approved: "Pending",
+                                approved: "pending",
                                 _id: element._id
                             }
 							total_list_coupon.splice(total_list_coupon.indexOf(element), 1);
