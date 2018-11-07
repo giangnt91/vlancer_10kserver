@@ -852,7 +852,9 @@ module.exports = {
                     data.total_list_coupon.forEach(element => {
                         if (element._id === req.body.couponId) {
 							element.approved = "Pending";
-							element.save(function(err){
+						}
+					});
+					data.save(function(err){
 								 if (err) {
 									response = { 'error_code': 3, 'message': 'error update data' };
 								} else {
@@ -860,8 +862,6 @@ module.exports = {
 								}
 								res.status(200).json(response);
 							})
-						}
-					})
 				}
 			}
 		})
