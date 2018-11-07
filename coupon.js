@@ -187,6 +187,10 @@ app.post('/waitshopapproved', function(req, res){
 	auth.waitShopApproved(req, res);
 })
 
+app.post('/timeoutuser', function(req, res){
+	auth.timeOutUser(req, res);
+})
+
 app.post('/couponfeed', function (req, res) {
     auth.CouponUsefeed(req, res);
 })
