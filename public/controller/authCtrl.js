@@ -849,19 +849,66 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
                 if (data.total_list_coupon.length > 0) {
-                    data.total_list_coupon.forEach(element => {
+					var total_list_coupon = data.total_list_coupon;
+					
+                    total_list_coupon.forEach(element => {
                         if (element._id === req.body.couponId) {
-							element.approved = "Pending";
+							the_new = {
+                                shop_name: element.shop_name,
+                                shop_cover: element.shop_cover,
+                                shop_avatar: element.shop_avatar,
+                                shop_id: element.shop_id,
+                                coupon_info: element.coupon_info,
+                                value: element.value,
+                                class_user: [
+                                    {
+                                        id: element.class_user[0].id,
+                                        name: element.class_user[0].name
+                                    }
+                                ],
+                                release_day: element.release_day,
+								limit_time: element.limit_time,
+                                time_expire: element.time_expire,
+                                the_issuer: [
+                                    {
+                                        id: element.the_issuer[0].id,
+                                        name: element.the_issuer[0].name
+                                    }
+                                ],
+                                status_coupon: [
+                                    {
+                                        id: 0,
+                                        status: "Đã sử dụng"
+                                    }
+                                ],
+                                userid_get_coupon: element.userid_get_coupon,
+                                time_user_get: element.time_user_get,
+                                time_user_use: _today,
+                                rating: req.body.rating,
+                                rfeedback: [
+                                    {
+                                        name: element.rfeedback[0].name,
+                                        id: element.rfeedback[0].id
+                                    }
+                                ],
+                                feedback: req.body.feedback,
+                                approved: "Pending",
+                                _id: element._id
+                            }
+							total_list_coupon.splice(total_list_coupon.indexOf(element), 1);
+							total_list_coupon.push(the_new);
 						}
 					});
+					
+					data.total_list_coupon = total_list_coupon;
 					data.save(function(err){
-								 if (err) {
-									response = { 'error_code': 3, 'message': 'error update data' };
-								} else {
-									response = { 'error_code': 0, 'message': 'Update coupon pending success' };
-								}
-								res.status(200).json(response);
-							})
+						if (err) {
+							response = { 'error_code': 3, 'message': 'error update data' };
+						} else {
+							response = { 'error_code': 0, 'message': 'Update coupon pending success' };
+						}
+						res.status(200).json(response);
+					})
 				}
 			}
 		})
