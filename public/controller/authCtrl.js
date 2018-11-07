@@ -843,6 +843,29 @@ module.exports = {
             res.status(200).json(response);
         });
     },
+	waitShopApproved: function(req, res){
+		auth_model.findById(req.body._id, function(err, data){
+			if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                if (data.total_list_coupon.length > 0) {
+                    data.total_list_coupon.forEach(element => {
+                        if (element._id === req.body.couponId) {
+							element.approved = "Pending";
+							element.save(function(err){
+								 if (err) {
+									response = { 'error_code': 3, 'message': 'error update data' };
+								} else {
+									response = { 'error_code': 0, 'message': 'Update coupon pending success' };
+								}
+								res.status(200).json(response);
+							})
+						}
+					}
+				}
+			}
+		})
+	},
     CouponUsefeed: function (req, res) {
         auth_model.findById(req.body._id, function (err, data) {
             if (err) {
@@ -895,7 +918,7 @@ module.exports = {
                                     }
                                 ],
                                 feedback: req.body.feedback,
-                                approved: element.approved,
+                                approved: true,
                                 _id: element._id
                             }
 							total_list_coupon.splice(total_list_coupon.indexOf(element), 1);

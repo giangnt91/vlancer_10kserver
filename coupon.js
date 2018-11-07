@@ -183,6 +183,10 @@ app.post('/notifid', function (req, res) {
     auth.UpdateuserNotif(req, res);
 })
 
+app.post('/waitshopapproved', function(req, res){
+	auth.waitShopApproved(req, res);
+})
+
 app.post('/couponfeed', function (req, res) {
     auth.CouponUsefeed(req, res);
 })
