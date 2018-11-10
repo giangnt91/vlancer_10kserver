@@ -763,6 +763,12 @@ module.exports = {
                             if (element._id.toString() === req.body.couponId) {
 
                                 _coupon = {
+									loyal:[
+										{
+											id: element.loyal[0].name,
+											name: element.loyal[0].id
+										}
+									],
                                     shop_name: element.coupon.shop_name,
                                     shop_cover: element.coupon.shop_cover,
                                     shop_avatar: element.coupon.shop_avatar,
@@ -844,6 +850,12 @@ module.exports = {
                     shop_use_coupon.forEach(element => {
                         if (element.coupon._id === req.body.couponId) {
                             _coupon = {
+								loyal:[
+									{
+                                        id: element.loyal[0].name,
+                                        name: element.loyal[0].id
+                                    }
+								],
                                 shop_name: element.coupon.shop_name,
                                 shop_cover: element.coupon.shop_cover,
                                 shop_avatar: element.coupon.shop_avatar,

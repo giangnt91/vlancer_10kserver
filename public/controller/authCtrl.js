@@ -854,6 +854,12 @@ module.exports = {
                     total_list_coupon.forEach(element => {
                         if (element._id === req.body.couponId) {
 							the_new = {
+								loyal:[
+									{
+                                        id: element.loyal[0].name,
+                                        name: element.loyal[0].id
+                                    }
+								],
                                 shop_name: element.shop_name,
                                 shop_cover: element.shop_cover,
                                 shop_avatar: element.shop_avatar,
@@ -924,6 +930,12 @@ module.exports = {
                     total_list_coupon.forEach(element => {
                         if (element._id === req.body.couponId) {
 							the_new = {
+								loyal:[
+									{
+                                        id: element.loyal[0].name,
+                                        name: element.loyal[0].id
+                                    }
+								],
                                 shop_name: element.shop_name,
                                 shop_cover: element.shop_cover,
                                 shop_avatar: element.shop_avatar,
@@ -997,6 +1009,12 @@ module.exports = {
                     total_list_coupon.forEach(element => {
                         if (element._id === req.body.couponId) {
                             the_new = {
+								loyal:[
+									{
+                                        id: element.loyal[0].name,
+                                        name: element.loyal[0].id
+                                    }
+								],
                                 shop_name: element.shop_name,
                                 shop_cover: element.shop_cover,
                                 shop_avatar: element.shop_avatar,
@@ -1068,6 +1086,12 @@ module.exports = {
                 use_coupon.forEach(element => {
                     if (element._id === req.body.couponId) {
                         the_new = {
+							loyal:[
+									{
+                                        id: element.loyal[0].name,
+                                        name: element.loyal[0].id
+                                    }
+								],
                             shop_name: element.shop_name,
                             shop_cover: element.shop_cover,
                             shop_avatar: element.shop_avatar,
