@@ -165,7 +165,7 @@ io.on('connection', function (socket) {
 
                                 the_new = {
                                     _id: element._id,
-                                    approved: true,
+                                    approved: 'pending',
                                     coupon: _coupon
                                 }
                                 shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
