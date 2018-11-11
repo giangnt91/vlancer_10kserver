@@ -113,18 +113,18 @@ io.on('connection', function (socket) {
 									userName: fulname,
 									img: avatar
 								}]
-								element.save(function(err){
-									console.log(err);
-								})
+								// element.save(function(err){
+									// console.log(err);
+								// })
 							}
 						});
 					}
-					// data[0].shop_use_coupon = shop_use_coupon;
-					// data[0].save(function (err) {
-						// if (err) {
-							// console.log(err);
-						// }
-					// })
+					data[0].shop_use_coupon = shop_use_coupon;
+					data[0].save(function (err) {
+						if (err) {
+							console.log(err);
+						}
+					})
 				}
             }
         })
