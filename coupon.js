@@ -117,8 +117,8 @@ io.on('connection', function (socket) {
 									}],
 									loyal:[
 										{
-											id: element.loyal[0].name,
-											name: element.loyal[0].id
+											id: element.coupon.loyal[0].name,
+											name: element.coupon.loyal[0].id
 										}
 									],
                                     shop_name: element.coupon.shop_name,
@@ -150,7 +150,7 @@ io.on('connection', function (socket) {
                                     ],
                                     userid_get_coupon: element.coupon.userid_get_coupon,
                                     time_user_get: element.coupon.time_user_get,
-                                    time_user_use: _today,
+                                    time_user_use: element.time_user_use,
                                     rating: element.coupon.rating,
                                     rfeedback: [
                                         {

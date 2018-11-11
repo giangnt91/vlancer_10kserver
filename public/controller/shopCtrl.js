@@ -766,8 +766,8 @@ module.exports = {
 									reviewedby: element.reviewedby,
 									loyal:[
 										{
-											id: element.loyal[0].name,
-											name: element.loyal[0].id
+											id: element.coupon.loyal[0].name,
+											name: element.coupon.loyal[0].id
 										}
 									],
                                     shop_name: element.coupon.shop_name,
@@ -854,8 +854,8 @@ module.exports = {
 								reviewedby: element.reviewedby,
 								loyal:[
 									{
-                                        id: element.loyal[0].name,
-                                        name: element.loyal[0].id
+                                        id: element.coupon.loyal[0].name,
+                                        name: element.coupon.loyal[0].id
                                     }
 								],
                                 shop_name: element.coupon.shop_name,
