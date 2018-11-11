@@ -97,8 +97,38 @@ io.on('connection', function (socket) {
     })
 
     //1 connect to coupon for shop
-    socket.on('oneconnect', function (couponid, fulname, avatar) {
-        socket.broadcast.emit('disableconnect', couponid, fulname, avatar);
+    socket.on('oneconnect', function (shopid, couponid, userid, fulname, avatar) {
+	
+		shop_model.find({ shopId: shopid }, function (err, data) {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+				if(data.length > 0){
+					var shop_use_coupon = data[0].shop_use_coupon;
+					if (shop_use_coupon.length > 0) {
+						shop_use_coupon.forEach(element => {
+							if (element.coupon._id === couponid) {
+								element.reviewedby = [{
+									userId: userid,
+									userName: fulname,
+									img: avatar
+								}]
+							}
+						});
+					}
+					data[0].shop_use_coupon = shop_use_coupon;
+					data[0].save(function (err) {
+						if (err) {
+							console.log(err);
+						}
+					})
+				}
+            }
+        })
+		
+		setInterval(function () {
+			socket.broadcast.emit('disableconnect', couponid, fulname, avatar);
+		}, 300);
     })
 })
 /*
