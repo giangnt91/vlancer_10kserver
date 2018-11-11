@@ -108,17 +108,72 @@ io.on('connection', function (socket) {
 					if (shop_use_coupon.length > 0) {
 						shop_use_coupon.forEach(element => {
 							if (element.coupon._id === couponid) {
-								element.reviewedby = [{
-									userId: userid,
-									userName: fulname,
-									img: avatar
-								}]
-								// element.save(function(err){
-									// console.log(err);
-								// })
+							
+								_coupon = {
+									reviewedby: [{
+										userId: userid,
+										userName: fulname,
+										img: avatar
+									}],
+									loyal:[
+										{
+											id: element.loyal[0].name,
+											name: element.loyal[0].id
+										}
+									],
+                                    shop_name: element.coupon.shop_name,
+                                    shop_cover: element.coupon.shop_cover,
+                                    shop_avatar: element.coupon.shop_avatar,
+                                    shop_id: element.coupon.shop_id,
+                                    coupon_info: element.coupon.coupon_info,
+                                    value: element.coupon.value,
+                                    class_user: [
+                                        {
+                                            id: element.coupon.class_user[0].id,
+                                            name: element.coupon.class_user[0].name
+                                        }
+                                    ],
+                                    release_day: element.coupon.release_day,
+									limit_time: element.coupon.limit_time,
+                                    time_expire: element.coupon.time_expire,
+                                    the_issuer: [
+                                        {
+                                            id: element.coupon.the_issuer[0].id,
+                                            name: element.coupon.the_issuer[0].name
+                                        }
+                                    ],
+                                    status_coupon: [
+                                        {
+                                            id: 0,
+                                            status: "Đã sử dụng"
+                                        }
+                                    ],
+                                    userid_get_coupon: element.coupon.userid_get_coupon,
+                                    time_user_get: element.coupon.time_user_get,
+                                    time_user_use: _today,
+                                    rating: element.coupon.rating,
+                                    rfeedback: [
+                                        {
+                                            name: element.coupon.rfeedback[0].name,
+                                            id: element.coupon.rfeedback[0].id
+                                        }
+                                    ],
+                                    feedback: element.coupon.feedback,
+                                    approved: element.coupon.approved,
+                                    _id: element.coupon._id
+                                }
+
+                                the_new = {
+                                    _id: element._id,
+                                    approved: true,
+                                    coupon: _coupon
+                                }
+                                shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
+								
 							}
 						});
 					}
+					shop_use_coupon.push(the_new);
 					data[0].shop_use_coupon = shop_use_coupon;
 					data[0].save(function (err) {
 						if (err) {
