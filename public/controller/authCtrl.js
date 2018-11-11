@@ -854,6 +854,7 @@ module.exports = {
                     total_list_coupon.forEach(element => {
                         if (element._id === req.body.couponId) {
 							the_new = {
+								reviewedby: element.reviewedby,
 								loyal:[
 									{
                                         id: element.loyal[0].name,
@@ -930,6 +931,7 @@ module.exports = {
                     total_list_coupon.forEach(element => {
                         if (element._id === req.body.couponId) {
 							the_new = {
+								reviewedby: element.reviewedby,
 								loyal:[
 									{
                                         id: element.loyal[0].name,
@@ -1009,6 +1011,7 @@ module.exports = {
                     total_list_coupon.forEach(element => {
                         if (element._id === req.body.couponId) {
                             the_new = {
+								reviewedby: element.reviewedby,
 								loyal:[
 									{
                                         id: element.loyal[0].name,
@@ -1086,6 +1089,7 @@ module.exports = {
                 use_coupon.forEach(element => {
                     if (element._id === req.body.couponId) {
                         the_new = {
+							reviewedby: element.reviewedby,
 							loyal:[
 									{
                                         id: element.loyal[0].name,
