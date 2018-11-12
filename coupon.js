@@ -184,9 +184,8 @@ io.on('connection', function (socket) {
             }
         })
 		
-		setInterval(function () {
-			socket.broadcast.emit('disableconnect', couponid, fulname, avatar);
-		}, 300);
+
+		socket.broadcast.emit('disableconnect', couponid, fulname, avatar);
     })
 })
 /*
