@@ -763,8 +763,8 @@ module.exports = {
                             if (element._id.toString() === req.body.couponId) {
 
                                 _coupon = {
-									checkId: element.checkId,
-									reviewedby: element.reviewedby,
+									checkId: element.coupon.checkId,
+									reviewedby: element.coupon.reviewedby,
 									loyal:[
 										{
 											id: element.coupon.loyal[0].name,
@@ -852,8 +852,8 @@ module.exports = {
                     shop_use_coupon.forEach(element => {
                         if (element.coupon._id === req.body.couponId) {
                             _coupon = {
-								checkId: element.checkId,
-								reviewedby: element.reviewedby,
+								checkId: element.coupon.checkId,
+								reviewedby: element.coupon.reviewedby,
 								loyal:[
 									{
                                         id: element.coupon.loyal[0].name,
