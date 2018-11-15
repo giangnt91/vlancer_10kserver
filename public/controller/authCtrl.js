@@ -885,8 +885,8 @@ module.exports = {
                                 ],
                                 status_coupon: [
                                     {
-                                        id: 0,
-                                        status: "Đã sử dụng"
+                                        id: 1,
+										status: "Còn hạn và chưa sử dụng"
                                     }
                                 ],
                                 userid_get_coupon: element.userid_get_coupon,
@@ -963,8 +963,8 @@ module.exports = {
                                 ],
                                 status_coupon: [
                                     {
-                                        id: 0,
-                                        status: "Đã sử dụng"
+                                        id: 1,
+										status: "Còn hạn và chưa sử dụng"
                                     }
                                 ],
                                 userid_get_coupon: element.userid_get_coupon,
