@@ -188,12 +188,12 @@ io.on('connection', function (socket) {
 		
 		
 		// cập nhật reviewedby cho user
-		auth_model.findOne({user_id: userid}, function(err, data){
+		auth_model.find({user_id: userid}, function(err, data){
 			if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
-                if (data.total_list_coupon.length > 0) {
-					var total_list_coupon = data.total_list_coupon;
+                if (data[0].total_list_coupon.length > 0) {
+					var total_list_coupon = data[0].total_list_coupon;
 					
                     total_list_coupon.forEach(element => {
                         if (element._id === couponid) {
@@ -251,8 +251,8 @@ io.on('connection', function (socket) {
 						}
 					});
 					
-					data.total_list_coupon = total_list_coupon;
-					data.save(function(err){
+					data[0].total_list_coupon = total_list_coupon;
+					data[0].save(function(err){
 						if (err) {
 							response = { 'error_code': 3, 'message': 'error update data' };
 						} else {
