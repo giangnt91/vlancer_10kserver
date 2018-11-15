@@ -196,7 +196,7 @@ io.on('connection', function (socket) {
 					var total_list_coupon = data.total_list_coupon;
 					
                     total_list_coupon.forEach(element => {
-                        if (element._id === req.body.couponId) {
+                        if (element._id === couponid) {
 							the_new = {
 								checkId: element.checkId,
 								reviewedby: [{
@@ -231,12 +231,7 @@ io.on('connection', function (socket) {
                                         name: element.the_issuer[0].name
                                     }
                                 ],
-                                status_coupon: [
-                                    {
-                                        id: 1,
-										status: "Còn hạn và chưa sử dụng"
-                                    }
-                                ],
+                                status_coupon: element.status_coupon,
                                 userid_get_coupon: element.userid_get_coupon,
                                 time_user_get: element.time_user_get,
                                 time_user_use: element.time_user_use,
