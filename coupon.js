@@ -113,7 +113,7 @@ io.on('connection', function (socket) {
 		// thông báo cho shop
 		shop_model.findOne(shop_id, function(err, data){
 			if(err){
-				console.log('Shop user get coupon '+ err;
+				console.log('Shop user get coupon '+ err);
 				}else{
 				
 				
