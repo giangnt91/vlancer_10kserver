@@ -471,7 +471,7 @@ module.exports = {
                     } else {
                         response = {
                             'error_code': 0,
-                            'message': 'data is updated'
+                            'message': 'avatar is updated'
                         };
                     }
                     res.status(200).json(response);
