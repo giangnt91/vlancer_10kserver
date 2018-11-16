@@ -186,6 +186,10 @@ module.exports = {
                     var BreakException = {};
 					var list_action = [];
 					
+					// thay dổi điểm cho tác vụ tại đây
+					var pointFirst = 4;
+					var pointTwo = 8;
+					
 					if(data.length > 0){
 						data.forEach( element => {
 							if(element.action_likemax > element.action_like && element.action_commentmax > element.action_comment){
@@ -291,7 +295,7 @@ module.exports = {
                         } else {
                             var rest_point = auth.point_per_day - auth.point_per_today;
                             if (rest_point > 0) {
-                                if (rest_point <= 1000) {
+                                if (rest_point <= pointFirst) {
                                     if (list_action.length > 0) {
                                         for (var i = 0; i < list_action.length; i++) {
                                             if (list_action[i].action_user.length === 0) {
@@ -330,7 +334,7 @@ module.exports = {
                                         list_action_per_day = tmp_list;
                                     }
                                 }
-                                else if (rest_point <= 2000) {
+                                else if (rest_point <= pointTwo) {
                                     if (list_action.length > 0) {
                                         for (var i = 0; i < list_action.length; i++) {
                                             if (list_action[i].action_user.length === 0) {
