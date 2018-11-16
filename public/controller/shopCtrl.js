@@ -7,6 +7,8 @@ var dateFormat = require('dateformat');
 // get model
 shop_model = require('../model/shop');
 auth_model = require('../model/auth');
+var FCM = require('../node_modules/fcm-node');
+
 
 
 //conver day to int for compare
@@ -87,7 +89,7 @@ module.exports = {
         shop_model.find({ $or: [{ shopId: req.body.shopId }, { shop_boss: req.body.shop_boss }] }, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
-            } else {
+				} else {
                 if (data.length > 0) {
                     response = { 'error_code': 4, 'message': 'Shop hoặc Chủ shop đã tồn tại!' };
                 } else {
@@ -919,6 +921,36 @@ module.exports = {
                         response = { 'error_code': 2, 'message': err }
                     } else {
                         response = { 'error_code': 0, 'message': 'coupon is approved' };
+						
+						auth_model.findOne({user_id: data[0].shop_boss}, function(err, udata){
+							if(err){
+								console.log('User feedback coupon '+ err); 
+							}else{
+								let sms = 'Thành viên '+udata.info[0].fulname+' đã đánh giá sản phẩm của cửa hàng';
+								var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw';
+								var fcm = new FCM(serverKey);
+								var message = {
+									to: udata.notif,
+									collapse_key: 'green',
+									
+									data: {
+										title: 'Thông Báo',
+										message: sms,
+										sound: 'default',
+										vibrate: "true",
+										userid: udata.user_id
+									}
+								};
+								
+								fcm.send(message, function (err, response) {
+									if (err) {
+										console.log(err);
+										} else {
+										// console.log('Send cho: ' +element.info[0].fulname);
+									}
+								});
+							}
+						})
                     }
                     res.status(200).json(response);
                 });
