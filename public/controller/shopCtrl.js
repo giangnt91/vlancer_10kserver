@@ -443,7 +443,7 @@ module.exports = {
         })
     },
     avatar: function (req, res, server_url) {
-        shop_model.find({ shopId: req.body.shopId }, function (err, data) {
+        shop_model.findOne({ shopId: req.body.shopId }, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
@@ -451,18 +451,18 @@ module.exports = {
                 avatar = server_url + img[0].avatar;
 
                 _info = {
-                    shop_name: data[0].shop_info[0].shop_name,
-                    kind: data[0].shop_info[0].kind,
-                    time: data[0].shop_info[0].time,
-                    address: data[0].shop_info[0].address,
-                    service: data[0].shop_info[0].service,
-                    info: data[0].shop_info[0].info,
+                    shop_name: data.shop_info[0].shop_name,
+                    kind: data.shop_info[0].kind,
+                    time: data.shop_info[0].time,
+                    address: data.shop_info[0].address,
+                    service: data.shop_info[0].service,
+                    info: data.shop_info[0].info,
                     shop_avatar: avatar,
-                    shop_cover: data[0].shop_info[0].shop_cover,
-                    shop_album: data[0].shop_info[0].shop_album
+                    shop_cover: data.shop_info[0].shop_cover,
+                    shop_album: data.shop_info[0].shop_album
                 }
-                data[0].shop_info = _info;
-                data[0].save(function (err) {
+                data.shop_info = _info;
+                data.save(function (err) {
                     if (err) {
                         response = {
                             'error_code': 1,
