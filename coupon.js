@@ -567,7 +567,16 @@ app.post('/album', function (req, res) {
 		if (err) {
 			res.send({ 'error_code': 1, 'message': err });
 			} else {
-			shop.album(req, res, server_url);
+			var img = JSON.parse(req.body.img);
+            var _album = [];
+            img[0].album.forEach(function (item) {
+                _album.push({
+                    url: server_url + item
+                });
+            });
+            album = _album;
+			res.status(200).json({'error_code': 0, 'url': album});
+			// shop.album(req, res, server_url);
 		}
 	})
 })
