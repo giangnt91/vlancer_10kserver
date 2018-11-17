@@ -927,7 +927,7 @@ module.exports = {
 								console.log('User feedback coupon '+ err); 
 							}else{
 								let sms = 'Thành viên '+udata.info[0].fulname+' đã đánh giá sản phẩm của cửa hàng';
-								var serverKey = 'AIzaSyBF2fdkp-vuvQy4Wt05HKgAfL9PQjMZLNw';
+								var serverKey = 'AIzaSyACfkIkBA_4gv19gRhK1goKKNVMyl5-twA';
 								var fcm = new FCM(serverKey);
 								var message = {
 									to: udata.notif,
