@@ -22,7 +22,7 @@ app.use(express.static('./node_modules/socket.io-client/dist/'));
 
 /*Firebase Function*/
 function fireBase(sms, userId, notif){
-	var serverKey = 'AIzaSyACfkIkBA_4gv19gRhK1goKKNVMyl5-twA';
+	var serverKey = './firebase/i-studio-184006-firebase-adminsdk-p6ua2-0d1fe2f556.json';
 	var fcm = new FCM(serverKey);
 	var message = {
 		to: notif,
