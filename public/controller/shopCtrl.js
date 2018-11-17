@@ -464,18 +464,12 @@ module.exports = {
                 data.shop_info = _info;
                 data.save(function (err) {
                     if (err) {
-                        response = {
-                            'error_code': 1,
-                            'message': 'error updating data'
-                        };
+                        response = { 'error_code': 2, 'message': err };
                     } else {
-                        response = {
-                            'error_code': 0,
-                            'message': 'avatar is updated'
-                        };
+                        response = { 'error_code': 0, 'message': 'update image avatar complete' };
                     }
-                    res.status(200).json(response);
-                });
+                    res.status(200).json(response)
+                })
             }
         });
     },
