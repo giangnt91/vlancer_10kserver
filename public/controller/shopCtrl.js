@@ -443,7 +443,7 @@ module.exports = {
         })
     },
     avatar: function (req, res, server_url) {
-        shop_model.findOne({ shopId: req.body.shopId }, function (err, data) {
+        shop_model.findById(req.body.shopId, function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
