@@ -541,7 +541,10 @@ app.post('/avatar', function (req, res) {
 		if (err) {
 			res.send({ 'error_code': 1, 'message': err });
 			} else {
-			shop.avatar(req, res, server_url);
+			var img = JSON.parse(req.body.img);
+            avatar = server_url + img[0].avatar;
+			res.status(200).json({'error_code': 0, 'url': avatar});
+			// shop.avatar(req, res, server_url);
 		}
 	})
 })
