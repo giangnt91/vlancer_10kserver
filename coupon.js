@@ -554,7 +554,10 @@ app.post('/cover', function (req, res) {
 		if (err) {
 			res.send({ 'error_code': 1, 'message': err });
 			} else {
-			shop.cover(req, res, server_url);
+			var img = JSON.parse(req.body.img);
+            cover = server_url + img[0].cover;
+			res.status(200).json({'error_code': 0, 'url': cover});
+			// shop.cover(req, res, server_url);
 		}
 	})
 })
