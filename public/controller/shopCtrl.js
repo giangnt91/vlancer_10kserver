@@ -412,19 +412,19 @@ module.exports = {
                 album = _album;
 
                 _info = {
-                    shop_name: data[0].shop_info[0].shop_name,
-                    kind: data[0].shop_info[0].kind,
-                    time: data[0].shop_info[0].time,
-                    address: data[0].shop_info[0].address,
-                    service: data[0].shop_info[0].service,
-                    info: data[0].shop_info[0].info,
+                    shop_name: data.shop_info[0].shop_name,
+                    kind: data.shop_info[0].kind,
+                    time: data.shop_info[0].time,
+                    address: data.shop_info[0].address,
+                    service: data.shop_info[0].service,
+                    info: data.shop_info[0].info,
                     shop_avatar: avatar,
                     shop_cover: cover,
                     shop_album: album
                 }
 
-                data[0].shop_info = _info;
-                data[0].save(function (err) {
+                data.shop_info = _info;
+                data.save(function (err) {
                     if (err) {
                         response = {
                             'error_code': 1,
