@@ -109,11 +109,11 @@ module.exports = {
                         shop_info: JSON.parse(req.body.shop_info)
                     });
 
-                    shop.save(function (err) {
+                    shop.save(function (err, data) {
                         if (err) {
                             response = { 'error_code': 2, 'message': 'error create new shop' };
                         } else {
-                            response = { 'error_code': 0, 'message': 'new shop is created !' };
+                            response = { 'error_code': 0, 'shop_id': data._id };
                         }
                         res.status(200).json(response);
                     });
@@ -393,7 +393,7 @@ module.exports = {
         });
     },
     uploadImg: function (req, res, server_url) {
-        shop_model.find({ shopId: req.body.shopId }, function (err, data) {
+        shop_model.findById(req.body.shopId , function (err, data) {
             if (err) {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
