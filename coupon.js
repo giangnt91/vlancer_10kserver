@@ -111,12 +111,11 @@ io.on('connection', function (socket) {
 		})
 		
 		// thông báo cho shop
-		shop_model.findOne(shop_id, function(err, data){
+		shop_model.findById(shop_id, function(err, data){
 			if(err){
 				console.log('Shop user get coupon '+ err);
 				}else{
-				
-				
+							
 				auth_model.findOne({user_id: data.shop_boss}, function(err, udata){
 					if(err){
 						console.log('Shop user get coupon for boss '+ err);
