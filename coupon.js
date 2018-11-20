@@ -22,8 +22,8 @@ app.use(express.static('./node_modules/socket.io-client/dist/'));
 
 /*Firebase Function*/
 function fireBase(sms, userId, notif){
-	var serverKey = './firebase/i-studio-184006-firebase-adminsdk-p6ua2-0d1fe2f556.json';
-	var fcm = new FCM(serverKey);
+	// var serverKey = './firebase/i-studio-184006-firebase-adminsdk-p6ua2-0d1fe2f556.json';
+	var fcm = new FCM('AIzaSyACfkIkBA_4gv19gRhK1goKKNVMyl5-twA');
 	var message = {
 		to: notif,
 		collapse_key: 'green',
@@ -39,7 +39,7 @@ function fireBase(sms, userId, notif){
 	
 	fcm.send(message, function (err, response) {
 		if (err) {
-			console.log(err);
+			console.log('fireBase error : ' + err);
 			} else {
 			// console.log('Send cho: ' +element.info[0].fulname);
 		}
