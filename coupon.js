@@ -7,6 +7,8 @@ var schedule = require('./public/node_modules/node-schedule');
 var dateFormat = require('./public/node_modules/dateformat');
 var FCM = require('./public/node_modules/fcm-node');
 
+var testFCM = require('./node_modules/fcm-notification');
+
 // library for socket.io
 // const fs = require('./public/node_modules/fs');
 
@@ -20,6 +22,30 @@ app.use(express.static('./public/img/'));
 app.use(express.static('./node_modules/socket.io-client/dist/'));
 
 /*Firebase Function*/
+function testFCM(sms, userId, notif) {
+	var TFCM = new fcm('./firebase/i-studio-184006-firebase-adminsdk-p6ua2-7e3845a9f4.json');
+
+	var message = {
+		data : { //This is only optional, you can send any data
+			score : '850',
+			time : '2:45'
+		},
+		notification : {
+			title : 'Title of notification',
+			body : sms
+		},
+		token : notif
+	};
+
+	TFCM.send(message, function (err, response) {
+		if (err) {
+			console.log('error found', err);
+		} else {
+			console.log('response here', response);
+		}
+	})
+}
+
 function fireBase(sms, userId, notif) {
 	// var serverKey = './firebase/i-studio-184006-firebase-adminsdk-p6ua2-0d1fe2f556.json';
 	var fcm = new FCM('AIzaSyACfkIkBA_4gv19gRhK1goKKNVMyl5-twA');
@@ -102,6 +128,7 @@ io.on('connection', function (socket) {
 				// gửi thông báo khi user lấy coupon mới
 				let sms = 'Bạn đã lấy thành công Coupon của Shop ' + shop_name;
 				fireBase(sms, uid, data.notif);
+				testFCM(sms, uid, data.notif);
 
 				// kiểm tra slot của user
 				if (data.empty_slot === 0) {
