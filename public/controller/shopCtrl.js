@@ -8,7 +8,7 @@ var dateFormat = require('dateformat');
 shop_model = require('../model/shop');
 auth_model = require('../model/auth');
 var FCM = require('../node_modules/fcm-node');
-var FCM2 = require('./node_modules/fcm-notification');
+var FCM2 = require('../node_modules/fcm-notification');
 var fcmKey = new FCM2('./firebase/i-studio-184006-firebase-adminsdk-p6ua2-7e3845a9f4.json');
 
 
@@ -956,8 +956,7 @@ module.exports = {
 										},
 										notification : {
 											title : 'Thông Báo',
-											body : sms,
-											icon: './public/img/icon.png'
+											body : sms
 										},
 										token : udata.notif
 									};

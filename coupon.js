@@ -35,8 +35,7 @@ function pushFCM(sms, userId, notif) {
 		},
 		notification : {
 			title : 'Thông Báo',
-			body : sms,
-			icon: './public/img/icon.png'
+			body : sms
 		},
 		token : notif
 	};
