@@ -210,7 +210,7 @@ module.exports = {
     },
 	// Sign out
 	signOut: function(req, res){
-		auth.findById( req.body._id , function(err, data){
+		auth_model.findById( req.body._id , function(err, data){
 			if(err){
 				response = { 'error_code': 1, 'message': 'error fetching data !' };
 				res.status(200).json(response);
