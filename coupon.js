@@ -7,7 +7,7 @@ var schedule = require('./public/node_modules/node-schedule');
 var dateFormat = require('./public/node_modules/dateformat');
 var FCM = require('./public/node_modules/fcm-node');
 
-var testFCM = require('./node_modules/fcm-notification');
+var FCM2 = require('./node_modules/fcm-notification');
 
 // library for socket.io
 // const fs = require('./public/node_modules/fs');
@@ -23,7 +23,7 @@ app.use(express.static('./node_modules/socket.io-client/dist/'));
 
 /*Firebase Function*/
 function testFCM(sms, userId, notif) {
-	var TFCM = new fcm('./firebase/i-studio-184006-firebase-adminsdk-p6ua2-7e3845a9f4.json');
+	var TFCM = new FCM2('./firebase/i-studio-184006-firebase-adminsdk-p6ua2-7e3845a9f4.json');
 
 	var message = {
 		data : { //This is only optional, you can send any data
