@@ -5,9 +5,10 @@ var device = require('./public/node_modules/express-device');
 var multer = require('./public/node_modules/multer');
 var schedule = require('./public/node_modules/node-schedule');
 var dateFormat = require('./public/node_modules/dateformat');
-var FCM = require('./public/node_modules/fcm-node');
 
+var FCM = require('./public/node_modules/fcm-node');
 var FCM2 = require('./node_modules/fcm-notification');
+var fcmKey = new FCM2('./firebase/i-studio-184006-firebase-adminsdk-p6ua2-7e3845a9f4.json');
 
 // library for socket.io
 // const fs = require('./public/node_modules/fs');
@@ -22,26 +23,29 @@ app.use(express.static('./public/img/'));
 app.use(express.static('./node_modules/socket.io-client/dist/'));
 
 /*Firebase Function*/
-function testFCM(sms, userId, notif) {
-	var TFCM = new FCM2('./firebase/i-studio-184006-firebase-adminsdk-p6ua2-7e3845a9f4.json');
-
+function pushFCM(sms, userId, notif) {
+	
 	var message = {
-		// data : { //This is only optional, you can send any data
-			// score : '850',
-			// time : '2:45'
-		// },
+		data : {
+			title : 'Thông Báo',
+			message : sms,
+			sound : 'default',
+			vibrate : "true",
+			userid : userId
+		},
 		notification : {
-			title : 'Title of notification',
-			body : sms
+			title : 'Thông Báo',
+			body : sms,
+			icon: './public/img/icon.png'
 		},
 		token : notif
 	};
 
-	TFCM.send(message, function (err, response) {
+	fcmKey.send(message, function (err, response) {
 		if (err) {
 			console.log('error found', err);
 		} else {
-			console.log('response here', response);
+			// console.log('response here', response);
 		}
 	})
 }
@@ -91,7 +95,7 @@ schedule.scheduleJob('0 0 9 * *', function () {
 							var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " ngày nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
 								var userid = elcoupon.userid_get_coupon[0].id;
 
-							fireBase(_message, element.user_id, element.notif);
+							pushFCM(_message, element.user_id, element.notif);
 						}
 					});
 				}
@@ -127,13 +131,12 @@ io.on('connection', function (socket) {
 
 				// gửi thông báo khi user lấy coupon mới
 				let sms = 'Bạn đã lấy thành công Coupon của Shop ' + shop_name;
-				fireBase(sms, uid, data.notif);
-				testFCM(sms, uid, data.notif);
+				pushFCM(sms, uid, data.notif);
 
 				// kiểm tra slot của user
 				if (data.empty_slot === 0) {
 					let smsEmpty = 'Bạn đã sử dụng hết lượt lấy coupon hay sử dụng Coupon để có thể lấy thêm Coupon mới';
-					fireBase(smsEmpty, uid, data.notif);
+					pushFCM(smsEmpty, uid, data.notif);
 				}
 			}
 		})
@@ -153,12 +156,12 @@ io.on('connection', function (socket) {
 
 						// thông báo user lấy coupon
 						let sms = 'Thành viên ' + udata.info[0].fulname + ' đã lấy thành công Coupon của Shop';
-						fireBase(sms, udata.user_id, udata.notif);
+						pushFCM(sms, udata.user_id, udata.notif);
 
 						// thông báo shop hết coupon
 						if (data.server_coupon.length === 0 && data.shop_coupon.length === 0) {
 							let sms = 'Shop đã hết Coupon của đợt phát hành gần nhất';
-							fireBase(sms, data.shop_boss, udata.notif);
+							pushFCM(sms, data.shop_boss, udata.notif);
 						}
 					}
 				});
