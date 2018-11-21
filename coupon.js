@@ -26,10 +26,10 @@ function testFCM(sms, userId, notif) {
 	var TFCM = new FCM2('./firebase/i-studio-184006-firebase-adminsdk-p6ua2-7e3845a9f4.json');
 
 	var message = {
-		data : { //This is only optional, you can send any data
-			score : '850',
-			time : '2:45'
-		},
+		// data : { //This is only optional, you can send any data
+			// score : '850',
+			// time : '2:45'
+		// },
 		notification : {
 			title : 'Title of notification',
 			body : sms
