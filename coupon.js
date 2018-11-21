@@ -32,8 +32,7 @@ function fireBase(sms, userId, notif) {
 			message : sms,
 			sound : 'default',
 			vibrate : "true",
-			userid : userId,
-			icon: './public/img/icon.png'
+			userid : userId
 		}
 	};
 
