@@ -208,7 +208,26 @@ module.exports = {
             }
         })
     },
-
+	// Sign out
+	signOut: function(req, res){
+		auth.findById( req.body._id , function(err, data){
+			if(err){
+				response = { 'error_code': 1, 'message': 'error fetching data !' };
+				res.status(200).json(response);
+			}else{
+				data.notif = '';
+				data.save(function(err){
+					if(err){
+						console.log('Sign out : ' + err);
+						response = { 'error_code': 1, 'message': 'error fetching data !' };
+					}else{
+						response = {'error_code' : 0, 'message' : ' User signOut Success'};
+						res.status(200).json(response);
+					}
+				})
+			}
+		})
+	},
     // Sign in
     signIn: function (req, res) {
         shop_model.find({ shop_boss: req.body.user_id }, function (err, shopdata) {

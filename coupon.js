@@ -458,6 +458,10 @@ app.post('/signin', function (req, res) {
 	auth.signIn(req, res);
 })
 
+app.post('/signout', function(req, res){
+	auth.signOut(req, res);
+})
+
 app.post('/signup', function (req, res) {
 	auth.signUp(req, res);
 })
