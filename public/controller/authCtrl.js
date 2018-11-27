@@ -546,15 +546,18 @@ module.exports = {
                 response = { 'error_code': 1, 'message': 'error fetching data' };
             } else {
                 if (data) {
-                    data.notif = req.body.notifId;
-                    data.save(function (err) {
-                        if (err) {
-                            response = { 'error_code': 3, 'message': 'error update data' };
-                        } else {
-                            response = { 'error_code': 0, 'message': 'Update NotifId success' };
-                        }
-                        res.status(200).json(response);
-                    })
+					if(req.body.notifId !== null && req.body.notifId !== undefined && req.body.notifId !== ''){
+						data.notif = req.body.notifId;
+						data.save(function (err) {
+							if (err) {
+								response = { 'error_code': 3, 'message': 'error update data' };
+							} else {
+								response = { 'error_code': 0, 'message': 'Update NotifId success' };
+							}
+							res.status(200).json(response);
+						})
+					}
+                    
                 }else{
 					response = { 'error_code': 2, 'message': 'User id not found !' };
 					res.status(200).json(response);
