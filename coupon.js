@@ -128,17 +128,18 @@ io.on('connection', function (socket) {
 			if (err) {
 				console.log('User Get Coupon ' + err);
 			} else {
+				if(data !== null && data !== undefined && data.length > 0){
+					// gửi thông báo khi user lấy coupon mới
+					let sms = 'Bạn đã lấy thành công Coupon của Shop ' + shop_name;
+					// pushFCM(sms, uid, data.notif);
+					fireBase(sms, uid, data.notif);
 
-				// gửi thông báo khi user lấy coupon mới
-				let sms = 'Bạn đã lấy thành công Coupon của Shop ' + shop_name;
-				// pushFCM(sms, uid, data.notif);
-				fireBase(sms, uid, data.notif);
-
-				// kiểm tra slot của user
-				if (data.empty_slot === 0) {
-					let smsEmpty = 'Bạn đã sử dụng hết lượt lấy coupon hay sử dụng Coupon để có thể lấy thêm Coupon mới';
-					// pushFCM(smsEmpty, uid, data.notif);
-					fireBase(smsEmpty, uid, data.notif);
+					// kiểm tra slot của user
+					if (data.empty_slot === 0) {
+						let smsEmpty = 'Bạn đã sử dụng hết lượt lấy coupon hay sử dụng Coupon để có thể lấy thêm Coupon mới';
+						// pushFCM(smsEmpty, uid, data.notif);
+						fireBase(smsEmpty, uid, data.notif);
+					}
 				}
 			}
 		})
@@ -148,27 +149,29 @@ io.on('connection', function (socket) {
 			if (err) {
 				console.log('Shop user get coupon ' + err);
 			} else {
+				if(data !== null && data !== undefined && data.length > 0){
+					auth_model.findOne({
+						user_id : data.shop_boss
+					}, function (err, udata) {
+						if (err) {
+							console.log('Shop user get coupon for boss ' + err);
+						} else {
+							if(udata !== null && udata !== undefined && udata.length > 0){
+								// thông báo user lấy coupon
+								let sms = 'Thành viên ' + udata.info[0].fulname + ' đã lấy thành công Coupon của Shop';
+								// pushFCM(sms, udata.user_id, udata.notif);
+								fireBase(sms, udata.user_id, udata.notif);
 
-				auth_model.findOne({
-					user_id : data.shop_boss
-				}, function (err, udata) {
-					if (err) {
-						console.log('Shop user get coupon for boss ' + err);
-					} else {
-
-						// thông báo user lấy coupon
-						let sms = 'Thành viên ' + udata.info[0].fulname + ' đã lấy thành công Coupon của Shop';
-						// pushFCM(sms, udata.user_id, udata.notif);
-						fireBase(sms, udata.user_id, udata.notif);
-
-						// thông báo shop hết coupon
-						if (data.server_coupon.length === 0 && data.shop_coupon.length === 0) {
-							let sms = 'Shop đã hết Coupon của đợt phát hành gần nhất';
-							// pushFCM(sms, data.shop_boss, udata.notif);
-							fireBase(sms, data.shop_boss, udata.notif);
+								// thông báo shop hết coupon
+								if (data.server_coupon.length === 0 && data.shop_coupon.length === 0) {
+									let sms = 'Shop đã hết Coupon của đợt phát hành gần nhất';
+									// pushFCM(sms, data.shop_boss, udata.notif);
+									fireBase(sms, udata.shop_boss, udata.notif);
+								}
+							}
 						}
-					}
-				});
+					});
+				}
 			}
 		})
 

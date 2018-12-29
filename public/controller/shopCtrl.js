@@ -1125,53 +1125,53 @@ module.exports = {
 							if (err) {
 								console.log('User feedback coupon ' + err);
 							} else {
-								
-								let sms = 'Thành viên ' + udata.info[0].fulname + ' đã đánh giá sản phẩm của cửa hàng';
-								var fcm = new FCM('AIzaSyACfkIkBA_4gv19gRhK1goKKNVMyl5-twA');
-								var message = {
-									to: udata.notif,
-									collapse_key: 'green',
+								if(udata !== null && udata !== undefined && udata.length > 0){
+									let sms = 'Thành viên ' + udata.info[0].fulname + ' đã đánh giá sản phẩm của cửa hàng';
+									var fcm = new FCM('AIzaSyACfkIkBA_4gv19gRhK1goKKNVMyl5-twA');
+									var message = {
+										to: udata.notif,
+										collapse_key: 'green',
 
-									data: {
-										title: 'Thông Báo',
-										message: sms,
-										sound: 'default',
-										vibrate: "true",
-										userid: udata.user_id
-									}
-								};
+										data: {
+											title: 'Thông Báo',
+											message: sms,
+											sound: 'default',
+											vibrate: "true",
+											userid: udata.user_id
+										}
+									};
 
-								fcm.send(message, function (err, response) {
-									if (err) {
-										console.log(err);
-									} else {
-										// console.log('Send cho: ' +element.info[0].fulname);
-									}
-								});
+									fcm.send(message, function (err, response) {
+										if (err) {
+											console.log(err);
+										} else {
+											// console.log('Send cho: ' +element.info[0].fulname);
+										}
+									});
 
-								// var message = {
-								// data: {
-								// title: 'Thông Báo',
-								// message: sms,
-								// sound: 'default',
-								// vibrate: "true",
-								// userid: udata.user_id
-								// },
-								// notification: {
-								// title: 'Thông Báo',
-								// body: sms
-								// },
-								// token: udata.notif
-								// };
+									// var message = {
+									// data: {
+									// title: 'Thông Báo',
+									// message: sms,
+									// sound: 'default',
+									// vibrate: "true",
+									// userid: udata.user_id
+									// },
+									// notification: {
+									// title: 'Thông Báo',
+									// body: sms
+									// },
+									// token: udata.notif
+									// };
 
-								// fcmKey.send(message, function (err, response) {
-								// if (err) {
-								// console.log('error found', err);
-								// } else {
-								// // console.log('response here', response);
-								// }
-								// })
-
+									// fcmKey.send(message, function (err, response) {
+									// if (err) {
+									// console.log('error found', err);
+									// } else {
+									// // console.log('response here', response);
+									// }
+									// })
+								}
 							}
 						})
 					}
