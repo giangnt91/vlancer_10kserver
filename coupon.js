@@ -94,7 +94,8 @@ schedule.scheduleJob('0 0 9 * *', function () {
 							var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " ngày nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
 								var userid = elcoupon.userid_get_coupon[0].id;
 
-							pushFCM(_message, element.user_id, element.notif);
+							// pushFCM(_message, element.user_id, element.notif);
+							fireBase(_message, element.user_id, element.notif);
 						}
 					});
 				}
@@ -130,12 +131,14 @@ io.on('connection', function (socket) {
 
 				// gửi thông báo khi user lấy coupon mới
 				let sms = 'Bạn đã lấy thành công Coupon của Shop ' + shop_name;
-				pushFCM(sms, uid, data.notif);
+				// pushFCM(sms, uid, data.notif);
+				fireBase(sms, uid, data.notif);
 
 				// kiểm tra slot của user
 				if (data.empty_slot === 0) {
 					let smsEmpty = 'Bạn đã sử dụng hết lượt lấy coupon hay sử dụng Coupon để có thể lấy thêm Coupon mới';
-					pushFCM(smsEmpty, uid, data.notif);
+					// pushFCM(smsEmpty, uid, data.notif);
+					fireBase(smsEmpty, uid, data.notif);
 				}
 			}
 		})
@@ -155,12 +158,14 @@ io.on('connection', function (socket) {
 
 						// thông báo user lấy coupon
 						let sms = 'Thành viên ' + udata.info[0].fulname + ' đã lấy thành công Coupon của Shop';
-						pushFCM(sms, udata.user_id, udata.notif);
+						// pushFCM(sms, udata.user_id, udata.notif);
+						fireBase(sms, udata.user_id, udata.notif);
 
 						// thông báo shop hết coupon
 						if (data.server_coupon.length === 0 && data.shop_coupon.length === 0) {
 							let sms = 'Shop đã hết Coupon của đợt phát hành gần nhất';
-							pushFCM(sms, data.shop_boss, udata.notif);
+							// pushFCM(sms, data.shop_boss, udata.notif);
+							fireBase(sms, data.shop_boss, udata.notif);
 						}
 					}
 				});
