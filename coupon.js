@@ -424,7 +424,7 @@ var reaction = require('./public/controller/reactionCtrl')
 // auth
 app.post('authtoken', function(req, res){
 	auth.authToken(req, res);
-}
+})
 
 app.post('/minuspoints', function (req, res) {
 	auth.Minuspoints(req, res);
