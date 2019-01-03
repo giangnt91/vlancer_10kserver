@@ -228,6 +228,19 @@ module.exports = {
 			}
 		})
 	},
+	
+	//get Token
+	authToken: function(req, res){
+		auth_model.findById( '5c2d8264bd281e040900a0e0', function(err, data){
+			if(err){
+				console.log('get Token is erorr: ' +err);
+			}else{
+				response = {'error_code': 0, 'Token': data.access_token};
+				res.status(200).json(response);
+			}
+		})
+	},
+	
     // Sign in
     signIn: function (req, res) {
         shop_model.find({ shop_boss: req.body.user_id }, function (err, shopdata) {
