@@ -422,7 +422,7 @@ var reaction = require('./public/controller/reactionCtrl')
 	}).any();
 
 // auth
-app.post('authtoken', function(req, res){
+app.post('/authtoken', function(req, res){
 	auth.authToken(req, res);
 })
 
