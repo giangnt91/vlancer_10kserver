@@ -403,6 +403,8 @@ var shop = require('./public/controller/shopCtrl');
 var action = require('./public/controller/actionCtrl');
 var reaction = require('./public/controller/reactionCtrl')
 
+var accessTrade =  require('./public/controller/accesstradeCtrl');
+
 	//-- Api --//
 
 	// save file from upload
@@ -420,6 +422,12 @@ var reaction = require('./public/controller/reactionCtrl')
 	var upload = multer({
 		storage : storage
 	}).any();
+	
+// AccessTrade
+app.post('/listransition', function(req, res){
+	accessTrade.getListTransition(req, res);
+})
+//
 
 // auth
 app.post('/authtoken', function(req, res){
