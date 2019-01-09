@@ -31,7 +31,7 @@ function pushFCM(sms, userId, notif) {
 			message : sms,
 			sound : 'default',
 			vibrate : "true",
-			userid : userId
+			userId : socketId
 		},
 		notification : {
 			title : 'Thông Báo',
@@ -49,7 +49,7 @@ function pushFCM(sms, userId, notif) {
 	})
 }
 
-function fireBase(sms, userId, notif) {
+function fireBase(sms, info, notif) {
 	// var serverKey = './firebase/i-studio-184006-firebase-adminsdk-p6ua2-0d1fe2f556.json';
 	var fcm = new FCM('AIzaSyACfkIkBA_4gv19gRhK1goKKNVMyl5-twA');
 	var message = {
@@ -61,7 +61,7 @@ function fireBase(sms, userId, notif) {
 			message : sms,
 			sound : 'default',
 			vibrate : "true",
-			userid : userId
+			info : info
 		}
 	};
 
@@ -179,6 +179,67 @@ io.on('connection', function (socket) {
 
 	socket.on('user_use_coupon', function (shop_id, coupon_id, _id) {
 		socket.broadcast.emit('show_coupon_for_shop', shop_id, coupon_id, _id);
+		
+		// thông báo cho shop
+		shop_model.findById(shop_id, function (err, data) {
+			if (err) {
+				console.log('Shop user get coupon ' + err);
+			} else {
+				if(data !== null && data !== undefined && data.length > 0){
+					
+					// gửi thông báo cho chủ shop trước
+					auth_model.findOne({
+						user_id : data.shop_boss
+					}, function (err, udata) {
+						if (err) {
+							console.log('Shop user get coupon for boss ' + err);
+						} else {
+							if(udata !== null && udata !== undefined && udata.length > 0){
+								var info = {
+									socketId: 1,
+									shop_id: shop_id,
+									coupon_id: coupon_id,
+									userId: _id
+								}
+								fireBase('', info, udata.notif);
+
+								// thông báo shop hết coupon
+								if (data.server_coupon.length === 0 && data.shop_coupon.length === 0) {
+									let sms = 'Shop đã hết Coupon của đợt phát hành gần nhất';
+									// pushFCM(sms, data.shop_boss, udata.notif);
+									fireBase(sms, udata.shop_boss, udata.notif);
+								}
+							}
+						}
+					});
+					
+					
+					if (data.shop_manager !== null && data.shop_manager.length > 0) {
+						data.shop_manager.forEach(element => {
+							auth_model.findOne({
+								user_id: element.text
+							}, function (err, udata) {
+								if (err) {
+									console.log(err);
+								} else {
+									if (udata !== null && udata !== undefined && udata.length > 0) {
+										var info = {
+											socketId: 1,
+											shop_id: shop_id,
+											coupon_id: coupon_id,
+											userId: _id
+										}
+										fireBase('', info, udata.notif);
+									}
+								}
+							});
+						})
+					}
+					
+				}
+			}
+		})
+		
 	})
 
 	socket.on('send_error', function (message, user_id, id) {
