@@ -140,7 +140,9 @@ module.exports = {
                 response = { 'error_code': 0, 'sliders': data }
             }
             res.status(200).json(response);
-        })
+        }).sort({
+			_id: -1
+		})
     },
 
     rmSlider: function (req, res) {
