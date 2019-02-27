@@ -29,7 +29,7 @@ Array.prototype.contains = function (obj) {
 }
 
 // chạy mỗi ngày 1 lần lúc nửa đêm
-nodeSchedule.scheduleJob('0 0 9 * * *', function () {
+nodeSchedule.scheduleJob('*/10 * * * * *', function () {
 	getTransitionFromApi();
 })
 
@@ -106,32 +106,35 @@ function checkTranssion(Transactions, fullname, Commission) {
 					}
 				})
 			} else {
-				if (data[0].paymentStatus[0].id === 0 && Transactions.status !== 0) {
-					if (Transactions.status === 1) {
-						status = {
-							id: 1,
-							name: 'Giao dịch thành công'
+				data.forEach(async element => {
+					if (element.paymentStatus[0].id === 0 && Transactions.status !== 0) {
+						if (Transactions.status === 1) {
+							status = {
+								id: 1,
+								name: 'Giao dịch thành công'
+							}
+							rewardPoint = Math.round(Commission * Transactions.commission);
+						} else {
+							status = {
+								id: 2,
+								name: 'Giao dịch bị từ chối'
+							}
+							rewardPoint = element.rewardPoint;
 						}
-						rewardPoint = Math.round(Commission * Transactions.commission);
-					} else {
-						status = {
-							id: 2,
-							name: 'Giao dịch bị từ chối'
-						}
-					}
 
-					if (Transactions.status === 1) {
-						data[0].dayComfirm = toDay;
-						data[0].dayComfirmIso = toDayIso;
-						data[0].rewardPoint = rewardPoint;
-					}
-					data[0].paymentStatus = status;
-					data[0].save(err => {
-						if (err) {
-							console.log('Cập nhật trạng thái đơn hàng lỗi: ' + err);
+						if (Transactions.status === 1) {
+							element.dayComfirm = toDay;
+							element.dayComfirmIso = toDayIso;
+							element.rewardPoint = rewardPoint;
 						}
-					})
-				}
+						element.paymentStatus = status;
+						await element.save(err => {
+							if (err) {
+								console.log('Cập nhật trạng thái đơn hàng lỗi: ' + err);
+							}
+						})
+					}
+				})
 			}
 
 		}
