@@ -1,8 +1,4 @@
-var mongoose = require('mongoose');
-
-// Connect mongodb
-// mongoose.createConnection('mongodb://localhost:27017/coupon10k');
-mongoose.createConnection('mongodb://cp_sa:91411902@localhost:19899/coupon10k');
+const mongoose = require('../config/cp_db');
 
 // Create basic code
 var slider = new mongoose.Schema({

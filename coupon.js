@@ -24,20 +24,20 @@ app.use(express.static('./node_modules/socket.io-client/dist/'));
 
 /*Firebase Function*/
 function pushFCM(sms, userId, notif) {
-	
+
 	var message = {
-		data : {
-			title : 'Thông Báo',
-			message : sms,
-			sound : 'default',
-			vibrate : "true",
-			userid : userId
+		data: {
+			title: 'Thông Báo',
+			message: sms,
+			sound: 'default',
+			vibrate: "true",
+			userid: userId
 		},
-		notification : {
-			title : 'Thông Báo',
-			body : sms
+		notification: {
+			title: 'Thông Báo',
+			body: sms
 		},
-		token : notif
+		token: notif
 	};
 
 	fcmKey.send(message, function (err, response) {
@@ -53,15 +53,15 @@ function fireBase(sms, userId, notif) {
 	// var serverKey = './firebase/i-studio-184006-firebase-adminsdk-p6ua2-0d1fe2f556.json';
 	var fcm = new FCM('AIzaSyACfkIkBA_4gv19gRhK1goKKNVMyl5-twA');
 	var message = {
-		to : notif,
-		collapse_key : 'green',
+		to: notif,
+		collapse_key: 'green',
 
-		data : {
-			title : 'Thông Báo',
-			message : sms,
-			sound : 'default',
-			vibrate : "true",
-			userid : userId
+		data: {
+			title: 'Thông Báo',
+			message: sms,
+			sound: 'default',
+			vibrate: "true",
+			userid: userId
 		}
 	};
 
@@ -92,7 +92,7 @@ schedule.scheduleJob('0 0 9 * *', function () {
 						// số ngày còn lại của coupon nhỏ hơn bằng 10 thì thông báo cho user
 						if (left_day < 10 && left_day > 0) {
 							var _message = "Coupon của cửa hàng " + elcoupon.shop_name + " còn " + left_day + " ngày nữa là hết hạn. Vui lòng sử dụng Coupon trước ngày " + elcoupon.limit_time + "."
-								var userid = elcoupon.userid_get_coupon[0].id;
+							var userid = elcoupon.userid_get_coupon[0].id;
 
 							// pushFCM(_message, element.user_id, element.notif);
 							fireBase(_message, element.user_id, element.notif);
@@ -123,12 +123,12 @@ io.on('connection', function (socket) {
 
 		// thông báo cho user
 		auth_model.findOne({
-			user_id : uid
+			user_id: uid
 		}, function (err, data) {
 			if (err) {
 				console.log('User Get Coupon ' + err);
 			} else {
-				if(data !== null && data !== undefined && data.length > 0){
+				if (data !== null && data !== undefined && data.length > 0) {
 					// gửi thông báo khi user lấy coupon mới
 					let sms = 'Bạn đã lấy thành công Coupon của Shop ' + shop_name;
 					// pushFCM(sms, uid, data.notif);
@@ -149,14 +149,14 @@ io.on('connection', function (socket) {
 			if (err) {
 				console.log('Shop user get coupon ' + err);
 			} else {
-				if(data !== null && data !== undefined && data.length > 0){
+				if (data !== null && data !== undefined && data.length > 0) {
 					auth_model.findOne({
-						user_id : data.shop_boss
+						user_id: data.shop_boss
 					}, function (err, udata) {
 						if (err) {
 							console.log('Shop user get coupon for boss ' + err);
 						} else {
-							if(udata !== null && udata !== undefined && udata.length > 0){
+							if (udata !== null && udata !== undefined && udata.length > 0) {
 								// thông báo user lấy coupon
 								let sms = 'Thành viên ' + udata.info[0].fulname + ' đã lấy thành công Coupon của Shop';
 								// pushFCM(sms, udata.user_id, udata.notif);
@@ -190,12 +190,12 @@ io.on('connection', function (socket) {
 
 		// cập nhật reviewedby cho shop
 		shop_model.find({
-			shopId : shopid
+			shopId: shopid
 		}, function (err, data) {
 			if (err) {
 				response = {
-					'error_code' : 1,
-					'message' : 'error fetching data'
+					'error_code': 1,
+					'message': 'error fetching data'
 				};
 			} else {
 				if (data.length > 0) {
@@ -205,60 +205,60 @@ io.on('connection', function (socket) {
 							if (element.coupon._id === couponid) {
 
 								_coupon = {
-									checkId : element.coupon.checkId,
-									reviewedby : [{
-											userId : userid,
-											userName : fulname,
-											img : avatar
-										}
+									checkId: element.coupon.checkId,
+									reviewedby: [{
+										userId: userid,
+										userName: fulname,
+										img: avatar
+									}
 									],
-									loyal : [{
-											id : element.coupon.loyal[0].name,
-											name : element.coupon.loyal[0].id
-										}
+									loyal: [{
+										id: element.coupon.loyal[0].name,
+										name: element.coupon.loyal[0].id
+									}
 									],
-									shop_name : element.coupon.shop_name,
-									shop_cover : element.coupon.shop_cover,
-									shop_avatar : element.coupon.shop_avatar,
-									shop_id : element.coupon.shop_id,
-									coupon_info : element.coupon.coupon_info,
-									value : element.coupon.value,
-									class_user : [{
-											id : element.coupon.class_user[0].id,
-											name : element.coupon.class_user[0].name
-										}
+									shop_name: element.coupon.shop_name,
+									shop_cover: element.coupon.shop_cover,
+									shop_avatar: element.coupon.shop_avatar,
+									shop_id: element.coupon.shop_id,
+									coupon_info: element.coupon.coupon_info,
+									value: element.coupon.value,
+									class_user: [{
+										id: element.coupon.class_user[0].id,
+										name: element.coupon.class_user[0].name
+									}
 									],
-									release_day : element.coupon.release_day,
-									limit_time : element.coupon.limit_time,
-									time_expire : element.coupon.time_expire,
-									the_issuer : [{
-											id : element.coupon.the_issuer[0].id,
-											name : element.coupon.the_issuer[0].name
-										}
+									release_day: element.coupon.release_day,
+									limit_time: element.coupon.limit_time,
+									time_expire: element.coupon.time_expire,
+									the_issuer: [{
+										id: element.coupon.the_issuer[0].id,
+										name: element.coupon.the_issuer[0].name
+									}
 									],
-									status_coupon : [{
-											id : 0,
-											status : "Đã sử dụng"
-										}
+									status_coupon: [{
+										id: 0,
+										status: "Đã sử dụng"
+									}
 									],
-									userid_get_coupon : element.coupon.userid_get_coupon,
-									time_user_get : element.coupon.time_user_get,
-									time_user_use : element.time_user_use,
-									rating : element.coupon.rating,
-									rfeedback : [{
-											name : element.coupon.rfeedback[0].name,
-											id : element.coupon.rfeedback[0].id
-										}
+									userid_get_coupon: element.coupon.userid_get_coupon,
+									time_user_get: element.coupon.time_user_get,
+									time_user_use: element.time_user_use,
+									rating: element.coupon.rating,
+									rfeedback: [{
+										name: element.coupon.rfeedback[0].name,
+										id: element.coupon.rfeedback[0].id
+									}
 									],
-									feedback : element.coupon.feedback,
-									approved : element.coupon.approved,
-									_id : element.coupon._id
+									feedback: element.coupon.feedback,
+									approved: element.coupon.approved,
+									_id: element.coupon._id
 								}
 
 								the_new = {
-									_id : element._id,
-									approved : 'pending',
-									coupon : _coupon
+									_id: element._id,
+									approved: 'pending',
+									coupon: _coupon
 								}
 								shop_use_coupon.splice(shop_use_coupon.indexOf(element), 1);
 
@@ -278,12 +278,12 @@ io.on('connection', function (socket) {
 
 		// cập nhật reviewedby cho user
 		auth_model.find({
-			user_id : userid
+			user_id: userid
 		}, function (err, data) {
 			if (err) {
 				response = {
-					'error_code' : 1,
-					'message' : 'error fetching data'
+					'error_code': 1,
+					'message': 'error fetching data'
 				};
 			} else {
 				if (data[0].total_list_coupon.length > 0) {
@@ -292,50 +292,50 @@ io.on('connection', function (socket) {
 					total_list_coupon.forEach(element => {
 						if (element._id === couponid) {
 							the_new = {
-								checkId : element.checkId,
-								reviewedby : [{
-										userId : userid,
-										userName : fulname,
-										img : avatar
-									}
+								checkId: element.checkId,
+								reviewedby: [{
+									userId: userid,
+									userName: fulname,
+									img: avatar
+								}
 								],
-								loyal : [{
-										id : element.loyal[0].name,
-										name : element.loyal[0].id
-									}
+								loyal: [{
+									id: element.loyal[0].name,
+									name: element.loyal[0].id
+								}
 								],
-								shop_name : element.shop_name,
-								shop_cover : element.shop_cover,
-								shop_avatar : element.shop_avatar,
-								shop_id : element.shop_id,
-								coupon_info : element.coupon_info,
-								value : element.value,
-								class_user : [{
-										id : element.class_user[0].id,
-										name : element.class_user[0].name
-									}
+								shop_name: element.shop_name,
+								shop_cover: element.shop_cover,
+								shop_avatar: element.shop_avatar,
+								shop_id: element.shop_id,
+								coupon_info: element.coupon_info,
+								value: element.value,
+								class_user: [{
+									id: element.class_user[0].id,
+									name: element.class_user[0].name
+								}
 								],
-								release_day : element.release_day,
-								limit_time : element.limit_time,
-								time_expire : element.time_expire,
-								the_issuer : [{
-										id : element.the_issuer[0].id,
-										name : element.the_issuer[0].name
-									}
+								release_day: element.release_day,
+								limit_time: element.limit_time,
+								time_expire: element.time_expire,
+								the_issuer: [{
+									id: element.the_issuer[0].id,
+									name: element.the_issuer[0].name
+								}
 								],
-								status_coupon : element.status_coupon,
-								userid_get_coupon : element.userid_get_coupon,
-								time_user_get : element.time_user_get,
-								time_user_use : element.time_user_use,
-								rating : element.rating,
-								rfeedback : [{
-										name : element.rfeedback[0].name,
-										id : element.rfeedback[0].id
-									}
+								status_coupon: element.status_coupon,
+								userid_get_coupon: element.userid_get_coupon,
+								time_user_get: element.time_user_get,
+								time_user_use: element.time_user_use,
+								rating: element.rating,
+								rfeedback: [{
+									name: element.rfeedback[0].name,
+									id: element.rfeedback[0].id
+								}
 								],
-								feedback : element.feedback,
-								approved : "pending",
-								_id : element._id
+								feedback: element.feedback,
+								approved: "pending",
+								_id: element._id
 							}
 							total_list_coupon.splice(total_list_coupon.indexOf(element), 1);
 							total_list_coupon.push(the_new);
@@ -346,13 +346,13 @@ io.on('connection', function (socket) {
 					data[0].save(function (err) {
 						if (err) {
 							response = {
-								'error_code' : 3,
-								'message' : 'error update data'
+								'error_code': 3,
+								'message': 'error update data'
 							};
 						} else {
 							response = {
-								'error_code' : 0,
-								'message' : 'Update coupon pending success'
+								'error_code': 0,
+								'message': 'Update coupon pending success'
 							};
 						}
 						res.status(200).json(response);
@@ -369,8 +369,8 @@ End
  */
 
 app.use(bodyParser.urlencoded({
-		extended : true
-	}));
+	extended: true
+}));
 app.use(device.capture());
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
@@ -403,34 +403,46 @@ var shop = require('./public/controller/shopCtrl');
 var action = require('./public/controller/actionCtrl');
 var reaction = require('./public/controller/reactionCtrl')
 
-var accessTrade =  require('./public/controller/accesstradeCtrl');
+var accessTrade = require('./public/controller/accesstradeCtrl');
 
-	//-- Api --//
+//-- Api --//
 
-	// save file from upload
-	var storage = multer.diskStorage({
-		destination : function (req, file, cb) {
-			cb(null, './public/img/')
-		},
-		filename : function (req, file, cb) {
-			var datetimestamp = Date.now();
-			cb(null, req.body.shopId + '-' + file.fieldname + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
-		}
-	})
-	// var upload = multer({ storage: storage }).single('avatar');
-	//upload multi file
-	var upload = multer({
-		storage : storage
-	}).any();
-	
+// save file from upload
+var storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, './public/img/')
+	},
+	filename: function (req, file, cb) {
+		var datetimestamp = Date.now();
+		cb(null, req.body.shopId + '-' + file.fieldname + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+	}
+})
+// var upload = multer({ storage: storage }).single('avatar');
+//upload multi file
+var upload = multer({
+	storage: storage
+}).any();
+
 // AccessTrade
-app.post('/listransition', function(req, res){
-	accessTrade.getListTransition(req, res);
+app.get('/transactiongetbyuser', function (req, res) {
+	accessTrade.TransactionsGetByUserId(req, res);
+})
+
+app.get('/transactiongetall', function (req, res) {
+	accessTrade.TransactionsGetAll(req, res);
+})
+
+app.post('/setcommission', (req, res) => {
+	accessTrade.Setting(req, res);
+})
+
+app.get('/getcommission', (req, res) => {
+	accessTrade.getSetting(req, res);
 })
 //
 
 // auth
-app.post('/authtoken', function(req, res){
+app.post('/authtoken', function (req, res) {
 	auth.authToken(req, res);
 })
 
@@ -478,7 +490,7 @@ app.post('/signin', function (req, res) {
 	auth.signIn(req, res);
 })
 
-app.post('/signout', function(req, res){
+app.post('/signout', function (req, res) {
 	auth.signOut(req, res);
 })
 
@@ -564,8 +576,8 @@ app.post('/imgbasic', function (req, res) {
 	upload(req, res, function (err) {
 		if (err) {
 			res.send({
-				'error_code' : 1,
-				'message' : err
+				'error_code': 1,
+				'message': err
 			});
 		} else {
 			code.avatar(req, res, server_url);
@@ -586,8 +598,8 @@ app.post('/slider', function (req, res) {
 	upload(req, res, function (err) {
 		if (err) {
 			res.send({
-				'error_code' : 1,
-				'message' : err
+				'error_code': 1,
+				'message': err
 			});
 		} else {
 			code.upSlider(req, res, server_url);
@@ -599,8 +611,8 @@ app.post('/img', function (req, res) {
 	upload(req, res, function (err) {
 		if (err) {
 			res.send({
-				'error_code' : 1,
-				'message' : err
+				'error_code': 1,
+				'message': err
 			});
 		} else {
 			shop.uploadImg(req, res, server_url);
@@ -612,15 +624,15 @@ app.post('/avatar', function (req, res) {
 	upload(req, res, function (err) {
 		if (err) {
 			res.send({
-				'error_code' : 1,
-				'message' : err
+				'error_code': 1,
+				'message': err
 			});
 		} else {
 			var img = JSON.parse(req.body.img);
 			avatar = server_url + img[0].avatar;
 			res.status(200).json({
-				'error_code' : 0,
-				'url' : avatar
+				'error_code': 0,
+				'url': avatar
 			});
 			// shop.avatar(req, res, server_url);
 		}
@@ -631,15 +643,15 @@ app.post('/cover', function (req, res) {
 	upload(req, res, function (err) {
 		if (err) {
 			res.send({
-				'error_code' : 1,
-				'message' : err
+				'error_code': 1,
+				'message': err
 			});
 		} else {
 			var img = JSON.parse(req.body.img);
 			cover = server_url + img[0].cover;
 			res.status(200).json({
-				'error_code' : 0,
-				'url' : cover
+				'error_code': 0,
+				'url': cover
 			});
 			// shop.cover(req, res, server_url);
 		}
@@ -650,21 +662,21 @@ app.post('/album', function (req, res) {
 	upload(req, res, function (err) {
 		if (err) {
 			res.send({
-				'error_code' : 1,
-				'message' : err
+				'error_code': 1,
+				'message': err
 			});
 		} else {
 			var img = JSON.parse(req.body.img);
 			var _album = [];
 			img[0].album.forEach(function (item) {
 				_album.push({
-					url : server_url + item
+					url: server_url + item
 				});
 			});
 			album = _album;
 			res.status(200).json({
-				'error_code' : 0,
-				'url' : album
+				'error_code': 0,
+				'url': album
 			});
 			// shop.album(req, res, server_url);
 		}
