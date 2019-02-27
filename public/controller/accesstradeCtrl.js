@@ -29,7 +29,7 @@ Array.prototype.contains = function (obj) {
 }
 
 // chạy mỗi ngày 1 lần lúc nửa đêm
-nodeSchedule.scheduleJob('*/10 * * * * *', function () {
+nodeSchedule.scheduleJob('0 0 9 * * *', function () {
 	getTransitionFromApi();
 })
 
