@@ -53,15 +53,31 @@ async function getListUser(res, listTransition) {
 			T.data.forEach(async (element, index) => {
 				if (data.contains(element.utm_source) !== false) {
 					let i = data.contains(element.utm_source);
-					await checkTranssion(element, data[i].info[0].fulname, Commission);
+					await checkTranssion(element, data[i], Commission);
 				}
 			})
 		}
 	});
 }
 
+// cập nhật điểm cho user khi đơn hàng được duyệt
+function updateDetailUser(userId, points) {
+	authModel.findById(userId, (err, data) => {
+		if (err) {
+			console.log('lấy thông tin user có lỗi: ' + err);
+		} else {
+			data.point_plus = data.point_plus + points;
+			data.save(err => {
+				if(err){
+					console.log('Cập nhật thông tin user có lỗi: ' + err);
+				}
+			})
+		}
+	})
+}
+
 // lấy danh sách giao dịch của user
-function checkTranssion(Transactions, fullname, Commission) {
+function checkTranssion(Transactions, users, Commission) {
 	let toDay = moment(new Date()).format('DD/MM/YYYY');
 	let toDayIso = moment(new Date()).format('YYYY-MM-DD');
 	let query = {
@@ -81,7 +97,7 @@ function checkTranssion(Transactions, fullname, Commission) {
 				let payment = new paymentModel({
 					authBuy: {
 						id: Transactions.utm_source,
-						name: fullname
+						name: users.info[0].fulname
 					},
 					transactionId: Transactions.transaction_id,
 					originName: Transactions.merchant,
@@ -114,6 +130,7 @@ function checkTranssion(Transactions, fullname, Commission) {
 								name: 'Giao dịch thành công'
 							}
 							rewardPoint = Math.round(Commission * Transactions.commission);
+							updateDetailUser(rewardPoint, users._id);
 						} else {
 							status = {
 								id: 2,
