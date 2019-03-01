@@ -12,26 +12,26 @@ function compareday(x) {
     return parts[2] + '' + parts[1] + '' + parts[0];
 }
 
-function CheckCodeExpired(){
-	let day = dateFormat(new Date(), "yyyymmdd");
-	code_model.find({}, function(err,data){
-		if(err){
-			console.log(err);
-		}else{
-			if(data.length > 0){
-				data.forEach( element =>{
-					let expired = compareday(element.Expireday);
-					if(expired < day){
-						element._Status = {
-							id: 0,
-							name: "Hết Hạn"
-						}
-						element.save(function(err){});
-					}
-				})
-			}
-		}
-	})
+function CheckCodeExpired() {
+    let day = dateFormat(new Date(), "yyyymmdd");
+    code_model.find({}, function (err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            if (data.length > 0) {
+                data.forEach(element => {
+                    let expired = compareday(element.Expireday);
+                    if (expired < day) {
+                        element._Status = {
+                            id: 0,
+                            name: "Hết Hạn"
+                        }
+                        element.save(function (err) { });
+                    }
+                })
+            }
+        }
+    })
 }
 
 // chạy mỗi nửa đêm cho basic coupon
@@ -55,11 +55,11 @@ function create_emarket(_ename, _eimg) {
 
 // create basic code
 function create_basic_code(_Eid, _Ename, _Eimg, _Code, _Url, _Industry, _Info, _ValueC, _Expireday) {
-	var day = dateFormat(new Date(), "dd/mm/yyyy");
-	let _status = {
-			id: 1,
-			name: "Còn Hạn"
-		}
+    var day = dateFormat(new Date(), "dd/mm/yyyy");
+    let _status = {
+        id: 1,
+        name: "Còn Hạn"
+    }
     var code = new code_model({
         Eid: _Eid,
         Ename: _Ename,
@@ -70,8 +70,8 @@ function create_basic_code(_Eid, _Ename, _Eimg, _Code, _Url, _Industry, _Info, _
         Info: _Info,
         ValueC: _ValueC,
         Expireday: _Expireday,
-		Releaseday: day,
-		_Status: _status
+        Releaseday: day,
+        _Status: _status
     });
 
     code.save(function (err) {
@@ -141,8 +141,8 @@ module.exports = {
             }
             res.status(200).json(response);
         }).sort({
-			_id: -1
-		})
+            _id: -1
+        })
     },
 
     rmSlider: function (req, res) {
@@ -173,6 +173,29 @@ module.exports = {
         create_emarket(req.body.ename, req.body.eimg);
         response = { 'error_code': 0, 'message': 'emarket  is created !' }
         res.status(200).json(response);
+    },
+
+    // update emarket
+    updateEmarket: (req, res) => {
+        emarket_model.findById(req.body.Emarket._id, (err, data) => {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+                res.status(200).json(response);
+            } else {
+                data.Ename = req.body.Emarket.Ename;
+                data.Eimg = req.body.Emarket.Eimg;
+
+                data.save(err => {
+                    if (err) {
+                        response = { 'error_code': 1, 'message': 'error fetching data' };
+                        res.status(200).json(response);
+                    } else {
+                        response = { 'error_code': 0, 'sms': 'update succes' }
+                        res.status(200).json(response);
+                    }
+                })
+            }
+        })
     },
 
     // create basic

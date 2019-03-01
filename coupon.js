@@ -402,7 +402,7 @@ var code = require('./public/controller/codeCtrl');
 var shop = require('./public/controller/shopCtrl');
 var action = require('./public/controller/actionCtrl');
 var reaction = require('./public/controller/reactionCtrl')
-
+var hotDeal = require('./public/controller/hotCtrl');
 var accessTrade = require('./public/controller/accesstradeCtrl');
 
 //-- Api --//
@@ -556,6 +556,10 @@ app.post('/emarket', function (req, res) {
 	code.emarket(req, res);
 })
 
+app.post('/updateemarket', (req, res) => {
+	code.updateEmarket(req, res);
+})
+
 app.post('/basic', function (req, res) {
 	code.basic_code(req, res);
 })
@@ -584,6 +588,20 @@ app.post('/imgbasic', function (req, res) {
 		}
 	})
 })
+
+// Hot Deal
+app.post('/chotdeal', (req, res) => {
+	hotDeal.hotDealCreate(req, res);
+})
+
+app.get('/gethotdeal', (req, res) => {
+	hotDeal.hotDealGetAll(req, res);
+})
+
+app.post('/updatehotdeal', (req, res) => {
+	hotDeal.hotDealUpdateById(req, res);
+})
+// End Hot Deal
 
 // shop
 app.post('/cshop', function (req, res) {
