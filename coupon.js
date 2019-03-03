@@ -397,13 +397,15 @@ app.use(function (req, res, next) {
 })
 
 //-- Controller --//
-var auth = require('./public/controller/authCtrl');
-var code = require('./public/controller/codeCtrl');
-var shop = require('./public/controller/shopCtrl');
-var action = require('./public/controller/actionCtrl');
-var reaction = require('./public/controller/reactionCtrl')
-var hotDeal = require('./public/controller/hotCtrl');
-var accessTrade = require('./public/controller/accesstradeCtrl');
+const auth = require('./public/controller/authCtrl');
+const code = require('./public/controller/codeCtrl');
+const shop = require('./public/controller/shopCtrl');
+const action = require('./public/controller/actionCtrl');
+const reaction = require('./public/controller/reactionCtrl')
+const hotDeal = require('./public/controller/hotCtrl');
+const accessTrade = require('./public/controller/accesstradeCtrl');
+const gift = require('./public/controller/giftCtrl');
+
 
 //-- Api --//
 
@@ -440,6 +442,28 @@ app.get('/getcommission', (req, res) => {
 	accessTrade.getSetting(req, res);
 })
 //
+
+// Gift
+app.post('/addgift', (req, res) => {
+	gift.giftAddNew(req, res);
+})
+
+app.get('/getgifts', (req, res) => {
+	gift.giftGetAll(req, res);
+})
+
+app.post('/editgift', (req, res) => {
+	gift.giftEdit(req, res);
+})
+
+app.get('/getgift', (req, res) => {
+	gift.giftGetById(req, res);
+})
+
+app.post('/updateusergetgift', (req, res) => {
+	gift.giftUpdateUserGet(req, res);
+})
+// End Gift
 
 // auth
 app.post('/authtoken', function (req, res) {

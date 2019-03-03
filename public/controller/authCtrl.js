@@ -148,7 +148,8 @@ module.exports = {
 						access_token: req.body.access_token,
                         _status: JSON.parse(req.body._status),
 						likecount: 0,
-						commentcount: 0
+                        commentcount: 0,
+                        gifts: []
                     });
 
                     new_auth.save(function (err) {
