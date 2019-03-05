@@ -463,6 +463,10 @@ app.get('/getgift', (req, res) => {
 app.post('/updateusergetgift', (req, res) => {
 	gift.giftUpdateUserGet(req, res);
 })
+
+app.post('/updateuserexpire', (req, res) => {
+	gift.giftUpdateExpire(req, res);
+})
 // End Gift
 
 // auth

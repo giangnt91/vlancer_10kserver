@@ -142,6 +142,29 @@ module.exports = {
         })
       }
     })
+  },
+
+  giftUpdateExpire: (req, res) => {
+    authModel.findById(req.body.auth._id, (err, data) => {
+      if (err) {
+        console.log('Lấy thông tin user cập nhật quà lỗi: ' + err);
+        response = { 'error_code': 1, 'sms': 'error fetching data' };
+        res.status(200).json(response);
+      } else {
+        data.gifts = req.body.auth[0].gifts;
+
+        data.save(err => {
+          if (err) {
+            console.log('Lưu thông tin user cập nhật quà lỗi: ' + err);
+            response = { 'error_code': 1, 'sms': 'error fetching data' };
+            res.status(200).json(response);
+          } else {
+            response = { 'error_code': 0, 'sms': 'save expireday gift success' };
+            res.status(200).json(response);
+          }
+        })
+      }
+    })
   }
 }
 
