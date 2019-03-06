@@ -151,7 +151,7 @@ module.exports = {
         response = { 'error_code': 1, 'sms': 'error fetching data' };
         res.status(200).json(response);
       } else {
-        data.gifts = req.body.auth[0].gifts;
+        data.gifts = req.body.auth.gifts;
 
         data.save(err => {
           if (err) {

@@ -198,6 +198,29 @@ module.exports = {
         })
     },
 
+    updateEmarketForCode: (req, res) => {
+        code_model.find({ Eid: req.body.Emarket._id }, (err, data) => {
+            if (err) {
+                response = { 'error_code': 1, 'message': 'error fetching data' };
+            } else {
+                if (data.length > 0) {
+                    data.forEach(async element => {
+                        element.Eid = req.body.Emarket._id;
+                        element.Ename = req.body.Emarket.Ename;
+                        element.Eimg = req.body.Emarket.Eimg;
+                        await element.save(err => {
+                            if (err) {
+                                console.log('lỗi update thông tin emarket: ' + err)
+                            }
+                        })
+                    })
+                    response = { 'error_code': 0, 'sms': 'update succes' }
+                    res.status(200).json(response);
+                }
+            }
+        })
+    },
+
     // create basic
     basic_code: function (req, res) {
         create_basic_code(req.body.Eid, req.body.Ename, req.body.Eimg, req.body.Code, req.body.Url, req.body.Industry, req.body.Info, req.body.ValueC, req.body.Expireday);

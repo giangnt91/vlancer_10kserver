@@ -588,6 +588,10 @@ app.post('/updateemarket', (req, res) => {
 	code.updateEmarket(req, res);
 })
 
+app.post('/updateemarketforcode', (req, res) => {
+	code.updateEmarketForCode(req, res)
+})
+
 app.post('/basic', function (req, res) {
 	code.basic_code(req, res);
 })
@@ -628,6 +632,10 @@ app.get('/gethotdeal', (req, res) => {
 
 app.post('/updatehotdeal', (req, res) => {
 	hotDeal.hotDealUpdateById(req, res);
+})
+
+app.post('/delhotdeal', (req, res) => {
+	hotDeal.hotDealDelById(req, res);
 })
 // End Hot Deal
 

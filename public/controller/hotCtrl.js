@@ -73,5 +73,18 @@ module.exports = {
         })
       }
     })
+  },
+
+  hotDealDelById: (req, res) => {
+    hotModel.findByIdAndRemove({_id: req.body._id}, (err, data) => {
+      if (err) {
+        console.log('Delete mã khuyến mãi có lỗi: ' + err);
+        response = { 'error_code': 1, 'sms': 'error fetching data' };
+        res.status(200).json(response);
+      } else {
+        response = { 'error_code': 0, 'sms': 'delete success' };
+        res.status(200).json(response);
+      }
+    })
   }
 }
