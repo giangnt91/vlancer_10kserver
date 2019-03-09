@@ -18,7 +18,7 @@ function getFirstDateOfMonth() {
 }
 
 // kiểm tra trùng trong mảng dữ liệu
-Array.prototype.contains = function (obj) {
+Array.prototype.contains3 = function (obj) {
 	var i = this.length;
 	while (i--) {
 		if (this[i].user_id === obj) {
@@ -29,7 +29,7 @@ Array.prototype.contains = function (obj) {
 }
 
 // chạy mỗi ngày 1 lần lúc nửa đêm
-nodeSchedule.scheduleJob('0 0 9 * * *', function () {
+nodeSchedule.scheduleJob('0 0 * * * *', function () {
 	getTransitionFromApi();
 })
 
@@ -50,9 +50,10 @@ async function getListUser(res, listTransition) {
 		if (data.length > 0) {
 			let T = JSON.parse(listTransition);
 			// res.send(T.data);
+
 			T.data.forEach(async (element, index) => {
-				if (data.contains(element.utm_source) !== false) {
-					let i = data.contains(element.utm_source);
+				if (data.contains3(element.utm_source) !== false) {
+					let i = data.contains3(element.utm_source);
 					await checkTranssion(element, data[i], Commission);
 				}
 			})
@@ -68,7 +69,7 @@ function updateDetailUser(userId, points) {
 		} else {
 			data.point_plus = data.point_plus + points;
 			data.save(err => {
-				if(err){
+				if (err) {
 					console.log('Cập nhật thông tin user có lỗi: ' + err);
 				}
 			})
@@ -92,7 +93,6 @@ function checkTranssion(Transactions, users, Commission) {
 				id: 0,
 				name: 'Đang xử lý'
 			}
-
 			if (data.length === 0) {
 				let payment = new paymentModel({
 					authBuy: {
@@ -165,7 +165,7 @@ function getTransitionFromApi(res) {
 	let toDay = moment(new Date()).format('YYYY-MM-DD') + 'T00:00:00Z'
 
 	const options = {
-		url: 'https://api.accesstrade.vn/v1/transactions?since=' + fromDay + '&until=' + toDay,
+		url: 'https://api.accesstrade.vn/v1/transactions?since=' + fromDay + '&until=2019-03-10T00:00:00Z',
 		headers: {
 			'Authorization': 'Token OxEjBHQ4rUWk6wyvy35PYzW0LaZr3R9_',
 			'Content-Type': 'application/json'

@@ -11,11 +11,14 @@ var gift = new mongoose.Schema({
   giftCreateDayIso: Date,
   giftExpiredDay: String,
   giftExpiredDayIso: Date,
+  giftUseDay: String,
+  giftUseDayIso: Date,
   giftAddress: String,
   giftTotal: Number,
   giftUserHasTaken: Number,
   giftImages: Array,
   giftListUser: Array,
+  giftListUserUse: Array,
   giftTurn: String,
   giftDisable: Boolean
 }, {

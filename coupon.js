@@ -104,10 +104,22 @@ schedule.scheduleJob('0 0 9 * *', function () {
 	})
 })
 
+// kiểm tra trùng trong mảng dữ liệu
+Array.prototype.contains = function (obj) {
+	var i = this.length;
+	while (i--) {
+		if (this[i].id === obj) {
+			return i;
+		}
+	}
+	return false;
+}
+
 /*
 socket get event from client
  */
 io.on('connection', function (socket) {
+
 	//back end
 	socket.on('shop_create_new_coupon', function () {
 		socket.broadcast.emit('get_all_coupon');
@@ -115,6 +127,90 @@ io.on('connection', function (socket) {
 
 	socket.on('server_accept', function () {
 		socket.broadcast.emit('show_coupon_accept');
+	})
+
+	// gift
+	const giftModel = require('./public/model/gift');
+
+	socket.on('user_get_gift', (uId, shopId, shopName) => {
+		socket.broadcast.emit('get_gifts', uId);
+
+		// thông báo cho user
+		auth_model.findById(uId, function (err, data) {
+			if (err) {
+				console.log('lấy thông tin user nhận quà có lỗi: ' + err);
+			} else {
+				if (data) {
+					// gửi thông báo khi user lấy quà mới
+					let sms = 'Bạn đã lấy thành công phần quà của Shop ' + shopName;
+					fireBase(sms, uId, data.notif);
+				}
+			}
+		});
+
+		// thông báo cho shop
+		shop_model.findById(shopId, function (err, data) {
+			if (err) {
+				console.log('Lấy thông tin shop user nhận quà có lỗi: ' + err);
+			} else {
+				if (data) {
+					auth_model.findById(uId, (err, user) => {
+						if (err) {
+							console.log('lấy thông tin chủ shop có lỗi: ' + err)
+						} else {
+							// thông báo user lấy gift
+							let sms = 'Thành viên ' + user.info[0].fulname + ' đã lấy thành công phần quà của Shop';
+							fireBase(sms, user.user_id, user.notif);
+						}
+					})
+				}
+			}
+		});
+
+	})
+
+	socket.on('user_use_gift', () => {
+		socket.broadcast.emit('shop_check_request_gift');
+	})
+
+	socket.on('shop_review_gift', (auth, gift) => {
+		// cập nhật người đang review gift
+		giftModel.findById(gift._id, (err, data) => {
+			if (err) {
+				console.log('error coupon.js line 167: ' + err);
+			} else {
+				try {
+					let index = data.giftListUserUse.contains(gift.auth.id);
+					newAuth = {
+						id: data.giftListUserUse[index].id,
+						name: data.giftListUserUse[index].name,
+						image: data.giftListUserUse[index].image,
+						reviewid: auth._id,
+						reviewname: auth.info[0].fulname,
+						reviewimage: auth.user_img,
+						status: 1
+					}
+					data.giftListUserUse.splice(index, 1);
+					data.giftListUserUse.unshift(newAuth);
+					data.save(err => {
+						if (err) {
+							console.log('error coupon line 194: ' + err);
+						}
+					})
+				} catch (err) {
+					console.log('error coupon line 172: ' + err);
+				}
+			}
+		});
+		
+		setTimeout(()=>{
+			socket.broadcast.emit('shop_in_review_gift');
+		}, 500);
+		
+	})
+
+	socket.on('notif_gift', (sms, shopImg, userId, idNotif) => {
+		socket.broadcast.emit('show_notif_gift', sms, shopImg, userId, idNotif);
 	})
 
 	//mobile
@@ -466,6 +562,26 @@ app.post('/updateusergetgift', (req, res) => {
 
 app.post('/updateuserexpire', (req, res) => {
 	gift.giftUpdateExpire(req, res);
+})
+
+app.post('/userusegift', (req, res) => {
+	gift.giftUserUse(req, res);
+})
+
+app.post('/giftrmuseruse', (req, res) => {
+	gift.giftRemoveUserUse(req, res);
+})
+
+app.get('/shopgetgiftrequest', (req, res) => {
+	gift.giftGetRequest(req, res);
+})
+
+app.post('/giftacceptforshop', (req, res) => {
+	gift.giftAcceptRequestForShop(req, res);
+})
+
+app.post('/giftacceptforuser', (req, res) => {
+	gift.giftAcceptRequestForUser(req, res);
 })
 // End Gift
 
