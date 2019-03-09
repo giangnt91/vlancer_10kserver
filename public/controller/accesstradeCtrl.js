@@ -185,7 +185,7 @@ function getTransitionFromApi(res) {
 module.exports = {
 	TransactionsGetByUserId: function (req, res) {
 		query = {
-			authBuy: req.query.userid
+			'authBuy.id': req.query.userid
 		};
 
 		paymentModel.find(query, (err, data) => {
