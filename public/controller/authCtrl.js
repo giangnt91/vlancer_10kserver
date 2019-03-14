@@ -232,7 +232,7 @@ module.exports = {
 	
 	//get Token
 	authToken: function(req, res){
-		auth_model.findById( '5c2d8264bd281e040900a0e0', function(err, data){
+		auth_model.findById( '5b6c4381e0b97c00098b2fee', function(err, data){
 			if(err){
 				console.log('get Token is erorr: ' +err);
 			}else{
