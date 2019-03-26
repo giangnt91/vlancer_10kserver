@@ -29,7 +29,7 @@ Array.prototype.contains3 = function (obj) {
 }
 
 // chạy mỗi giờ 1 lần
-nodeSchedule.scheduleJob('*/59 * * * *', function () {
+nodeSchedule.scheduleJob('*/10 * * * * *', function () {
     getTransitionFromApi();
 })
 
@@ -62,11 +62,12 @@ async function getListUser(res, listTransition) {
 }
 
 // cập nhật điểm cho user khi đơn hàng được duyệt
-function updateDetailUser(userId, points) {
+function updateDetailUser(points, userId) {
     authModel.findById(userId, (err, data) => {
         if (err) {
             console.log('lấy thông tin user có lỗi: ' + err);
         } else {
+
             data.point_plus = data.point_plus + points;
             data.save(err => {
                 if (err) {
