@@ -204,6 +204,8 @@ module.exports = {
                 }
                 res.status(200).json(response);
             }
+        }).sort({
+            _id: -1
         })
     },
 
@@ -223,6 +225,8 @@ module.exports = {
                 }
                 res.status(200).json(response);
             }
+        }).sort({
+            _id: -1
         })
     },
 
