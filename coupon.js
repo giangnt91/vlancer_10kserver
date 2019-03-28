@@ -1,4 +1,5 @@
-var express = require('./public/node_modules/express'), http = require('http');
+var express = require('./public/node_modules/express'),
+	http = require('http');
 var app = express();
 var bodyParser = require('./public/node_modules/body-parser');
 var device = require('./public/node_modules/express-device');
@@ -202,11 +203,11 @@ io.on('connection', function (socket) {
 				}
 			}
 		});
-		
-		setTimeout(()=>{
+
+		setTimeout(() => {
 			socket.broadcast.emit('shop_in_review_gift');
 		}, 500);
-		
+
 	})
 
 	socket.on('notif_gift', (sms, shopImg, userId, idNotif) => {
@@ -306,13 +307,11 @@ io.on('connection', function (socket) {
 										userId: userid,
 										userName: fulname,
 										img: avatar
-									}
-									],
+									}],
 									loyal: [{
 										id: element.coupon.loyal[0].name,
 										name: element.coupon.loyal[0].id
-									}
-									],
+									}],
 									shop_name: element.coupon.shop_name,
 									shop_cover: element.coupon.shop_cover,
 									shop_avatar: element.coupon.shop_avatar,
@@ -322,21 +321,18 @@ io.on('connection', function (socket) {
 									class_user: [{
 										id: element.coupon.class_user[0].id,
 										name: element.coupon.class_user[0].name
-									}
-									],
+									}],
 									release_day: element.coupon.release_day,
 									limit_time: element.coupon.limit_time,
 									time_expire: element.coupon.time_expire,
 									the_issuer: [{
 										id: element.coupon.the_issuer[0].id,
 										name: element.coupon.the_issuer[0].name
-									}
-									],
+									}],
 									status_coupon: [{
 										id: 0,
 										status: "Đã sử dụng"
-									}
-									],
+									}],
 									userid_get_coupon: element.coupon.userid_get_coupon,
 									time_user_get: element.coupon.time_user_get,
 									time_user_use: element.time_user_use,
@@ -344,8 +340,7 @@ io.on('connection', function (socket) {
 									rfeedback: [{
 										name: element.coupon.rfeedback[0].name,
 										id: element.coupon.rfeedback[0].id
-									}
-									],
+									}],
 									feedback: element.coupon.feedback,
 									approved: element.coupon.approved,
 									_id: element.coupon._id
@@ -393,13 +388,11 @@ io.on('connection', function (socket) {
 									userId: userid,
 									userName: fulname,
 									img: avatar
-								}
-								],
+								}],
 								loyal: [{
 									id: element.loyal[0].name,
 									name: element.loyal[0].id
-								}
-								],
+								}],
 								shop_name: element.shop_name,
 								shop_cover: element.shop_cover,
 								shop_avatar: element.shop_avatar,
@@ -409,16 +402,14 @@ io.on('connection', function (socket) {
 								class_user: [{
 									id: element.class_user[0].id,
 									name: element.class_user[0].name
-								}
-								],
+								}],
 								release_day: element.release_day,
 								limit_time: element.limit_time,
 								time_expire: element.time_expire,
 								the_issuer: [{
 									id: element.the_issuer[0].id,
 									name: element.the_issuer[0].name
-								}
-								],
+								}],
 								status_coupon: element.status_coupon,
 								userid_get_coupon: element.userid_get_coupon,
 								time_user_get: element.time_user_get,
@@ -427,8 +418,7 @@ io.on('connection', function (socket) {
 								rfeedback: [{
 									name: element.rfeedback[0].name,
 									id: element.rfeedback[0].id
-								}
-								],
+								}],
 								feedback: element.feedback,
 								approved: "pending",
 								_id: element._id
@@ -465,10 +455,13 @@ End
  */
 
 app.use(bodyParser.urlencoded({
-	extended: true
+	extended: true,
+	limit: '50mb'
 }));
 app.use(device.capture());
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+	limit: '50mb'
+}));
 app.use(function (req, res, next) {
 	//allow connect
 	// res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
