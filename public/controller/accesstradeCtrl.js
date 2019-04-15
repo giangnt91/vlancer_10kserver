@@ -124,8 +124,8 @@ function checkTranssion(Transactions, users, Commission) {
                 })
             } else {
                 data.forEach(async element => {
-                    if (element.paymentStatus[0].id === 0 && Transactions.status !== 0) {
-                        if (Transactions.status === 1) {
+                    if (element.paymentStatus[0].id === 0 && Transactions.status !== 0 && Transactions.is_comfirmed === 1) {
+                        if (Transactions.status === 1 && Transactions.is_comfirmed === 1) {
                             status = {
                                 id: 1,
                                 name: 'Giao dịch thành công'
